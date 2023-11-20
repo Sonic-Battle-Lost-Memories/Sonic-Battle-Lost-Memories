@@ -1,11 +1,11 @@
-[gd_scene load_steps=13 format=3 uid="uid://qdi46euyqn5b"]
+[gd_scene load_steps=13 format=3 uid="uid://c3p31qbwr6yxb"]
 
-[ext_resource type="Texture2D" uid="uid://cvocwha4ahwqk" path="res://textures/aseprite/001.png" id="1_sw4yd"]
-[ext_resource type="Material" uid="uid://dm8wc172jl1c5" path="res://placeholder/materials/purple_mat.tres" id="2_4m6lm"]
-[ext_resource type="Material" uid="uid://p5kubrlaaps1" path="res://placeholder/materials/brown_mat.tres" id="3_c6vmo"]
-[ext_resource type="PackedScene" uid="uid://cd3f10inl6go1" path="res://entities/player/player.tscn" id="3_h61iq"]
-[ext_resource type="PackedScene" uid="uid://d04473cjep52p" path="res://entities/generic/cpu_test.tscn" id="5_njb0l"]
-[ext_resource type="AudioStream" uid="uid://brmgfitjl1axt" path="res://music/Knot_Something.mp3" id="7_ntuoi"]
+[ext_resource type="Texture2D" uid="uid://cvocwha4ahwqk" path="res://textures/aseprite/001.png" id="1_8mu1b"]
+[ext_resource type="Material" uid="uid://dm8wc172jl1c5" path="res://placeholder/materials/purple_mat.tres" id="2_yovvn"]
+[ext_resource type="Material" uid="uid://p5kubrlaaps1" path="res://placeholder/materials/brown_mat.tres" id="3_2woc0"]
+[ext_resource type="PackedScene" uid="uid://cd3f10inl6go1" path="res://entities/player/player.tscn" id="4_7vwct"]
+[ext_resource type="AudioStream" uid="uid://brmgfitjl1axt" path="res://music/Knot_Something.mp3" id="5_720rl"]
+[ext_resource type="PackedScene" uid="uid://d04473cjep52p" path="res://entities/generic/cpu_test.tscn" id="6_6cb7f"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_w71u5"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -25,14 +25,14 @@ polygons = [PackedInt32Array(2, 1, 0), PackedInt32Array(5, 4, 3), PackedInt32Arr
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8u668"]
 albedo_color = Color(0.411765, 0.490196, 0.501961, 1)
-albedo_texture = ExtResource("1_sw4yd")
+albedo_texture = ExtResource("1_8mu1b")
 uv1_scale = Vector3(0.5, 0.5, 0.5)
 uv1_triplanar = true
 uv1_world_triplanar = true
 texture_filter = 2
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7t84e"]
-albedo_texture = ExtResource("1_sw4yd")
+albedo_texture = ExtResource("1_8mu1b")
 uv1_scale = Vector3(0.5, 0.5, 0.5)
 uv1_triplanar = true
 uv1_world_triplanar = true
@@ -95,72 +95,82 @@ material = SubResource("StandardMaterial3D_7t84e")
 [node name="CSGBox3D5" type="CSGBox3D" parent="NavigationRegion3D/CSGBox3D2"]
 transform = Transform3D(-3.46786e-08, 1.58819e-21, -1, 2.66098e-08, 1, 0, 1, -2.66098e-08, -3.46786e-08, -5.75, 1.75, 0)
 size = Vector3(11, 4, 1)
-material = ExtResource("2_4m6lm")
+material = ExtResource("2_yovvn")
 
 [node name="CSGBox3D6" type="CSGBox3D" parent="NavigationRegion3D/CSGBox3D2/CSGBox3D5"]
 transform = Transform3D(-4.37114e-08, 0, -1, -6.13208e-16, 1, 0, 1, 1.58819e-21, -4.37114e-08, -5, 0, -6)
 size = Vector3(11, 4, 1)
-material = ExtResource("2_4m6lm")
+material = ExtResource("2_yovvn")
 
 [node name="CSGBox3D7" type="CSGBox3D" parent="NavigationRegion3D/CSGBox3D2/CSGBox3D5"]
 transform = Transform3D(1, 2.66098e-08, -9.0328e-09, -2.66098e-08, 1, 2.40361e-16, 9.0328e-09, -9.22789e-16, 1, 4.25, -0.75, -9)
 size = Vector3(0.5, 2.5, 6)
-material = ExtResource("2_4m6lm")
+material = ExtResource("2_yovvn")
 
 [node name="CSGBox3D8" type="CSGBox3D" parent="NavigationRegion3D/CSGBox3D2/CSGBox3D5"]
 transform = Transform3D(-5.27442e-08, 2.66098e-08, -1, 1.40351e-15, 1, 2.66098e-08, 1, -9.22789e-16, -5.27442e-08, 4.75, -0.75, -6)
 size = Vector3(0.5, 2.5, 1.5)
-material = ExtResource("2_4m6lm")
+material = ExtResource("2_yovvn")
 
 [node name="CSGBox3D9" type="CSGBox3D" parent="NavigationRegion3D/CSGBox3D2/CSGBox3D5"]
 transform = Transform3D(-3.46786e-08, 2.66098e-08, 1, 9.2279e-16, 1, -2.66098e-08, -1, -9.22789e-16, -3.46786e-08, -0.5, 0, -11.75)
 size = Vector3(0.5, 4, 10)
-material = ExtResource("2_4m6lm")
+material = ExtResource("2_yovvn")
 
 [node name="CSGCylinder3D" type="CSGCylinder3D" parent="NavigationRegion3D/CSGBox3D2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.5, 1.75, -2)
 radius = 2.0
 height = 2.5
 sides = 32
-material = ExtResource("3_c6vmo")
+material = ExtResource("3_2woc0")
 
 [node name="CSGBox3D" type="CSGBox3D" parent="NavigationRegion3D/CSGBox3D2/CSGCylinder3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, -1)
 size = Vector3(2, 2.5, 2)
-material = ExtResource("3_c6vmo")
+material = ExtResource("3_2woc0")
 
-[node name="Player" parent="." instance=ExtResource("3_h61iq")]
+[node name="Player" parent="." instance=ExtResource("4_7vwct")]
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("7_ntuoi")
+stream = ExtResource("5_720rl")
 autoplay = true
 
-[node name="CPU" parent="." node_paths=PackedStringArray("target") instance=ExtResource("5_njb0l")]
+[node name="CPU" parent="." node_paths=PackedStringArray("target") instance=ExtResource("6_6cb7f")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.02562, 9.53674e-07, 0.143216)
 target = NodePath("../Player")
 
-[node name="CPU2" parent="." node_paths=PackedStringArray("target") instance=ExtResource("5_njb0l")]
+[node name="CPU2" parent="." node_paths=PackedStringArray("target") instance=ExtResource("6_6cb7f")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.02562, 9.53674e-07, 0.143216)
 target = NodePath("../CPU")
 
-[node name="CPU3" parent="." node_paths=PackedStringArray("target") instance=ExtResource("5_njb0l")]
+[node name="CPU3" parent="." node_paths=PackedStringArray("target") instance=ExtResource("6_6cb7f")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.02562, 9.53674e-07, 0.143216)
 target = NodePath("../CPU2")
 
-[node name="CPU4" parent="." node_paths=PackedStringArray("target") instance=ExtResource("5_njb0l")]
+[node name="CPU4" parent="." node_paths=PackedStringArray("target") instance=ExtResource("6_6cb7f")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.02562, 9.53674e-07, 0.143216)
 target = NodePath("../CPU3")
 
-[node name="CPU5" parent="." node_paths=PackedStringArray("target") instance=ExtResource("5_njb0l")]
+[node name="CPU5" parent="." node_paths=PackedStringArray("target") instance=ExtResource("6_6cb7f")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.0256, 9.53674e-07, 0.143216)
 target = NodePath("../CPU4")
 
-[node name="Oof" parent="." node_paths=PackedStringArray("target") instance=ExtResource("5_njb0l")]
+[node name="Oof" parent="." node_paths=PackedStringArray("target") instance=ExtResource("6_6cb7f")]
 transform = Transform3D(0.258819, 0, 0.965926, 0, 1, 0, -0.965926, 0, 0.258819, -7.22438, 1.5, -14.1068)
 target = NodePath("../Oof2")
 is_offense = true
 
-[node name="Oof2" parent="." node_paths=PackedStringArray("target") instance=ExtResource("5_njb0l")]
-transform = Transform3D(-0.258819, 0, -0.965926, 0, 1, 0, 0.965926, 0, -0.258819, -5.72438, 1.5, -14.1068)
+[node name="Oof2" parent="." node_paths=PackedStringArray("target") instance=ExtResource("6_6cb7f")]
+transform = Transform3D(0.965926, 0, -0.258819, 0, 1, 0, 0.258819, 0, 0.965926, -5.72438, 1.5, -14.1068)
+target = NodePath("../Oof3")
+is_offense = true
+
+[node name="Oof3" parent="." node_paths=PackedStringArray("target") instance=ExtResource("6_6cb7f")]
+transform = Transform3D(-0.258819, 0, -0.965926, 0, 1, 0, 0.965926, 0, -0.258819, -5.72438, 1.5, -12.6068)
+target = NodePath("../Oof4")
+is_offense = true
+
+[node name="Oof4" parent="." node_paths=PackedStringArray("target") instance=ExtResource("6_6cb7f")]
+transform = Transform3D(-0.965926, 0, 0.258819, 0, 1, 0, -0.258819, 0, -0.965926, -7.22438, 1.5, -12.6068)
 target = NodePath("../Oof")
 is_offense = true
