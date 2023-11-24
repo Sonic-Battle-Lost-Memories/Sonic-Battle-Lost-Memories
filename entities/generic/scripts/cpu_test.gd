@@ -64,21 +64,11 @@ func _physics_process(delta):
 		sprite.flip_h = false
 	
 	move_and_slide()
-	
 
 func _on_area_3d_body_entered(body):
-	#if attack_timer.is_stopped():
-	#	attack_timer.start()
-	#	print("hola")
-	
 	if body.is_in_group("Entities"):
 		if is_offense:
 			print("hola")
+			#attack_timer.start()
 			var direction = (body.transform.origin - global_transform.origin).normalized()
-			body.velocity += Vector3(direction.x * 32, direction.y + 8, direction.z * 32)
-	
-#	if is_offense:
-		if body.is_in_group("Entities"):
-			if attack_timer.is_stopped():
-				attack_timer.start()
-				print("hola")
+			body.velocity += Vector3(direction.x * 32, 0, direction.z * 32)

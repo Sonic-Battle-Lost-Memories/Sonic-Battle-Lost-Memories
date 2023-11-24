@@ -171,7 +171,7 @@ bottom_radius = 0.0
 radial_segments = 4
 rings = 1
 
-[node name="CPU" type="CharacterBody3D"]
+[node name="CPU" type="CharacterBody3D" groups=["Entities"]]
 collision_layer = 2
 collision_mask = 3
 script = ExtResource("1_q17f2")
@@ -215,6 +215,8 @@ mesh = SubResource("BoxMesh_8bql2")
 
 [node name="Area3D" type="Area3D" parent="." groups=["Entities"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0.5)
+collision_layer = 0
+collision_mask = 2
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
@@ -224,6 +226,10 @@ shape = SubResource("ConvexPolygonShape3D_8qokf")
 visible = false
 mesh = SubResource("CylinderMesh_rh1kj")
 skeleton = NodePath("../..")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.5)
+shape = SubResource("CapsuleShape3D_lr8hd")
 
 [node name="AttackTimer" type="Timer" parent="."]
 wait_time = 0.1

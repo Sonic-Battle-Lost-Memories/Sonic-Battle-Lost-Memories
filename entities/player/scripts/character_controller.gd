@@ -10,6 +10,8 @@ var gravity = ProjectSettings.get_setting("physics/3d/default_gravity") * 2
 @onready var camnode = $CamNode
 @onready var camera = $CamNode/Camera
 @onready var point = $Sprite/Point
+@onready var entity_detect = $Sprite/Area3D
+@onready var attack_timer = $AttackTimer
 
 func _ready():
 	camnode.set_as_top_level(true)
@@ -55,3 +57,11 @@ func _physics_process(delta):
 func jump():
 	if is_on_floor():
 		velocity.y = JUMP_VELOCITY
+
+func _on_area_3d_body_entered(body):
+	if body.is_in_group("Entities"):
+		if Input.is_action_pressed("attack_primary"):
+			print("hola")
+			#attack_timer.start()
+			var direction = (body.transform.origin - global_transform.origin).normalized()
+			body.velocity += Vector3(direction.x * 32, 0, direction.z * 32)
