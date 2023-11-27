@@ -33,6 +33,14 @@ func jump():
 	if is_on_floor():
 		velocity.y = JUMP_VELOCITY
 
+func _on_area_3d_body_entered(body):
+	if body.is_in_group("Entities"):
+		if Input.is_action_pressed("attack_primary"):
+			print("hola")
+			#attack_timer.start()
+			var direction = (body.transform.origin - global_transform.origin).normalized()
+			body.velocity += Vector3(direction.x * 32, 0, direction.z * 32)
+
 func change_state(stateName:String):
 	current_state = stateTree.find_child(stateName)
 	print("changed state to", stateName)
