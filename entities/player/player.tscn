@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://cd3f10inl6go1"]
+[gd_scene load_steps=35 format=3 uid="uid://cd3f10inl6go1"]
 
 [ext_resource type="Script" path="res://entities/player/scripts/character_controller.gd" id="1_d776x"]
 [ext_resource type="PackedScene" uid="uid://dmr0fcamx7t56" path="res://joystick/virtual_joystick.tscn" id="2_ihn7u"]
@@ -8,6 +8,10 @@
 [ext_resource type="Texture2D" uid="uid://d0lgsyfp6ih8b" path="res://placeholder/sprites/fall_test.png" id="6_1gxis"]
 [ext_resource type="PackedScene" uid="uid://rcihg5md8at8" path="res://entities/generic/drop_shadow.tscn" id="6_hq5fo"]
 [ext_resource type="Texture2D" uid="uid://ch28y32u4kvsn" path="res://icon.svg" id="7_6jfpq"]
+[ext_resource type="Script" path="res://entities/player/walking.gd" id="9_br35p"]
+[ext_resource type="Script" path="res://entities/player/States.gd" id="9_xtmgv"]
+[ext_resource type="Script" path="res://entities/player/Idle.gd" id="10_gwqhk"]
+[ext_resource type="Script" path="res://entities/player/Jumping.gd" id="10_wmm6m"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_llt0o"]
 atlas = ExtResource("3_aecw3")
@@ -162,20 +166,10 @@ animations = [{
 
 [sub_resource type="BoxMesh" id="BoxMesh_qoudv"]
 
-[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_sl0c4"]
-points = PackedVector3Array(-0.888966, 0.833275, -0.0276714, 0.941393, 0.941393, 0.0293034, 0.888966, 0.833275, 0.0276714, 0.0293034, 0.941393, -0.941393, 0.0276811, -0.889276, -0.0276811, -0.0293034, 0.941393, 0.941393, -0.941393, 0.941393, 0.0293034, -0.0276811, -0.889276, 0.0276811, -0.0293034, 0.941393, -0.941393, 0.941393, 0.941393, -0.0293034, 0.0293034, 0.941393, 0.941393, 0.0276811, -0.889276, 0.0276811, -0.0276811, -0.889276, -0.0276811, -0.941393, 0.941393, -0.0293034, 0.0276714, 0.833275, -0.888966, -0.0276714, 0.833275, 0.888966)
-
-[sub_resource type="CylinderMesh" id="CylinderMesh_jpymt"]
-top_radius = 1.0
-bottom_radius = 0.0
-radial_segments = 4
-rings = 1
-
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_53g5n"]
 radius = 0.7
 
 [node name="Player" type="CharacterBody3D" groups=["Entities"]]
-collision_layer = 2
 script = ExtResource("1_d776x")
 
 [node name="Virtual Joystick" parent="." instance=ExtResource("2_ihn7u")]
@@ -194,7 +188,7 @@ double_sided = false
 texture_filter = 2
 render_priority = 1
 sprite_frames = SubResource("SpriteFrames_v8opn")
-animation = &"idle"
+animation = &"run"
 autoplay = "idle"
 
 [node name="Point" type="Marker3D" parent="Sprite"]
@@ -204,20 +198,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.25, 0, 1.75)
 visible = false
 mesh = SubResource("BoxMesh_qoudv")
-
-[node name="Area3D" type="Area3D" parent="Sprite" groups=["Entities"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0.5)
-collision_layer = 0
-collision_mask = 2
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Sprite/Area3D"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
-shape = SubResource("ConvexPolygonShape3D_sl0c4")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Sprite/Area3D/CollisionShape3D"]
-visible = false
-mesh = SubResource("CylinderMesh_jpymt")
-skeleton = NodePath("../..")
 
 [node name="Sprite3D" type="Sprite3D" parent="."]
 visible = false
@@ -266,4 +246,14 @@ visibility_mode = 1
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CapsuleShape3D_53g5n")
 
-[connection signal="body_entered" from="Sprite/Area3D" to="." method="_on_area_3d_body_entered"]
+[node name="States" type="Node" parent="."]
+script = ExtResource("9_xtmgv")
+
+[node name="Idle" type="Node" parent="States"]
+script = ExtResource("10_gwqhk")
+
+[node name="Walking" type="Node" parent="States"]
+script = ExtResource("9_br35p")
+
+[node name="Jumping" type="Node" parent="States"]
+script = ExtResource("10_wmm6m")
