@@ -1,11 +1,14 @@
 class_name CharacterController
 extends CharacterBody3D
 
-var SPEED = 9.0
+var SPEED = 16.0
 var JUMP_VELOCITY = 16.0
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity") * 2
+
+# The movement caused by directional input by the player (usually joystick XY axis)
+var activeMovement:Vector3 = Vector3(0,0,0)
 
 @onready var sprite = $Sprite
 @onready var camnode = $CamNode
@@ -30,8 +33,7 @@ func _physics_process(delta):
 	current_state.step(self, delta)
 
 func jump():
-	if is_on_floor():
-		velocity.y = JUMP_VELOCITY
+	velocity.y = JUMP_VELOCITY
 
 func _on_area_3d_body_entered(body):
 	if body.is_in_group("Entities"):
@@ -46,3 +48,21 @@ func change_state(stateName:String):
 	print("changed state to", stateName)
 	current_state.setup(self)
 
+# filters player directional movement input into normalized xz axis speed.
+func computeActiveMovement(delta):
+	# Get the input direction and handle the movement/deceleration.
+	# As good practice, you should replace UI actions with custom gameplay actions.
+	var input_dir = Input.get_vector("left", "right", "up", "down")
+	activeMovement = (global_transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+	if activeMovement:
+		velocity.x = lerp(velocity.x, activeMovement.x * SPEED, 6.5 * delta)
+		velocity.z = lerp(velocity.z, activeMovement.z * SPEED, 6.5 * delta)
+		sprite.rotation.y = atan2(velocity.x, velocity.z)
+	else:
+		velocity.x = lerp(velocity.x, 0.0, 10 * delta)
+		velocity.z = lerp(velocity.z, 0.0, 10 * delta)
+	
+	if activeMovement.x <= -0.5:
+		sprite.flip_h = true
+	elif activeMovement.x >= 0.5:
+		sprite.flip_h = false
