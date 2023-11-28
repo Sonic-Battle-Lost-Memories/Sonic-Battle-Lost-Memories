@@ -9,6 +9,7 @@ extends Node
 #name of the node that runs logic when the character is standing still on the floor.
 @export var idle_state_name = "Idle"
 
+@export var primary1_state_name = "Primary1"
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.

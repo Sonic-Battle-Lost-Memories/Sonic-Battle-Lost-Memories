@@ -66,3 +66,4 @@ func computeActiveMovement(delta):
 		sprite.flip_h = true
 	elif activeMovement.x >= 0.5:
 		sprite.flip_h = false
+

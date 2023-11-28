@@ -1,17 +1,44 @@
-[gd_scene load_steps=35 format=3 uid="uid://cd3f10inl6go1"]
+[gd_scene load_steps=44 format=3 uid="uid://cd3f10inl6go1"]
 
 [ext_resource type="Script" path="res://entities/player/scripts/character_controller.gd" id="1_d776x"]
 [ext_resource type="PackedScene" uid="uid://dmr0fcamx7t56" path="res://joystick/virtual_joystick.tscn" id="2_ihn7u"]
 [ext_resource type="Texture2D" uid="uid://bpdvm1ue5m2wy" path="res://placeholder/sprites/idle_test.png" id="3_aecw3"]
 [ext_resource type="Texture2D" uid="uid://62choiwgif0m" path="res://placeholder/sprites/jump_test.png" id="4_ufip2"]
+[ext_resource type="Texture2D" uid="uid://dh14pdjg4gfgr" path="res://placeholder/sprites/punch1.png" id="5_bo5jh"]
 [ext_resource type="Texture2D" uid="uid://d2tsgmy8lakae" path="res://placeholder/sprites/run_test.png" id="5_jog2t"]
 [ext_resource type="Texture2D" uid="uid://d0lgsyfp6ih8b" path="res://placeholder/sprites/fall_test.png" id="6_1gxis"]
+[ext_resource type="Texture2D" uid="uid://b1fvjs2o5snt" path="res://placeholder/sprites/punch1-split.png" id="6_g06bu"]
 [ext_resource type="PackedScene" uid="uid://rcihg5md8at8" path="res://entities/generic/drop_shadow.tscn" id="6_hq5fo"]
 [ext_resource type="Texture2D" uid="uid://ch28y32u4kvsn" path="res://icon.svg" id="7_6jfpq"]
 [ext_resource type="Script" path="res://entities/player/walking.gd" id="9_br35p"]
 [ext_resource type="Script" path="res://entities/player/States.gd" id="9_xtmgv"]
 [ext_resource type="Script" path="res://entities/player/Idle.gd" id="10_gwqhk"]
 [ext_resource type="Script" path="res://entities/player/Jumping.gd" id="10_wmm6m"]
+[ext_resource type="Script" path="res://entities/player/Primary1.gd" id="15_u6sno"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8io4y"]
+atlas = ExtResource("5_bo5jh")
+region = Rect2(0, 0, 33, 37)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cyen3"]
+atlas = ExtResource("5_bo5jh")
+region = Rect2(32, 0, 30, 37)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2gwkd"]
+atlas = ExtResource("6_g06bu")
+region = Rect2(60, 0, 52, 37)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3ox1e"]
+atlas = ExtResource("6_g06bu")
+region = Rect2(111, 0, 52, 37)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gf023"]
+atlas = ExtResource("6_g06bu")
+region = Rect2(160, 0, 52, 37)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_awq2a"]
+atlas = ExtResource("6_g06bu")
+region = Rect2(203, 0, 52, 37)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_llt0o"]
 atlas = ExtResource("3_aecw3")
@@ -91,6 +118,29 @@ region = Rect2(224, 0, 32, 36)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_v8opn"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8io4y")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cyen3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2gwkd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3ox1e")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gf023")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_awq2a")
+}],
+"loop": true,
+"name": &"Primary1",
+"speed": 15.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_llt0o")
@@ -188,7 +238,7 @@ double_sided = false
 texture_filter = 2
 render_priority = 1
 sprite_frames = SubResource("SpriteFrames_v8opn")
-animation = &"run"
+animation = &"Primary1"
 autoplay = "idle"
 
 [node name="Point" type="Marker3D" parent="Sprite"]
@@ -257,3 +307,6 @@ script = ExtResource("9_br35p")
 
 [node name="Jumping" type="Node" parent="States"]
 script = ExtResource("10_wmm6m")
+
+[node name="Primary1" type="Node" parent="States"]
+script = ExtResource("15_u6sno")

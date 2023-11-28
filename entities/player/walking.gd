@@ -25,6 +25,10 @@ func step(target: CharacterController, delta):
 	target.move_and_slide()
 	
 	# aftermath: change state if airborne or stopped
+	if(Input.is_action_just_pressed("attack_primary")):
+		#If attack AND stopping happened simultaneously, attack state will happen.
+		target.change_state(parent.primary1_state_name)
+		return
 	if(not(target.is_on_floor())):
 		target.change_state(parent.jumping_state_name)
 	elif(not target.activeMovement):
