@@ -4,6 +4,8 @@ extends CharacterBody3D
 var SPEED = 16.0
 var JUMP_VELOCITY = 16.0
 
+@export var KEYPRESS_TIME_TOLERANCE = 0.150
+
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity") * 2
 

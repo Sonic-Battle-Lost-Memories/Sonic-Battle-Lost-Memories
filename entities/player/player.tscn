@@ -1,20 +1,24 @@
-[gd_scene load_steps=44 format=3 uid="uid://cd3f10inl6go1"]
+[gd_scene load_steps=62 format=3 uid="uid://cd3f10inl6go1"]
 
 [ext_resource type="Script" path="res://entities/player/scripts/character_controller.gd" id="1_d776x"]
 [ext_resource type="PackedScene" uid="uid://dmr0fcamx7t56" path="res://joystick/virtual_joystick.tscn" id="2_ihn7u"]
 [ext_resource type="Texture2D" uid="uid://bpdvm1ue5m2wy" path="res://placeholder/sprites/idle_test.png" id="3_aecw3"]
 [ext_resource type="Texture2D" uid="uid://62choiwgif0m" path="res://placeholder/sprites/jump_test.png" id="4_ufip2"]
-[ext_resource type="Texture2D" uid="uid://dh14pdjg4gfgr" path="res://placeholder/sprites/punch1.png" id="5_bo5jh"]
+[ext_resource type="Texture2D" uid="uid://bl8hnoow60oxo" path="res://placeholder/sprites/primary2.png" id="5_5sks5"]
+[ext_resource type="Texture2D" uid="uid://bmnqeflnhxrwd" path="res://placeholder/sprites/punch1.png" id="5_bo5jh"]
 [ext_resource type="Texture2D" uid="uid://d2tsgmy8lakae" path="res://placeholder/sprites/run_test.png" id="5_jog2t"]
 [ext_resource type="Texture2D" uid="uid://d0lgsyfp6ih8b" path="res://placeholder/sprites/fall_test.png" id="6_1gxis"]
-[ext_resource type="Texture2D" uid="uid://b1fvjs2o5snt" path="res://placeholder/sprites/punch1-split.png" id="6_g06bu"]
+[ext_resource type="Texture2D" uid="uid://b08j7kvug5g55" path="res://placeholder/sprites/punch1-split.png" id="6_g06bu"]
 [ext_resource type="PackedScene" uid="uid://rcihg5md8at8" path="res://entities/generic/drop_shadow.tscn" id="6_hq5fo"]
+[ext_resource type="Texture2D" uid="uid://dcgrtmjwvjekm" path="res://placeholder/sprites/primary3.png" id="6_r6aok"]
 [ext_resource type="Texture2D" uid="uid://ch28y32u4kvsn" path="res://icon.svg" id="7_6jfpq"]
 [ext_resource type="Script" path="res://entities/player/walking.gd" id="9_br35p"]
 [ext_resource type="Script" path="res://entities/player/States.gd" id="9_xtmgv"]
 [ext_resource type="Script" path="res://entities/player/Idle.gd" id="10_gwqhk"]
 [ext_resource type="Script" path="res://entities/player/Jumping.gd" id="10_wmm6m"]
 [ext_resource type="Script" path="res://entities/player/Primary1.gd" id="15_u6sno"]
+[ext_resource type="Script" path="res://entities/player/Primary2.gd" id="17_8vo5o"]
+[ext_resource type="Script" path="res://entities/player/Primary3.gd" id="18_ycgfb"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8io4y"]
 atlas = ExtResource("5_bo5jh")
@@ -39,6 +43,62 @@ region = Rect2(160, 0, 52, 37)
 [sub_resource type="AtlasTexture" id="AtlasTexture_awq2a"]
 atlas = ExtResource("6_g06bu")
 region = Rect2(203, 0, 52, 37)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u8l6q"]
+atlas = ExtResource("5_5sks5")
+region = Rect2(0, 0, 40, 44)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sutg7"]
+atlas = ExtResource("5_5sks5")
+region = Rect2(40, 0, 40, 44)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0aqkh"]
+atlas = ExtResource("5_5sks5")
+region = Rect2(77, 0, 45, 44)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8d5xt"]
+atlas = ExtResource("5_5sks5")
+region = Rect2(135, 0, 45, 44)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4sdjd"]
+atlas = ExtResource("5_5sks5")
+region = Rect2(185, 0, 45, 44)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_10yuc"]
+atlas = ExtResource("5_5sks5")
+region = Rect2(224, 0, 45, 44)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ga1rb"]
+atlas = ExtResource("6_r6aok")
+region = Rect2(3, 0, 40, 44)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1a1gl"]
+atlas = ExtResource("6_r6aok")
+region = Rect2(49, 0, 47, 44)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gtqag"]
+atlas = ExtResource("6_r6aok")
+region = Rect2(99, 0, 47, 44)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6wy3t"]
+atlas = ExtResource("6_r6aok")
+region = Rect2(155, 0, 47, 44)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e3ljq"]
+atlas = ExtResource("6_r6aok")
+region = Rect2(208, 0, 47, 44)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hyq0u"]
+atlas = ExtResource("6_r6aok")
+region = Rect2(258, 0, 38, 44)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v24qn"]
+atlas = ExtResource("6_r6aok")
+region = Rect2(293, 0, 38, 44)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_waqvu"]
+atlas = ExtResource("6_r6aok")
+region = Rect2(330, 0, 40, 44)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_llt0o"]
 atlas = ExtResource("3_aecw3")
@@ -143,6 +203,58 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_u8l6q")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sutg7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0aqkh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8d5xt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4sdjd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_10yuc")
+}],
+"loop": true,
+"name": &"Primary2",
+"speed": 15.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ga1rb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1a1gl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gtqag")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6wy3t")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e3ljq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hyq0u")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v24qn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_waqvu")
+}],
+"loop": true,
+"name": &"Primary3",
+"speed": 13.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_llt0o")
 }, {
 "duration": 1.0,
@@ -238,8 +350,9 @@ double_sided = false
 texture_filter = 2
 render_priority = 1
 sprite_frames = SubResource("SpriteFrames_v8opn")
-animation = &"Primary1"
+animation = &"Primary3"
 autoplay = "idle"
+frame_progress = 0.795541
 
 [node name="Point" type="Marker3D" parent="Sprite"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -310,3 +423,9 @@ script = ExtResource("10_wmm6m")
 
 [node name="Primary1" type="Node" parent="States"]
 script = ExtResource("15_u6sno")
+
+[node name="Primary2" type="Node" parent="States"]
+script = ExtResource("17_8vo5o")
+
+[node name="Primary3" type="Node" parent="States"]
+script = ExtResource("18_ycgfb")
