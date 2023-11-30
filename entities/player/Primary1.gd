@@ -7,7 +7,7 @@ var time_elapsed: float = 0
 @export var lifetime: float = 0.3
 
 var allows_next_hit:bool = false
-
+var next_hit_scheduled:bool = false
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
@@ -18,6 +18,7 @@ func setup(target: CharacterController):
 	print("entered p1 state")
 	time_elapsed  = 0
 	allows_next_hit = false
+	next_hit_scheduled = false
 	pass
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -35,15 +36,18 @@ func step(target: CharacterController, delta):
 	if(is_time_for_next_hit and not is_triggering_next_hit):
 		allows_next_hit = true
 	if(allows_next_hit and is_triggering_next_hit):
-		target.change_state(parent.primary2_state_name)
+		next_hit_scheduled = true
 		
 	
 	if (time_elapsed > lifetime):
-		if(not target.is_on_floor()):
+		if (not target.is_on_floor()):
 			target.change_state(parent.jumping_state_name)
 			return
 		target.computeActiveMovement(delta)
-		if(target.activeMovement):
+		if (next_hit_scheduled):
+			target.change_state(parent.primary2_state_name)
+			return
+		if (target.activeMovement):
 			target.change_state(parent.walking_state_name)
 			return
 		else:
