@@ -17,6 +17,10 @@ extends Node
 
 #primary attack, third hit
 @export var primary3_state_name = "Primary3"
+
+#primary attack, fourth hit
+@export var primary4_state_name = "Primary4"
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
