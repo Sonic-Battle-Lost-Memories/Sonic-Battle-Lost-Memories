@@ -2,7 +2,7 @@ class_name CharacterController
 extends CharacterBody3D
 
 var SPEED = 16.0
-var JUMP_VELOCITY = 16.0
+var JUMP_VELOCITY = 18.0
 
 @export var KEYPRESS_TIME_TOLERANCE = 1.250
 
@@ -17,7 +17,7 @@ var activeMovement:Vector3 = Vector3(0,0,0)
 @onready var camera = $CamNode/Camera
 @onready var point = $Sprite/Point
 @onready var stateTree = $States
-@onready var current_state = $States/Walking
+@onready var current_state:StateMachineState = $States/Walking
 
 func _ready():
 	camnode.set_as_top_level(true)
@@ -45,9 +45,9 @@ func _on_area_3d_body_entered(body):
 			var direction = (body.transform.origin - global_transform.origin).normalized()
 			body.velocity += Vector3(direction.x * 32, 0, direction.z * 32)
 
-func change_state(stateName:String):
-	current_state = stateTree.find_child(stateName)
-	print("changed state to", stateName)
+func change_state(next_state:StateMachineState):
+	print("changed state to", next_state.name)
+	current_state = next_state
 	current_state.setup(self)
 
 # filters player directional movement input into normalized xz axis speed.

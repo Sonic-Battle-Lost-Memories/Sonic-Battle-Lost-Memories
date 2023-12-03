@@ -1,6 +1,15 @@
-extends Node
+extends StateMachineState
 
 @onready var parent:Node = get_node("..")
+
+# state for when attack action is triggered
+@export var on_primary:StateMachineState
+
+# state for when character is in air
+@export var on_gained_air:StateMachineState
+
+# state for action ended
+@export var on_timed_out:StateMachineState
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -27,10 +36,10 @@ func step(target: CharacterController, delta):
 	# aftermath: change state if airborne or stopped
 	if(Input.is_action_just_pressed("attack_primary")):
 		#If attack AND stopping happened simultaneously, attack state will happen.
-		target.change_state(parent.primary1_state_name)
+		target.change_state(on_primary)
 		return
 	if(not(target.is_on_floor())):
-		target.change_state(parent.jumping_state_name)
+		target.change_state(on_gained_air)
 	elif(not target.activeMovement):
-		target.change_state(parent.idle_state_name)
+		target.change_state(on_timed_out)
 	pass
