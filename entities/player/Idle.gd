@@ -1,6 +1,23 @@
-extends Node
+extends StateMachineState
 
 @onready var parent:Node = get_node("..")
+
+var time_elapsed = 0.0
+@export var time_till_bored = 0.85
+
+@export var on_primary:StateMachineState
+
+@export var on_moved:StateMachineState
+
+@export var on_gained_air:StateMachineState
+@export var on_jumped:StateMachineState
+
+var cycles_names= ["idle", "idle2"]
+var current_cycle: int = 0
+var got_bored: bool = false
+var bored_over: bool = false
+
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -8,26 +25,42 @@ func _ready():
 
 
 func setup(target: CharacterController):
-	target.sprite.play("idle")
+	time_elapsed = 0.0
+	got_bored = false
+	bored_over = false
+	current_cycle = 0
+	target.sprite.play(cycles_names[current_cycle])
 	pass
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func step(target: CharacterController, delta):
+	time_elapsed += delta
 # Handle Jump.
 	if Input.is_action_just_pressed("jump"):
 		target.jump()
-		pass
-		
+	
 	# factor in player's intended movement
 	target.computeActiveMovement(delta)
-	
+	if(time_elapsed > time_till_bored):
+		if(not got_bored):
+			got_bored = true
+			current_cycle = 1
+			target.sprite.play(cycles_names[current_cycle])
+		if(target.sprite.frame > 41):
+			target.sprite.play("idle")
+		pass
 	# actually move the character
 	target.move_and_slide()
 	
-	# aftermath: if jumping or moving, change state accordingly
+	# aftermath: after moving, decide on which states to change into
+	if(Input.is_action_just_pressed("attack_primary")):
+		#If attack AND move happened simultaneously, attack state will happen.
+		target.change_state(on_primary)
+		return
 	if(not(target.is_on_floor()) and target.velocity.y > 0.1 * target.JUMP_VELOCITY):
-		target.change_state(parent.jumping_state_name)
-	elif target.activeMovement:
-		target.change_state(parent.walking_state_name)
-		pass
+		target.change_state(on_jumped)
+		return
+	if target.activeMovement:
+		target.change_state(on_moved)
+		return
 	pass

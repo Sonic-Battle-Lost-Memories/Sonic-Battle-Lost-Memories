@@ -2,6 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://cvocwha4ahwqk" path="res://textures/aseprite/001.png" id="1_sw4yd"]
 [ext_resource type="Material" uid="uid://dm8wc172jl1c5" path="res://placeholder/materials/purple_mat.tres" id="2_4m6lm"]
+[ext_resource type="Material" uid="uid://d0qmmg6lvfnwg" path="res://placeholder/textures/test_stage_1/metal_walls_green.tres" id="2_asjr5"]
 [ext_resource type="Material" uid="uid://p5kubrlaaps1" path="res://placeholder/materials/brown_mat.tres" id="3_c6vmo"]
 [ext_resource type="PackedScene" uid="uid://cd3f10inl6go1" path="res://entities/player/player.tscn" id="3_h61iq"]
 [ext_resource type="PackedScene" uid="uid://d04473cjep52p" path="res://entities/generic/cpu_test.tscn" id="5_njb0l"]
@@ -31,13 +32,6 @@ uv1_triplanar = true
 uv1_world_triplanar = true
 texture_filter = 2
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7t84e"]
-albedo_texture = ExtResource("1_sw4yd")
-uv1_scale = Vector3(0.5, 0.5, 0.5)
-uv1_triplanar = true
-uv1_world_triplanar = true
-texture_filter = 2
-
 [node name="Node3D" type="Node3D"]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
@@ -60,37 +54,37 @@ material = SubResource("StandardMaterial3D_8u668")
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -2.5, 0.5, -13)
 use_collision = true
 size = Vector3(11, 1, 9)
-material = SubResource("StandardMaterial3D_7t84e")
+material = ExtResource("2_asjr5")
 
 [node name="CSGBox3D3" type="CSGBox3D" parent="NavigationRegion3D/CSGBox3D2"]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 4.25, 0.5, 2.5)
 size = Vector3(4, 2, 4)
-material = SubResource("StandardMaterial3D_7t84e")
+material = ExtResource("2_asjr5")
 
 [node name="CSGBox3D3" type="CSGBox3D" parent="NavigationRegion3D/CSGBox3D2/CSGBox3D3"]
 transform = Transform3D(1, -4.75411e-09, 3.17659e-09, 5.70548e-09, 0.866025, -0.5, -3.73955e-10, 0.5, 0.866025, 0, 0.067, 2.616)
 size = Vector3(4, 1, 2)
-material = SubResource("StandardMaterial3D_7t84e")
+material = ExtResource("2_asjr5")
 
 [node name="CSGBox3D6" type="CSGBox3D" parent="NavigationRegion3D/CSGBox3D2/CSGBox3D3"]
 transform = Transform3D(-4.37114e-08, -1.49012e-07, 0.999999, 8.88178e-15, 0.999999, 1.49012e-07, -1, 1.53953e-14, -4.37114e-08, -1.375, 1.207, 0)
 size = Vector3(4, 1, 1.25)
-material = SubResource("StandardMaterial3D_7t84e")
+material = ExtResource("2_asjr5")
 
 [node name="CSGBox3D5" type="CSGBox3D" parent="NavigationRegion3D/CSGBox3D2/CSGBox3D3/CSGBox3D6"]
 transform = Transform3D(1, 5.91549e-15, -5.86882e-15, -9.06436e-15, 0.866025, -0.5, 4.10294e-15, 0.5, 0.866025, 0, -0.433, 1.241)
 size = Vector3(4, 1, 2)
-material = SubResource("StandardMaterial3D_7t84e")
+material = ExtResource("2_asjr5")
 
 [node name="CSGBox3D4" type="CSGBox3D" parent="NavigationRegion3D/CSGBox3D2/CSGBox3D3"]
 transform = Transform3D(1, -2.66098e-08, 9.03281e-09, 2.66098e-08, 1, 0, -9.03281e-09, 1.16315e-15, 1, 4.76837e-07, -0.5, 2.25)
 size = Vector3(4, 1, 2)
-material = SubResource("StandardMaterial3D_7t84e")
+material = ExtResource("2_asjr5")
 
 [node name="CSGBox3D4" type="CSGBox3D" parent="NavigationRegion3D/CSGBox3D2"]
 transform = Transform3D(1, 0, 0, 0, 0.793353, -0.608761, 0, 0.608761, 0.793353, -2.5, -0.5, 5)
 size = Vector3(6, 1, 2)
-material = SubResource("StandardMaterial3D_7t84e")
+material = ExtResource("2_asjr5")
 
 [node name="CSGBox3D5" type="CSGBox3D" parent="NavigationRegion3D/CSGBox3D2"]
 transform = Transform3D(-3.46786e-08, 1.58819e-21, -1, 2.66098e-08, 1, 0, 1, -2.66098e-08, -3.46786e-08, -5.75, 1.75, 0)
