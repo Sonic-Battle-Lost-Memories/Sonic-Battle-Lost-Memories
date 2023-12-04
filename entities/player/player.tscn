@@ -989,7 +989,7 @@ on_primary = NodePath("../Primary_air")
 on_timeout = NodePath("../Jumping")
 time_till_air_attack = 0.367
 falloff = 0.01
-initial_impulse = Vector2(6, 18)
+initial_impulse = Vector2(9, 12)
 
 [node name="Behaviour" type="Node" parent="States"]
 
