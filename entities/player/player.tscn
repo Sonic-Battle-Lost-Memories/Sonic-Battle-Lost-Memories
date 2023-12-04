@@ -1,20 +1,27 @@
-[gd_scene load_steps=137 format=3 uid="uid://cd3f10inl6go1"]
+[gd_scene load_steps=145 format=3 uid="uid://cd3f10inl6go1"]
 
 [ext_resource type="Script" path="res://entities/player/scripts/character_controller.gd" id="1_d776x"]
 [ext_resource type="PackedScene" uid="uid://dmr0fcamx7t56" path="res://joystick/virtual_joystick.tscn" id="2_ihn7u"]
 [ext_resource type="Texture2D" uid="uid://bpdvm1ue5m2wy" path="res://placeholder/sprites/idle_test.png" id="3_aecw3"]
+[ext_resource type="Texture2D" uid="uid://didejyfucpk64" path="res://placeholder/sprites/Air Action(ballet)/ballet_0.png" id="3_glcpo"]
 [ext_resource type="Texture2D" uid="uid://62choiwgif0m" path="res://placeholder/sprites/jump_test.png" id="4_ufip2"]
+[ext_resource type="Texture2D" uid="uid://ch65j5jux4odn" path="res://placeholder/sprites/Air Action(ballet)/ballet_1.png" id="4_vvseh"]
 [ext_resource type="Texture2D" uid="uid://c0kutfl06oc0c" path="res://placeholder/sprites/primary2.png" id="5_5sks5"]
 [ext_resource type="Texture2D" uid="uid://br4b1qrwl3yii" path="res://placeholder/sprites/punch1.png" id="5_bo5jh"]
 [ext_resource type="Texture2D" uid="uid://d2tsgmy8lakae" path="res://placeholder/sprites/run_test.png" id="5_jog2t"]
+[ext_resource type="Texture2D" uid="uid://b3tut6v3ciham" path="res://placeholder/sprites/Air Action(ballet)/ballet_2.png" id="5_rn2vx"]
 [ext_resource type="Texture2D" uid="uid://d0lgsyfp6ih8b" path="res://placeholder/sprites/fall_test.png" id="6_1gxis"]
 [ext_resource type="Texture2D" uid="uid://cu7obak8a74ju" path="res://placeholder/sprites/punch1-split.png" id="6_g06bu"]
 [ext_resource type="PackedScene" uid="uid://rcihg5md8at8" path="res://entities/generic/drop_shadow.tscn" id="6_hq5fo"]
+[ext_resource type="Texture2D" uid="uid://xf4830dn6y22" path="res://placeholder/sprites/Air Action(ballet)/ballet_3.png" id="6_kir57"]
 [ext_resource type="Texture2D" uid="uid://chjr72ss3o3f1" path="res://placeholder/sprites/primary3.png" id="6_r6aok"]
 [ext_resource type="Texture2D" uid="uid://ch28y32u4kvsn" path="res://icon.svg" id="7_6jfpq"]
+[ext_resource type="Texture2D" uid="uid://tgtg371e5nay" path="res://placeholder/sprites/Air Action(ballet)/ballet_4.png" id="7_rqg21"]
 [ext_resource type="Texture2D" uid="uid://wauue3qynk25" path="res://placeholder/sprites/primary4/1.png" id="7_xw8kx"]
 [ext_resource type="Texture2D" uid="uid://8ntvnjtcpbj7" path="res://placeholder/sprites/primary4/2.png" id="8_e0nbu"]
+[ext_resource type="Texture2D" uid="uid://b41i86683icb" path="res://placeholder/sprites/Air Action(ballet)/ballet_5.png" id="8_kll87"]
 [ext_resource type="Texture2D" uid="uid://b3xpwb1gh4w34" path="res://placeholder/sprites/primary4/3.png" id="9_46bs4"]
+[ext_resource type="Texture2D" uid="uid://pxncgfejfkio" path="res://placeholder/sprites/Air Action(ballet)/ballet_6.png" id="9_bpala"]
 [ext_resource type="Script" path="res://entities/player/walking.gd" id="9_br35p"]
 [ext_resource type="Script" path="res://entities/player/States.gd" id="9_xtmgv"]
 [ext_resource type="Script" path="res://entities/player/Idle.gd" id="10_gwqhk"]
@@ -44,6 +51,7 @@
 [ext_resource type="Script" path="res://entities/player/StateMachineNode.gd" id="32_lcb84"]
 [ext_resource type="Script" path="res://entities/player/AttackState.gd" id="33_g2pqb"]
 [ext_resource type="Script" path="res://entities/player/Primary_air_Sonic.gd" id="44_8bpjx"]
+[ext_resource type="Script" path="res://entities/player/Double_jump_Sonic.gd" id="45_86jpm"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8io4y"]
 atlas = ExtResource("5_bo5jh")
@@ -403,6 +411,32 @@ region = Rect2(224, 0, 32, 36)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_v8opn"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_glcpo")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_vvseh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_rn2vx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_kir57")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_rqg21")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_kll87")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_bpala")
+}],
+"loop": false,
+"name": &"Double_jump_sonic",
+"speed": 10.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_8io4y")
@@ -811,9 +845,10 @@ double_sided = false
 texture_filter = 2
 render_priority = 1
 sprite_frames = SubResource("SpriteFrames_v8opn")
-animation = &"Primary_air"
+animation = &"Double_jump_sonic"
 autoplay = "idle"
-frame_progress = 0.693786
+frame = 6
+frame_progress = 1.0
 
 [node name="Point" type="Marker3D" parent="Sprite"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -889,11 +924,12 @@ on_primary = NodePath("../Primary1")
 on_gained_air = NodePath("../Jumping")
 on_timed_out = NodePath("../Idle")
 
-[node name="Jumping" type="Node" parent="States" node_paths=PackedStringArray("on_grounded", "on_primary")]
+[node name="Jumping" type="Node" parent="States" node_paths=PackedStringArray("on_grounded", "on_primary", "on_double_jump")]
 script = ExtResource("10_wmm6m")
 on_grounded = NodePath("../Idle")
 on_primary = NodePath("../Primary_air")
 time_till_air_attack = 0.3
+on_double_jump = NodePath("../Double_jump_sonic")
 
 [node name="Primary1" type="Node" parent="States" node_paths=PackedStringArray("on_primary", "on_gained_air", "on_timed_out")]
 script = ExtResource("33_g2pqb")
@@ -944,6 +980,16 @@ on_primary = NodePath(".")
 on_timed_out = NodePath("../Jumping")
 on_touching_floor = NodePath("../Idle")
 time_till_next_hit_allowed = 0.15
+
+[node name="Double_jump_sonic" type="Node" parent="States" node_paths=PackedStringArray("on_grounded", "on_primary", "on_timeout")]
+script = ExtResource("45_86jpm")
+main_animation = "Double_jump_sonic"
+on_grounded = NodePath("../Idle")
+on_primary = NodePath("../Primary_air")
+on_timeout = NodePath("../Jumping")
+time_till_air_attack = 0.367
+falloff = 0.01
+initial_impulse = Vector2(6, 18)
 
 [node name="Behaviour" type="Node" parent="States"]
 

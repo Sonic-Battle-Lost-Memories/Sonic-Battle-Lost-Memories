@@ -30,6 +30,9 @@ func setup(target: CharacterController):
 	bored_over = false
 	current_cycle = 0
 	target.sprite.play(cycles_names[current_cycle])
+	
+	target.allowing_double_jump = true
+	
 	pass
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

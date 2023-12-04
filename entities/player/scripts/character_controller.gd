@@ -12,6 +12,8 @@ var gravity = ProjectSettings.get_setting("physics/3d/default_gravity") * 2
 # The movement caused by directional input by the player (usually joystick XY axis)
 var activeMovement:Vector3 = Vector3(0,0,0)
 
+var allowing_double_jump = false
+
 @onready var sprite = $Sprite
 @onready var camnode = $CamNode
 @onready var camera = $CamNode/Camera

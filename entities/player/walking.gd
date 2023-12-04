@@ -18,6 +18,7 @@ func _ready():
 # Called by the character controller only on the first frame of the state
 func setup(target: CharacterController):
 	target.sprite.play("run")
+	target.allowing_double_jump = true
 	pass
 
 # Called by character controller on every frame where this this state is active.

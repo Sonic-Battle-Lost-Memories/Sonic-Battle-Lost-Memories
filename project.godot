@@ -24,6 +24,12 @@ window/size/window_height_override=640
 window/stretch/mode="viewport"
 window/stretch/aspect="expand"
 
+[importer_defaults]
+
+texture={
+"detect_3d/compress_to": 0
+}
+
 [input]
 
 up={
