@@ -1,7 +1,7 @@
 extends StateMachineState
 
 # time since this state started
-var elapsed:float = 0.0
+var time_elapsed:float = 0.0
 
 # booleans for double-jump logic
 var can_double_jump:bool = false
@@ -10,32 +10,34 @@ var can_double_jump:bool = false
 
 @export var on_grounded: StateMachineState
 @export var on_primary: StateMachineState
-@export var time_till_air_attack: float
+@export var time_till_air_action: float
 @export var on_double_jump: StateMachineState
+@export var main_animation: String = "jump"
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
 
 
 func setup(target:CharacterController):
-	target.sprite.play("jump")
+	target.sprite.play(main_animation)
+	time_elapsed = 0
 	can_double_jump = false
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func step(target: CharacterController, delta):
-	elapsed += delta
+	time_elapsed += delta
 	
 	# Double jump: only happens once and only allowed after a minimum air time.
-	if (not can_double_jump) and (not Input.is_action_just_pressed("jump")) and elapsed > 0.08:
+	if (not can_double_jump) and (not Input.is_action_just_pressed("jump")) and time_elapsed > time_till_air_action:
 		can_double_jump = true
-		print("ready to double jump")
+		#print("ready to double jump")
 		pass
 	if (can_double_jump) and (target.allowing_double_jump) and (Input.is_action_just_pressed("jump")):
 		target.change_state(on_double_jump)
-		print("double jumped")
+		#print("double jumped")
 		return
 	
-	if(Input.is_action_just_pressed("attack_primary")):
+	if(Input.is_action_just_pressed("attack_primary") and time_elapsed > time_till_air_action):
 		target.change_state(on_primary)
 		return
 	
