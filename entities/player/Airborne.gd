@@ -35,8 +35,8 @@ func setup(target:CharacterController):
 func step(target: CharacterController, delta):
 	time_elapsed += delta
 	
-	# Double jump: only happens once and only allowed after a minimum air time.
-	if (not can_double_jump) and (not Input.is_action_just_pressed("jump")) and time_elapsed > time_till_air_action:
+	# Double jump: only happens once in the whole contiguous air time.
+	if (not can_double_jump) and (not Input.is_action_just_pressed("jump")):
 		can_double_jump = true
 		print("ready to double jump")
 		pass
@@ -45,7 +45,7 @@ func step(target: CharacterController, delta):
 		print("double jumped")
 		return
 	
-	if(Input.is_action_just_pressed("attack_primary")):
+	if(Input.is_action_just_pressed("attack_primary") and time_elapsed > time_till_air_action):
 		target.change_state(on_primary)
 		return
 	
