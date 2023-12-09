@@ -14,7 +14,7 @@ var can_double_jump:bool = false
 @export var on_double_jump: StateMachineState
 
 @export_group("action parameters")
-@export var time_till_air_attack: float
+@export var time_till_air_action: float
 
 @export_group("animation")
 
@@ -27,7 +27,7 @@ func _ready():
 func setup(target:CharacterController):
 	target.sprite.play(main_animation)
 
-	print("double jump allowed in ", time_till_air_attack, "s")
+	#print("double jump allowed in ", time_till_air_attack, "s")
 	time_elapsed = 0
 	can_double_jump = false
 
@@ -36,7 +36,7 @@ func step(target: CharacterController, delta):
 	time_elapsed += delta
 	
 	# Double jump: only happens once and only allowed after a minimum air time.
-	if (not can_double_jump) and (not Input.is_action_just_pressed("jump")) and time_elapsed > time_till_air_attack:
+	if (not can_double_jump) and (not Input.is_action_just_pressed("jump")) and time_elapsed > time_till_air_action:
 		can_double_jump = true
 		print("ready to double jump")
 		pass
