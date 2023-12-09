@@ -3,19 +3,20 @@ extends StateMachineState
 @onready var parent:Node = get_node("..")
 
 var time_elapsed = 0.0
+
+@export_category("state transitions")
 @export var time_till_bored = 0.85
-
-@export var on_primary:StateMachineState
-
-@export var on_moved:StateMachineState
-
-@export var on_gained_air:StateMachineState
-@export var on_jumped:StateMachineState
+@export var on_primary: StateMachineState
+@export var on_moved: StateMachineState
+@export var on_gained_air: StateMachineState
+@export var on_jumped: StateMachineState
+@export var on_turn_around: StateMachineState
 
 var cycles_names= ["idle", "idle2"]
 var current_cycle: int = 0
 var got_bored: bool = false
 var bored_over: bool = false
+var last_known_facing_direction
 
 
 
@@ -41,9 +42,14 @@ func step(target: CharacterController, delta):
 # Handle Jump.
 	if Input.is_action_just_pressed("jump"):
 		target.jump()
-	
+			
+	var previous_direction = target.current_direction
 	# factor in player's intended movement
 	target.computeActiveMovement(delta)
+	var new_direction = target.current_direction
+	if(new_direction != previous_direction):
+		target.change_state(on_turn_around)
+		return
 	if(time_elapsed > time_till_bored):
 		if(not got_bored):
 			got_bored = true
