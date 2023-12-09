@@ -1,3 +1,4 @@
+@icon("res://dev_material/nerd_moji.png")
 extends StateMachineState
 
 # time since this state started

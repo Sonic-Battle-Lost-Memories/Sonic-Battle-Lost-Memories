@@ -1,3 +1,4 @@
+@icon("res://dev_material/nerd_moji.png")
 extends StateMachineState
 
 @onready var parent:Node = get_node("..")
