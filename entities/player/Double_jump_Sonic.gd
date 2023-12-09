@@ -50,8 +50,8 @@ func setup(target:CharacterController):
 	var inherited_direction = Vector2(target.velocity.x, target.velocity.z).normalized()
 	
 	#initial impulse on character
-	target.velocity.x += (inherited_direction.x * initial_impulse.x)
-	target.velocity.z += (inherited_direction.y * initial_impulse.x)
+	target.velocity.x = (inherited_direction.x * initial_impulse.x)
+	target.velocity.z = (inherited_direction.y * initial_impulse.x)
 	target.velocity.y = initial_impulse.y
 	
 	target.allowing_double_jump = false
