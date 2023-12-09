@@ -1,9 +1,10 @@
-[gd_scene load_steps=145 format=3 uid="uid://cd3f10inl6go1"]
+[gd_scene load_steps=160 format=3 uid="uid://cd3f10inl6go1"]
 
 [ext_resource type="Script" path="res://entities/player/scripts/character_controller.gd" id="1_d776x"]
 [ext_resource type="PackedScene" uid="uid://dmr0fcamx7t56" path="res://joystick/virtual_joystick.tscn" id="2_ihn7u"]
 [ext_resource type="Texture2D" uid="uid://bpdvm1ue5m2wy" path="res://placeholder/sprites/idle_test.png" id="3_aecw3"]
 [ext_resource type="Texture2D" uid="uid://didejyfucpk64" path="res://placeholder/sprites/Air Action(ballet)/ballet_0.png" id="3_glcpo"]
+[ext_resource type="Texture2D" uid="uid://bgdv60nppfh6v" path="res://placeholder/sprites/Airborne.png" id="3_wxo5t"]
 [ext_resource type="Texture2D" uid="uid://62choiwgif0m" path="res://placeholder/sprites/jump_test.png" id="4_ufip2"]
 [ext_resource type="Texture2D" uid="uid://ch65j5jux4odn" path="res://placeholder/sprites/Air Action(ballet)/ballet_1.png" id="4_vvseh"]
 [ext_resource type="Texture2D" uid="uid://c0kutfl06oc0c" path="res://placeholder/sprites/primary2.png" id="5_5sks5"]
@@ -50,8 +51,27 @@
 [ext_resource type="Texture2D" uid="uid://lqal72rcip7h" path="res://placeholder/sprites/Air Attack/sonicRocket_6.png" id="29_8t22n"]
 [ext_resource type="Script" path="res://entities/player/StateMachineNode.gd" id="32_lcb84"]
 [ext_resource type="Script" path="res://entities/player/AttackState.gd" id="33_g2pqb"]
+[ext_resource type="Texture2D" uid="uid://c76lxfolm7nle" path="res://placeholder/sprites/turn.png" id="38_mkhee"]
 [ext_resource type="Script" path="res://entities/player/Primary_air_Sonic.gd" id="44_8bpjx"]
 [ext_resource type="Script" path="res://entities/player/Double_jump_Sonic.gd" id="45_86jpm"]
+[ext_resource type="Script" path="res://entities/player/Airborne.gd" id="53_5rd1a"]
+[ext_resource type="Script" path="res://entities/player/Turn_around.gd" id="55_6n0vv"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_88btl"]
+atlas = ExtResource("3_wxo5t")
+region = Rect2(0, 0, 35, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iv454"]
+atlas = ExtResource("3_wxo5t")
+region = Rect2(35, 0, 35, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_clry5"]
+atlas = ExtResource("3_wxo5t")
+region = Rect2(0, 40, 35, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cxsb1"]
+atlas = ExtResource("3_wxo5t")
+region = Rect2(35, 40, 35, 40)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8io4y"]
 atlas = ExtResource("5_bo5jh")
@@ -136,6 +156,18 @@ region = Rect2(330, 0, 40, 44)
 [sub_resource type="AtlasTexture" id="AtlasTexture_iwmpb"]
 atlas = ExtResource("7_xw8kx")
 region = Rect2(0, 0, 51, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6xtsv"]
+atlas = ExtResource("38_mkhee")
+region = Rect2(0, 0, 22, 34)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kau2m"]
+atlas = ExtResource("38_mkhee")
+region = Rect2(22, 0, 22, 34)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x76gx"]
+atlas = ExtResource("38_mkhee")
+region = Rect2(0, 34, 22, 34)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_llt0o"]
 atlas = ExtResource("3_aecw3")
@@ -377,6 +409,22 @@ region = Rect2(72, 0, 24, 40)
 atlas = ExtResource("4_ufip2")
 region = Rect2(96, 0, 24, 40)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_niwbp"]
+atlas = ExtResource("3_wxo5t")
+region = Rect2(0, 0, 35, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6r4x5"]
+atlas = ExtResource("3_wxo5t")
+region = Rect2(35, 0, 35, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kvbq3"]
+atlas = ExtResource("3_wxo5t")
+region = Rect2(0, 40, 35, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qm0ot"]
+atlas = ExtResource("3_wxo5t")
+region = Rect2(35, 40, 35, 40)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_tg6e6"]
 atlas = ExtResource("5_jog2t")
 region = Rect2(0, 0, 32, 36)
@@ -411,6 +459,23 @@ region = Rect2(224, 0, 32, 36)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_v8opn"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_88btl")
+}, {
+"duration": 2.0,
+"texture": SubResource("AtlasTexture_iv454")
+}, {
+"duration": 2.0,
+"texture": SubResource("AtlasTexture_clry5")
+}, {
+"duration": 2.0,
+"texture": SubResource("AtlasTexture_cxsb1")
+}],
+"loop": false,
+"name": &"Airborne",
+"speed": 30.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": ExtResource("3_glcpo")
@@ -569,27 +634,41 @@ animations = [{
 "duration": 1.0,
 "texture": ExtResource("23_hfiv2")
 }, {
-"duration": 1.0,
+"duration": 2.0,
 "texture": ExtResource("24_l03nr")
 }, {
-"duration": 1.0,
+"duration": 2.0,
 "texture": ExtResource("25_ed021")
 }, {
-"duration": 1.0,
+"duration": 2.0,
 "texture": ExtResource("26_xyap3")
 }, {
-"duration": 1.0,
+"duration": 2.0,
 "texture": ExtResource("27_v7f0i")
 }, {
-"duration": 1.0,
+"duration": 2.0,
 "texture": ExtResource("28_10kqe")
 }, {
-"duration": 1.0,
+"duration": 2.0,
 "texture": ExtResource("29_8t22n")
 }],
-"loop": true,
+"loop": false,
 "name": &"Primary_air",
-"speed": 5.0
+"speed": 30.0
+}, {
+"frames": [{
+"duration": 2.0,
+"texture": SubResource("AtlasTexture_6xtsv")
+}, {
+"duration": 2.0,
+"texture": SubResource("AtlasTexture_kau2m")
+}, {
+"duration": 2.0,
+"texture": SubResource("AtlasTexture_x76gx")
+}],
+"loop": false,
+"name": &"Turn around",
+"speed": 30.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -772,24 +851,36 @@ animations = [{
 "speed": 13.0
 }, {
 "frames": [{
-"duration": 1.0,
+"duration": 4.0,
 "texture": SubResource("AtlasTexture_a0if3")
 }, {
-"duration": 1.0,
+"duration": 4.0,
 "texture": SubResource("AtlasTexture_c748d")
 }, {
-"duration": 1.0,
+"duration": 3.0,
 "texture": SubResource("AtlasTexture_3rkhc")
 }, {
-"duration": 1.0,
+"duration": 5.0,
 "texture": SubResource("AtlasTexture_xaay5")
 }, {
-"duration": 1.0,
+"duration": 4.0,
 "texture": SubResource("AtlasTexture_nhpem")
+}, {
+"duration": 2.0,
+"texture": SubResource("AtlasTexture_niwbp")
+}, {
+"duration": 4.0,
+"texture": SubResource("AtlasTexture_6r4x5")
+}, {
+"duration": 4.0,
+"texture": SubResource("AtlasTexture_kvbq3")
+}, {
+"duration": 4.0,
+"texture": SubResource("AtlasTexture_qm0ot")
 }],
 "loop": false,
 "name": &"jump",
-"speed": 13.0
+"speed": 60.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -845,10 +936,8 @@ double_sided = false
 texture_filter = 2
 render_priority = 1
 sprite_frames = SubResource("SpriteFrames_v8opn")
-animation = &"Double_jump_sonic"
+animation = &"Turn around"
 autoplay = "idle"
-frame = 6
-frame_progress = 1.0
 
 [node name="Point" type="Marker3D" parent="Sprite"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -911,24 +1000,27 @@ script = ExtResource("9_xtmgv")
 [node name="StateMachineState" type="Node" parent="States"]
 script = ExtResource("32_lcb84")
 
-[node name="Idle" type="Node" parent="States" node_paths=PackedStringArray("on_primary", "on_moved", "on_gained_air", "on_jumped")]
+[node name="Idle" type="Node" parent="States" node_paths=PackedStringArray("on_primary", "on_moved", "on_gained_air", "on_jumped", "on_turn_around")]
 script = ExtResource("10_gwqhk")
 on_primary = NodePath("../Primary1")
 on_moved = NodePath("../Walking")
-on_gained_air = NodePath("../Jumping")
+on_gained_air = NodePath("../Airborne")
 on_jumped = NodePath("../Jumping")
+on_turn_around = NodePath("../Turn around")
 
-[node name="Walking" type="Node" parent="States" node_paths=PackedStringArray("on_primary", "on_gained_air", "on_timed_out")]
+[node name="Walking" type="Node" parent="States" node_paths=PackedStringArray("on_primary", "on_gained_air", "on_jumped", "on_stopped", "on_turn_around")]
 script = ExtResource("9_br35p")
 on_primary = NodePath("../Primary1")
-on_gained_air = NodePath("../Jumping")
-on_timed_out = NodePath("../Idle")
+on_gained_air = NodePath("../Airborne")
+on_jumped = NodePath("../Jumping")
+on_stopped = NodePath("../Idle")
+on_turn_around = NodePath("../Turn around")
 
 [node name="Jumping" type="Node" parent="States" node_paths=PackedStringArray("on_grounded", "on_primary", "on_double_jump")]
 script = ExtResource("10_wmm6m")
 on_grounded = NodePath("../Idle")
 on_primary = NodePath("../Primary_air")
-time_till_air_attack = 0.3
+time_till_air_action = 0.15
 on_double_jump = NodePath("../Double_jump_sonic")
 
 [node name="Primary1" type="Node" parent="States" node_paths=PackedStringArray("on_primary", "on_gained_air", "on_timed_out")]
@@ -975,9 +1067,8 @@ time_till_next_hit_allowed = 0.1
 script = ExtResource("44_8bpjx")
 lifetime = 0.43
 main_animation = "Primary_air"
-frame_times = Array[float]([0.03333, 0.1, 0.167, 0.233, 0.3, 0.383, 0.433])
 on_primary = NodePath(".")
-on_timed_out = NodePath("../Jumping")
+on_timed_out = NodePath("../Airborne")
 on_touching_floor = NodePath("../Idle")
 time_till_next_hit_allowed = 0.15
 
@@ -986,12 +1077,27 @@ script = ExtResource("45_86jpm")
 main_animation = "Double_jump_sonic"
 on_grounded = NodePath("../Idle")
 on_primary = NodePath("../Primary_air")
-on_timeout = NodePath("../Jumping")
-time_till_air_attack = 0.367
+on_timeout = NodePath("../Airborne")
+time_till_air_attack = 0.15
 falloff = 0.01
-initial_impulse = Vector2(9, 12)
+initial_impulse = Vector2(20, 12)
 
 [node name="Behaviour" type="Node" parent="States"]
 
-[connection signal="animation_finished" from="Sprite" to="." method="_on_sprite_animation_finished"]
-[connection signal="animation_finished" from="Sprite" to="States/Idle" method="_on_sprite_animation_finished"]
+[node name="Airborne" type="Node" parent="States" node_paths=PackedStringArray("on_grounded", "on_primary", "on_double_jump")]
+script = ExtResource("53_5rd1a")
+on_grounded = NodePath("../Idle")
+on_primary = NodePath("../Primary_air")
+on_double_jump = NodePath("../Double_jump_sonic")
+time_till_air_action = 0.15
+main_animation = "Airborne"
+
+[node name="Turn around" type="Node" parent="States" node_paths=PackedStringArray("on_primary", "on_gained_air", "on_jumped", "on_stopped", "on_timed_out")]
+script = ExtResource("55_6n0vv")
+on_primary = NodePath("../Primary1")
+on_gained_air = NodePath("../Airborne")
+on_jumped = NodePath("../Jumping")
+on_stopped = NodePath("../Idle")
+on_timed_out = NodePath("../Walking")
+lifetime = 0.26
+main_animation = "Turn around"
