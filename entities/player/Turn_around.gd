@@ -4,25 +4,17 @@ extends StateMachineState
 @onready var parent:Node = get_node("..")
 
 @export_group("state transitions")
-# state for when attack action is triggered
-@export var on_primary: StateMachineState
+@export var on_primary: StateMachineState #attack action is triggered
+@export var on_gained_air: StateMachineState #character is no longer in contact with ground
+@export var on_jumped: StateMachineState #jump action triggered
+@export var on_stopped: StateMachineState #character stops moving
+@export var on_timed_out: StateMachineState #character is done turning
 
-# state for when character is in air
-@export var on_gained_air: StateMachineState
-
-@export var on_jumped: StateMachineState
-
-# state for when character stops moving
-@export var on_stopped: StateMachineState
-
-# state for when character is done turning
-@export var on_timed_out: StateMachineState
-
-@export_group("turning parameters")
-@export var lifetime: float
+@export_group("action parameters")
+@export var lifetime: float #the (limited) time this state lasts if not interrupted
 
 @export_group("animation")
-@export var main_animation: String
+@export var main_animation: String #name of the animation.
 
 var time_elapsed = 0.0
 
