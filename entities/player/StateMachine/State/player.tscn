@@ -1,9 +1,10 @@
-[gd_scene load_steps=145 format=3 uid="uid://cd3f10inl6go1"]
+[gd_scene load_steps=177 format=3 uid="uid://cd3f10inl6go1"]
 
 [ext_resource type="Script" path="res://entities/player/scripts/character_controller.gd" id="1_d776x"]
 [ext_resource type="PackedScene" uid="uid://dmr0fcamx7t56" path="res://joystick/virtual_joystick.tscn" id="2_ihn7u"]
 [ext_resource type="Texture2D" uid="uid://bpdvm1ue5m2wy" path="res://placeholder/sprites/idle_test.png" id="3_aecw3"]
 [ext_resource type="Texture2D" uid="uid://didejyfucpk64" path="res://placeholder/sprites/Air Action(ballet)/ballet_0.png" id="3_glcpo"]
+[ext_resource type="Texture2D" uid="uid://bgdv60nppfh6v" path="res://placeholder/sprites/Airborne.png" id="3_wxo5t"]
 [ext_resource type="Texture2D" uid="uid://62choiwgif0m" path="res://placeholder/sprites/jump_test.png" id="4_ufip2"]
 [ext_resource type="Texture2D" uid="uid://ch65j5jux4odn" path="res://placeholder/sprites/Air Action(ballet)/ballet_1.png" id="4_vvseh"]
 [ext_resource type="Texture2D" uid="uid://c0kutfl06oc0c" path="res://placeholder/sprites/primary2.png" id="5_5sks5"]
@@ -22,12 +23,13 @@
 [ext_resource type="Texture2D" uid="uid://b41i86683icb" path="res://placeholder/sprites/Air Action(ballet)/ballet_5.png" id="8_kll87"]
 [ext_resource type="Texture2D" uid="uid://b3xpwb1gh4w34" path="res://placeholder/sprites/primary4/3.png" id="9_46bs4"]
 [ext_resource type="Texture2D" uid="uid://pxncgfejfkio" path="res://placeholder/sprites/Air Action(ballet)/ballet_6.png" id="9_bpala"]
-[ext_resource type="Script" path="res://entities/player/walking.gd" id="9_br35p"]
-[ext_resource type="Script" path="res://entities/player/States.gd" id="9_xtmgv"]
-[ext_resource type="Script" path="res://entities/player/Idle.gd" id="10_gwqhk"]
-[ext_resource type="Script" path="res://entities/player/Jumping.gd" id="10_wmm6m"]
+[ext_resource type="Script" path="res://entities/player/StateMachine/State/walking.gd" id="9_br35p"]
+[ext_resource type="Script" path="res://entities/player/StateMachine/State/States.gd" id="9_xtmgv"]
+[ext_resource type="Script" path="res://entities/player/StateMachine/State/Idle.gd" id="10_gwqhk"]
+[ext_resource type="Script" path="res://entities/player/StateMachine/State/Jumping.gd" id="10_wmm6m"]
 [ext_resource type="Texture2D" uid="uid://dl3qquxr2a6fu" path="res://placeholder/sprites/primary4/4.png" id="10_wsjh5"]
 [ext_resource type="Texture2D" uid="uid://d3r3xyskh8ker" path="res://placeholder/sprites/primary4/5.png" id="11_1s1j3"]
+[ext_resource type="Texture2D" uid="uid://d1ym80b52t2ff" path="res://placeholder/sprites/Landing.png" id="11_d30vh"]
 [ext_resource type="Texture2D" uid="uid://bf8t11f6dmlfa" path="res://placeholder/sprites/primary4/6.png" id="12_c4d76"]
 [ext_resource type="Texture2D" uid="uid://cqptwosivum1g" path="res://placeholder/sprites/primary4/7.png" id="13_bxxhk"]
 [ext_resource type="Texture2D" uid="uid://bwwonyfwaiklk" path="res://placeholder/sprites/primary4/8.png" id="14_rv65r"]
@@ -48,10 +50,46 @@
 [ext_resource type="Texture2D" uid="uid://c3fssksihb16i" path="res://placeholder/sprites/Air Attack/sonicRocket_4.png" id="27_v7f0i"]
 [ext_resource type="Texture2D" uid="uid://c8vpnvgn1227n" path="res://placeholder/sprites/Air Attack/sonicRocket_5.png" id="28_10kqe"]
 [ext_resource type="Texture2D" uid="uid://lqal72rcip7h" path="res://placeholder/sprites/Air Attack/sonicRocket_6.png" id="29_8t22n"]
-[ext_resource type="Script" path="res://entities/player/StateMachineNode.gd" id="32_lcb84"]
-[ext_resource type="Script" path="res://entities/player/AttackState.gd" id="33_g2pqb"]
-[ext_resource type="Script" path="res://entities/player/Primary_air_Sonic.gd" id="44_8bpjx"]
-[ext_resource type="Script" path="res://entities/player/Double_jump_Sonic.gd" id="45_86jpm"]
+[ext_resource type="Script" path="res://entities/player/StateMachine/State/StateMachineNode.gd" id="32_lcb84"]
+[ext_resource type="Script" path="res://entities/player/StateMachine/State/AttackState.gd" id="33_g2pqb"]
+[ext_resource type="Texture2D" uid="uid://d1cvqugayenvr" path="res://placeholder/sprites/Stopping.png" id="38_g57od"]
+[ext_resource type="Texture2D" uid="uid://4t4fx1v3cpop" path="res://placeholder/sprites/Running_turn.png" id="38_hfbgi"]
+[ext_resource type="Texture2D" uid="uid://c76lxfolm7nle" path="res://placeholder/sprites/turn.png" id="38_mkhee"]
+[ext_resource type="Script" path="res://entities/player/StateMachine/State/Primary_air_Sonic.gd" id="44_8bpjx"]
+[ext_resource type="Script" path="res://entities/player/StateMachine/State/Double_jump_Sonic.gd" id="45_86jpm"]
+[ext_resource type="Script" path="res://entities/player/StateMachine/State/Airborne.gd" id="53_5rd1a"]
+[ext_resource type="Script" path="res://entities/player/StateMachine/State/Turn_around.gd" id="55_6n0vv"]
+[ext_resource type="Script" path="res://entities/player/StateMachine/State/Running_turn.gd" id="57_iejl0"]
+[ext_resource type="Script" path="res://entities/player/StateMachine/State/Stopping.gd" id="57_in6yb"]
+[ext_resource type="Script" path="res://entities/player/StateMachine/State/StateBehaviour.gd" id="61_pp8w4"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_88btl"]
+atlas = ExtResource("3_wxo5t")
+region = Rect2(0, 0, 35, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iv454"]
+atlas = ExtResource("3_wxo5t")
+region = Rect2(35, 0, 35, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_clry5"]
+atlas = ExtResource("3_wxo5t")
+region = Rect2(0, 40, 35, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cxsb1"]
+atlas = ExtResource("3_wxo5t")
+region = Rect2(35, 40, 35, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2l7po"]
+atlas = ExtResource("11_d30vh")
+region = Rect2(0, 0, 27, 30)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qm6gy"]
+atlas = ExtResource("11_d30vh")
+region = Rect2(27, 0, 27, 30)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p1o6q"]
+atlas = ExtResource("11_d30vh")
+region = Rect2(0, 30, 27, 30)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8io4y"]
 atlas = ExtResource("5_bo5jh")
@@ -136,6 +174,50 @@ region = Rect2(330, 0, 40, 44)
 [sub_resource type="AtlasTexture" id="AtlasTexture_iwmpb"]
 atlas = ExtResource("7_xw8kx")
 region = Rect2(0, 0, 51, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c1684"]
+atlas = ExtResource("38_hfbgi")
+region = Rect2(0, 0, 34, 34)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dgwgr"]
+atlas = ExtResource("38_hfbgi")
+region = Rect2(34, 0, 34, 34)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qrs85"]
+atlas = ExtResource("38_hfbgi")
+region = Rect2(0, 34, 34, 34)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x4hst"]
+atlas = ExtResource("38_hfbgi")
+region = Rect2(34, 34, 34, 34)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_votvc"]
+atlas = ExtResource("38_g57od")
+region = Rect2(0, 0, 35, 35)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mq4ay"]
+atlas = ExtResource("38_g57od")
+region = Rect2(35, 0, 35, 35)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rmcmm"]
+atlas = ExtResource("38_g57od")
+region = Rect2(0, 35, 35, 35)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bntdp"]
+atlas = ExtResource("38_g57od")
+region = Rect2(35, 35, 35, 35)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6xtsv"]
+atlas = ExtResource("38_mkhee")
+region = Rect2(0, 0, 22, 34)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kau2m"]
+atlas = ExtResource("38_mkhee")
+region = Rect2(22, 0, 22, 34)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x76gx"]
+atlas = ExtResource("38_mkhee")
+region = Rect2(0, 34, 22, 34)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_llt0o"]
 atlas = ExtResource("3_aecw3")
@@ -377,6 +459,22 @@ region = Rect2(72, 0, 24, 40)
 atlas = ExtResource("4_ufip2")
 region = Rect2(96, 0, 24, 40)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_niwbp"]
+atlas = ExtResource("3_wxo5t")
+region = Rect2(0, 0, 35, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6r4x5"]
+atlas = ExtResource("3_wxo5t")
+region = Rect2(35, 0, 35, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kvbq3"]
+atlas = ExtResource("3_wxo5t")
+region = Rect2(0, 40, 35, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qm0ot"]
+atlas = ExtResource("3_wxo5t")
+region = Rect2(35, 40, 35, 40)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_tg6e6"]
 atlas = ExtResource("5_jog2t")
 region = Rect2(0, 0, 32, 36)
@@ -413,6 +511,23 @@ region = Rect2(224, 0, 32, 36)
 animations = [{
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_88btl")
+}, {
+"duration": 2.0,
+"texture": SubResource("AtlasTexture_iv454")
+}, {
+"duration": 2.0,
+"texture": SubResource("AtlasTexture_clry5")
+}, {
+"duration": 2.0,
+"texture": SubResource("AtlasTexture_cxsb1")
+}],
+"loop": false,
+"name": &"Airborne",
+"speed": 30.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": ExtResource("3_glcpo")
 }, {
 "duration": 1.0,
@@ -436,6 +551,20 @@ animations = [{
 "loop": false,
 "name": &"Double_jump_sonic",
 "speed": 10.0
+}, {
+"frames": [{
+"duration": 2.0,
+"texture": SubResource("AtlasTexture_2l7po")
+}, {
+"duration": 2.0,
+"texture": SubResource("AtlasTexture_qm6gy")
+}, {
+"duration": 3.0,
+"texture": SubResource("AtlasTexture_p1o6q")
+}],
+"loop": false,
+"name": &"Landing",
+"speed": 30.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -569,27 +698,75 @@ animations = [{
 "duration": 1.0,
 "texture": ExtResource("23_hfiv2")
 }, {
-"duration": 1.0,
+"duration": 2.0,
 "texture": ExtResource("24_l03nr")
 }, {
-"duration": 1.0,
+"duration": 2.0,
 "texture": ExtResource("25_ed021")
 }, {
-"duration": 1.0,
+"duration": 2.0,
 "texture": ExtResource("26_xyap3")
 }, {
-"duration": 1.0,
+"duration": 2.0,
 "texture": ExtResource("27_v7f0i")
 }, {
-"duration": 1.0,
+"duration": 2.0,
 "texture": ExtResource("28_10kqe")
 }, {
-"duration": 1.0,
+"duration": 2.0,
 "texture": ExtResource("29_8t22n")
 }],
-"loop": true,
+"loop": false,
 "name": &"Primary_air",
-"speed": 5.0
+"speed": 30.0
+}, {
+"frames": [{
+"duration": 2.0,
+"texture": SubResource("AtlasTexture_c1684")
+}, {
+"duration": 3.0,
+"texture": SubResource("AtlasTexture_dgwgr")
+}, {
+"duration": 3.0,
+"texture": SubResource("AtlasTexture_qrs85")
+}, {
+"duration": 3.0,
+"texture": SubResource("AtlasTexture_x4hst")
+}],
+"loop": true,
+"name": &"Running_turn",
+"speed": 30.0
+}, {
+"frames": [{
+"duration": 2.0,
+"texture": SubResource("AtlasTexture_votvc")
+}, {
+"duration": 3.0,
+"texture": SubResource("AtlasTexture_mq4ay")
+}, {
+"duration": 2.0,
+"texture": SubResource("AtlasTexture_rmcmm")
+}, {
+"duration": 2.0,
+"texture": SubResource("AtlasTexture_bntdp")
+}],
+"loop": false,
+"name": &"Stopping",
+"speed": 30.0
+}, {
+"frames": [{
+"duration": 2.0,
+"texture": SubResource("AtlasTexture_6xtsv")
+}, {
+"duration": 2.0,
+"texture": SubResource("AtlasTexture_kau2m")
+}, {
+"duration": 2.0,
+"texture": SubResource("AtlasTexture_x76gx")
+}],
+"loop": false,
+"name": &"Turn around",
+"speed": 30.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -772,24 +949,36 @@ animations = [{
 "speed": 13.0
 }, {
 "frames": [{
-"duration": 1.0,
+"duration": 4.0,
 "texture": SubResource("AtlasTexture_a0if3")
 }, {
-"duration": 1.0,
+"duration": 4.0,
 "texture": SubResource("AtlasTexture_c748d")
 }, {
-"duration": 1.0,
+"duration": 3.0,
 "texture": SubResource("AtlasTexture_3rkhc")
 }, {
-"duration": 1.0,
+"duration": 5.0,
 "texture": SubResource("AtlasTexture_xaay5")
 }, {
-"duration": 1.0,
+"duration": 4.0,
 "texture": SubResource("AtlasTexture_nhpem")
+}, {
+"duration": 2.0,
+"texture": SubResource("AtlasTexture_niwbp")
+}, {
+"duration": 4.0,
+"texture": SubResource("AtlasTexture_6r4x5")
+}, {
+"duration": 4.0,
+"texture": SubResource("AtlasTexture_kvbq3")
+}, {
+"duration": 4.0,
+"texture": SubResource("AtlasTexture_qm0ot")
 }],
 "loop": false,
 "name": &"jump",
-"speed": 13.0
+"speed": 60.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -826,8 +1015,9 @@ animations = [{
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_53g5n"]
 radius = 0.7
 
-[node name="Player" type="CharacterBody3D" groups=["Entities"]]
+[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("current_state") groups=["Entities"]]
 script = ExtResource("1_d776x")
+current_state = NodePath("States/StateMachineState/Movement/Idle")
 
 [node name="Virtual Joystick" parent="." instance=ExtResource("2_ihn7u")]
 visibility_mode = 1
@@ -845,10 +1035,8 @@ double_sided = false
 texture_filter = 2
 render_priority = 1
 sprite_frames = SubResource("SpriteFrames_v8opn")
-animation = &"Double_jump_sonic"
+animation = &"Stopping"
 autoplay = "idle"
-frame = 6
-frame_progress = 1.0
 
 [node name="Point" type="Marker3D" parent="Sprite"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -911,87 +1099,140 @@ script = ExtResource("9_xtmgv")
 [node name="StateMachineState" type="Node" parent="States"]
 script = ExtResource("32_lcb84")
 
-[node name="Idle" type="Node" parent="States" node_paths=PackedStringArray("on_primary", "on_moved", "on_gained_air", "on_jumped")]
+[node name="Movement" type="Node" parent="States/StateMachineState"]
+
+[node name="Idle" type="Node" parent="States/StateMachineState/Movement" node_paths=PackedStringArray("on_primary", "on_moved", "on_gained_air", "on_jumped", "on_turn_around")]
 script = ExtResource("10_gwqhk")
-on_primary = NodePath("../Primary1")
+on_primary = NodePath("../../Attack/Primary1")
 on_moved = NodePath("../Walking")
-on_gained_air = NodePath("../Jumping")
+on_gained_air = NodePath("../Airborne")
 on_jumped = NodePath("../Jumping")
+on_turn_around = NodePath("../Turn around")
 
-[node name="Walking" type="Node" parent="States" node_paths=PackedStringArray("on_primary", "on_gained_air", "on_timed_out")]
+[node name="Walking" type="Node" parent="States/StateMachineState/Movement" node_paths=PackedStringArray("on_primary", "on_gained_air", "on_jumped", "on_stopped", "on_turn_around", "on_stopped_hard")]
 script = ExtResource("9_br35p")
-on_primary = NodePath("../Primary1")
-on_gained_air = NodePath("../Jumping")
-on_timed_out = NodePath("../Idle")
+on_primary = NodePath("../../Attack/Primary1")
+on_gained_air = NodePath("../Airborne")
+on_jumped = NodePath("../Jumping")
+on_stopped = NodePath("../Idle")
+on_turn_around = NodePath("../Turn around")
+on_stopped_hard = NodePath("../Stopping")
+time_till_hard_stop = 0.3
+main_animation = "run"
 
-[node name="Jumping" type="Node" parent="States" node_paths=PackedStringArray("on_grounded", "on_primary", "on_double_jump")]
+[node name="Jumping" type="Node" parent="States/StateMachineState/Movement" node_paths=PackedStringArray("on_grounded", "on_primary", "on_double_jump")]
 script = ExtResource("10_wmm6m")
-on_grounded = NodePath("../Idle")
-on_primary = NodePath("../Primary_air")
-time_till_air_attack = 0.3
+on_grounded = NodePath("../Landing")
+on_primary = NodePath("../../Attack/Primary_air")
+time_till_air_action = 0.15
 on_double_jump = NodePath("../Double_jump_sonic")
 
-[node name="Primary1" type="Node" parent="States" node_paths=PackedStringArray("on_primary", "on_gained_air", "on_timed_out")]
-script = ExtResource("33_g2pqb")
-lifetime = 0.233
-main_animation = "Primary1"
-frame_times = Array[float]([0.03333, 0.06666, 0.1333, 0.2])
-on_primary = NodePath("../Primary2")
-on_gained_air = NodePath("../Jumping")
-on_timed_out = NodePath("../Idle")
-time_till_next_hit_allowed = 0.03
-
-[node name="Primary2" type="Node" parent="States" node_paths=PackedStringArray("on_primary", "on_gained_air", "on_timed_out")]
-script = ExtResource("33_g2pqb")
-lifetime = 0.233
-main_animation = "Primary2"
-frame_times = Array[float]([0.03333, 0.06666, 0.1333, 0.2])
-on_primary = NodePath("../Primary3")
-on_gained_air = NodePath("../Jumping")
-on_timed_out = NodePath("../Idle")
-time_till_next_hit_allowed = 0.03
-
-[node name="Primary3" type="Node" parent="States" node_paths=PackedStringArray("on_primary", "on_gained_air", "on_timed_out")]
-script = ExtResource("33_g2pqb")
-lifetime = 0.42
-main_animation = "Primary3"
-frame_times = Array[float]([0.03333, 0.06666, 0.1333, 0.2, 0.23333, 0.3, 0.4])
-on_primary = NodePath("../Primary4")
-on_gained_air = NodePath("../Jumping")
-on_timed_out = NodePath("../Idle")
-time_till_next_hit_allowed = 0.03
-
-[node name="Primary4" type="Node" parent="States" node_paths=PackedStringArray("on_primary", "on_gained_air", "on_timed_out")]
-script = ExtResource("33_g2pqb")
-lifetime = 0.983333
-main_animation = "Primary4"
-frame_times = Array[float]([0.03333, 0.06666, 0.1333, 0.2, 0.26666, 0.333333, 0.36666, 0.416666, 0.45, 0.466666, 0.633333, 0.8, 0.9])
-on_primary = NodePath("../Idle")
-on_gained_air = NodePath("../Jumping")
-on_timed_out = NodePath("../Idle")
-time_till_next_hit_allowed = 0.1
-
-[node name="Primary_air" type="Node" parent="States" node_paths=PackedStringArray("on_primary", "on_timed_out", "on_touching_floor")]
-script = ExtResource("44_8bpjx")
-lifetime = 0.43
-main_animation = "Primary_air"
-frame_times = Array[float]([0.03333, 0.1, 0.167, 0.233, 0.3, 0.383, 0.433])
-on_primary = NodePath(".")
-on_timed_out = NodePath("../Jumping")
-on_touching_floor = NodePath("../Idle")
-time_till_next_hit_allowed = 0.15
-
-[node name="Double_jump_sonic" type="Node" parent="States" node_paths=PackedStringArray("on_grounded", "on_primary", "on_timeout")]
+[node name="Double_jump_sonic" type="Node" parent="States/StateMachineState/Movement" node_paths=PackedStringArray("on_grounded", "on_primary", "on_timeout")]
 script = ExtResource("45_86jpm")
 main_animation = "Double_jump_sonic"
 on_grounded = NodePath("../Idle")
-on_primary = NodePath("../Primary_air")
-on_timeout = NodePath("../Jumping")
-time_till_air_attack = 0.367
+on_primary = NodePath("../../Attack/Primary_air")
+on_timeout = NodePath("../Airborne")
+time_till_air_attack = 0.15
 falloff = 0.01
-initial_impulse = Vector2(9, 12)
+initial_impulse = Vector2(20, 12)
 
-[node name="Behaviour" type="Node" parent="States"]
+[node name="Airborne" type="Node" parent="States/StateMachineState/Movement" node_paths=PackedStringArray("on_grounded", "on_primary", "on_double_jump")]
+script = ExtResource("53_5rd1a")
+on_grounded = NodePath("../Landing")
+on_primary = NodePath("../../Attack/Primary_air")
+on_double_jump = NodePath("../Double_jump_sonic")
+time_till_air_action = 0.15
+main_animation = "Airborne"
 
-[connection signal="animation_finished" from="Sprite" to="." method="_on_sprite_animation_finished"]
-[connection signal="animation_finished" from="Sprite" to="States/Idle" method="_on_sprite_animation_finished"]
+[node name="Turn around" type="Node" parent="States/StateMachineState/Movement" node_paths=PackedStringArray("on_primary", "on_gained_air", "on_jumped", "on_stopped", "on_timed_out")]
+script = ExtResource("55_6n0vv")
+on_primary = NodePath("../../Attack/Primary1")
+on_gained_air = NodePath("../Airborne")
+on_jumped = NodePath("../Jumping")
+on_stopped = NodePath("../Idle")
+on_timed_out = NodePath("../Walking")
+lifetime = 0.26
+main_animation = "Turn around"
+
+[node name="Stopping" type="Node" parent="States/StateMachineState/Movement" node_paths=PackedStringArray("on_primary", "on_moved", "on_gained_air", "on_jumped", "on_turn_around", "on_timeout")]
+script = ExtResource("57_in6yb")
+on_primary = NodePath("../../Attack/Primary1")
+on_moved = NodePath("../Walking")
+on_gained_air = NodePath("../Airborne")
+on_jumped = NodePath("../Jumping")
+on_turn_around = NodePath("../Running turn")
+on_timeout = NodePath("../Idle")
+lifetime = 0.2
+
+[node name="Running turn" type="Node" parent="States/StateMachineState/Movement" node_paths=PackedStringArray("on_primary", "on_gained_air", "on_jumped", "on_stopped", "on_timed_out")]
+script = ExtResource("57_iejl0")
+on_primary = NodePath("../../Attack/Primary1")
+on_gained_air = NodePath("../Airborne")
+on_jumped = NodePath("../Jumping")
+on_stopped = NodePath("../Idle")
+on_timed_out = NodePath("../Walking")
+lifetime = 0.26
+main_animation = "Running_turn"
+
+[node name="Landing" type="Node" parent="States/StateMachineState/Movement" node_paths=PackedStringArray("on_primary", "on_moved", "on_gained_air", "on_jumped", "on_turn_around", "on_timeout")]
+script = ExtResource("57_in6yb")
+on_primary = NodePath("../../Attack/Primary1")
+on_moved = NodePath("../Walking")
+on_gained_air = NodePath("../Airborne")
+on_jumped = NodePath("../Jumping")
+on_turn_around = NodePath("../Running turn")
+on_timeout = NodePath("../Idle")
+lifetime = 0.15
+main_animation = "Landing"
+
+[node name="Attack" type="Node" parent="States/StateMachineState"]
+
+[node name="Primary1" type="Node" parent="States/StateMachineState/Attack" node_paths=PackedStringArray("on_primary", "on_gained_air", "on_timed_out")]
+script = ExtResource("33_g2pqb")
+on_primary = NodePath("../Primary2")
+on_gained_air = NodePath("../../Movement/Jumping")
+on_timed_out = NodePath("../../Movement/Idle")
+main_animation = "Primary1"
+frame_times = Array[float]([0.03333, 0.06666, 0.1333, 0.2])
+time_till_next_hit_allowed = 0.03
+lifetime = 0.233
+
+[node name="Primary2" type="Node" parent="States/StateMachineState/Attack" node_paths=PackedStringArray("on_primary", "on_gained_air", "on_timed_out")]
+script = ExtResource("33_g2pqb")
+on_primary = NodePath("../Primary3")
+on_gained_air = NodePath("../../Movement/Jumping")
+on_timed_out = NodePath("../../Movement/Idle")
+main_animation = "Primary2"
+frame_times = Array[float]([0.03333, 0.06666, 0.1333, 0.2])
+time_till_next_hit_allowed = 0.03
+lifetime = 0.233
+
+[node name="Primary3" type="Node" parent="States/StateMachineState/Attack" node_paths=PackedStringArray("on_primary", "on_gained_air", "on_timed_out")]
+script = ExtResource("33_g2pqb")
+on_primary = NodePath("../Primary4")
+on_gained_air = NodePath("../../Movement/Jumping")
+on_timed_out = NodePath("../../Movement/Idle")
+main_animation = "Primary3"
+frame_times = Array[float]([0.03333, 0.06666, 0.1333, 0.2, 0.23333, 0.3, 0.4])
+time_till_next_hit_allowed = 0.03
+lifetime = 0.42
+
+[node name="Primary4" type="Node" parent="States/StateMachineState/Attack" node_paths=PackedStringArray("on_primary", "on_gained_air", "on_timed_out")]
+script = ExtResource("33_g2pqb")
+on_primary = NodePath("../../Movement/Idle")
+on_gained_air = NodePath("../../Movement/Jumping")
+on_timed_out = NodePath("../../Movement/Idle")
+main_animation = "Primary4"
+frame_times = Array[float]([0.03333, 0.06666, 0.1333, 0.2, 0.26666, 0.333333, 0.36666, 0.416666, 0.45, 0.466666, 0.633333, 0.8, 0.9])
+time_till_next_hit_allowed = 0.1
+lifetime = 0.983333
+
+[node name="Primary_air" type="Node" parent="States/StateMachineState/Attack" node_paths=PackedStringArray("on_primary", "on_timed_out", "on_touching_floor")]
+script = ExtResource("44_8bpjx")
+on_primary = NodePath(".")
+on_timed_out = NodePath("../../Movement/Airborne")
+on_touching_floor = NodePath("../../Movement/Idle")
+
+[node name="StateBehaviour" type="Node" parent="States"]
+script = ExtResource("61_pp8w4")

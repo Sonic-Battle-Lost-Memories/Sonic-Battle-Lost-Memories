@@ -4,7 +4,7 @@
 [ext_resource type="Material" uid="uid://dm8wc172jl1c5" path="res://placeholder/materials/purple_mat.tres" id="2_4m6lm"]
 [ext_resource type="Material" uid="uid://d0qmmg6lvfnwg" path="res://placeholder/textures/test_stage_1/metal_walls_green.tres" id="2_asjr5"]
 [ext_resource type="Material" uid="uid://p5kubrlaaps1" path="res://placeholder/materials/brown_mat.tres" id="3_c6vmo"]
-[ext_resource type="PackedScene" uid="uid://cd3f10inl6go1" path="res://entities/player/player.tscn" id="3_h61iq"]
+[ext_resource type="PackedScene" uid="uid://cd3f10inl6go1" path="res://entities/player/StateMachine/State/player.tscn" id="3_h61iq"]
 [ext_resource type="PackedScene" uid="uid://d04473cjep52p" path="res://entities/generic/cpu_test.tscn" id="5_njb0l"]
 [ext_resource type="AudioStream" uid="uid://brmgfitjl1axt" path="res://music/Knot_Something.mp3" id="7_ntuoi"]
 

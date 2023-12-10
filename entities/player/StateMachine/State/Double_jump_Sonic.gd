@@ -1,3 +1,4 @@
+@icon("res://dev_material/nerd_moji.png")
 extends StateMachineState
 
 # time since this state started
@@ -22,6 +23,7 @@ var current_time_index = 0
 
 @onready var parent: Node = get_node("..")
 
+@export_group("transition")
 #state for touching the floor
 @export var on_grounded: StateMachineState
 
@@ -33,6 +35,7 @@ var current_time_index = 0
 
 @export var time_till_air_attack: float
 
+@export_group("action parameters")
 # how quickly the target loses momentum back into default movement speed.
 @export var falloff: float
 
@@ -48,10 +51,9 @@ func setup(target:CharacterController):
 	time_elapsed = 0
 	
 	var inherited_direction = Vector2(target.velocity.x, target.velocity.z).normalized()
-	
 	#initial impulse on character
-	target.velocity.x += (inherited_direction.x * initial_impulse.x)
-	target.velocity.z += (inherited_direction.y * initial_impulse.x)
+	target.velocity.x = (inherited_direction.x * initial_impulse.x)
+	target.velocity.z = (inherited_direction.y * initial_impulse.x)
 	target.velocity.y = initial_impulse.y
 	
 	target.allowing_double_jump = false

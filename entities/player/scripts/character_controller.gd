@@ -4,6 +4,8 @@ extends CharacterBody3D
 var SPEED = 16.0
 var JUMP_VELOCITY = 18.0
 
+enum facing_direction {RIGHT, LEFT} 
+
 @export var KEYPRESS_TIME_TOLERANCE = 1.250
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
@@ -14,12 +16,13 @@ var activeMovement:Vector3 = Vector3(0,0,0)
 
 var allowing_double_jump = false
 
-@onready var sprite = $Sprite
+@onready var sprite: AnimatedSprite3D = $Sprite
 @onready var camnode = $CamNode
 @onready var camera = $CamNode/Camera
 @onready var point = $Sprite/Point
 @onready var stateTree = $States
-@onready var current_state:StateMachineState = $States/Walking
+@export var current_state: StateMachineState
+@onready var current_direction: facing_direction = facing_direction.RIGHT
 
 func _ready():
 	camnode.set_as_top_level(true)
@@ -65,9 +68,13 @@ func computeActiveMovement(delta):
 	else:
 		velocity.x = lerp(velocity.x, 0.0, 10 * delta)
 		velocity.z = lerp(velocity.z, 0.0, 10 * delta)
-	
+	return
+
+func update_facing_direction():
 	if activeMovement.x <= -0.5:
+		current_direction = facing_direction.LEFT
 		sprite.flip_h = true
 	elif activeMovement.x >= 0.5:
+		current_direction = facing_direction.RIGHT
 		sprite.flip_h = false
-
+	return
