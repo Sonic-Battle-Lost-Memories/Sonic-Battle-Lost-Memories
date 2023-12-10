@@ -6,9 +6,17 @@ extends StateMachineState
 #time since first frame of this state.
 var time_elapsed: float = 0
 
-#how long this state lasts
-@export var lifetime: float
+@export_group("state trasitions")
+# state for when attack action is triggered
+@export var on_primary:StateMachineState
 
+# state for when grounded character went into the air
+@export var on_gained_air:StateMachineState
+
+# state for action ended
+@export var on_timed_out:StateMachineState
+
+@export_group("animation")
 #the name of the animation that this state will play
 @export var main_animation:String
 
@@ -22,19 +30,13 @@ var time_elapsed: float = 0
 	]
 var current_time_index = 0
 
-# state for when attack action is triggered
-@export var on_primary:StateMachineState
 
-# state for when grounded character went into the air
-@export var on_gained_air:StateMachineState
-
-# state for action ended
-@export var on_timed_out:StateMachineState
-
-
+@export_group("action parameters")
 # minimum delay between the state starting and the next attack to be accepted
 @export var time_till_next_hit_allowed:float
 
+#how long this state lasts
+@export var lifetime: float
 
 
 var allows_next_hit:bool = false

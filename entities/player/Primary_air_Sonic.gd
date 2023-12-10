@@ -1,32 +1,22 @@
 @icon("res://dev_material/nerd_moji.png")
 extends StateMachineState
 
-enum attack_types {GROUNDED, AERIAL}
-
 @onready var parent:Node = get_node("..")
 
 #time since first frame of this state.
 var time_elapsed: float = 0
 
-@export var type: attack_types
-#how long this state lasts
-@export var lifetime: float
+@export_group("state transitions")
+@export var on_primary:StateMachineState #state for when attack action is triggered
+@export var on_timed_out:StateMachineState #state for action ended
+@export var on_touching_floor:StateMachineState #falling character touched the floor
 
-#the name of the animation that this state will play
-@export var main_animation:String
+@export_group("action parameters")
+@export var time_till_next_hit_allowed:float = 0.15 #minimum delay between the state starting and the next attack to be accepted
+@export var lifetime: float = 0.43 #how long this state lasts
 
-# state for when attack action is triggered
-@export var on_primary:StateMachineState
-
-# state for action ended
-@export var on_timed_out:StateMachineState
-
-#state for when falling character touched the floor
-@export var on_touching_floor:StateMachineState
-
-# minimum delay between the state starting and the next attack to be accepted
-@export var time_till_next_hit_allowed:float
-
+@export_group("animation")
+@export var main_animation:String = "Primary_air" #the name of the animation that this state will play
 
 
 var allows_next_hit:bool = false

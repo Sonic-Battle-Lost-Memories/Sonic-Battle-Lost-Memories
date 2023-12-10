@@ -23,6 +23,7 @@ var current_time_index = 0
 
 @onready var parent: Node = get_node("..")
 
+@export_group("transition")
 #state for touching the floor
 @export var on_grounded: StateMachineState
 
@@ -34,6 +35,7 @@ var current_time_index = 0
 
 @export var time_till_air_attack: float
 
+@export_group("action parameters")
 # how quickly the target loses momentum back into default movement speed.
 @export var falloff: float
 

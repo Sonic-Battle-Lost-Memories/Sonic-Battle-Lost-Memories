@@ -5,7 +5,7 @@ extends StateMachineState
 
 var time_elapsed = 0.0
 
-@export_category("state transitions")
+@export_group("state transitions")
 @export var time_till_bored = 0.85
 @export var on_primary: StateMachineState
 @export var on_moved: StateMachineState
@@ -13,7 +13,7 @@ var time_elapsed = 0.0
 @export var on_jumped: StateMachineState
 @export var on_turn_around: StateMachineState
 
-var cycles_names= ["idle", "idle2"]
+@export var cycles_names: Array[String] = ["idle", "idle2"]
 var current_cycle: int = 0
 var got_bored: bool = false
 var bored_over: bool = false

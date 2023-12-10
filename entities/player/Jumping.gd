@@ -9,10 +9,13 @@ var can_double_jump:bool = false
 
 @onready var parent: Node = get_node("..")
 
+@export_group("state transitions")
 @export var on_grounded: StateMachineState
 @export var on_primary: StateMachineState
 @export var time_till_air_action: float
 @export var on_double_jump: StateMachineState
+
+@export_group("animation")
 @export var main_animation: String = "jump"
 # Called when the node enters the scene tree for the first time.
 func _ready():
