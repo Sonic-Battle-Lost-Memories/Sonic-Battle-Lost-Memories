@@ -44,10 +44,11 @@ func step(target: CharacterController, delta):
 	if Input.is_action_just_pressed("jump"):
 		target.jump()
 			
-	target.update_sprite_direction()
+	
 	var previous_direction = target.current_direction
 	# factor in player's intended movement
 	target.computeActiveMovement(delta)
+	target.update_facing_direction()
 	var new_direction = target.current_direction
 	if(new_direction != previous_direction):
 		target.change_state(on_turn_around)

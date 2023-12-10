@@ -43,7 +43,7 @@ func step(target: CharacterController, delta):
 			
 	# factor in player's intended movement
 	target.computeActiveMovement(delta)
-	target.update_sprite_direction()
+	target.update_facing_direction()
 	
 	var new_direction = target.current_direction
 	

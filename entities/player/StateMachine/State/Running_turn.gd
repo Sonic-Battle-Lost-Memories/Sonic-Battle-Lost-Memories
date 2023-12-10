@@ -26,6 +26,7 @@ func _ready():
 func setup(target: CharacterController):
 	target.sprite.play(main_animation)
 	target.allowing_double_jump = true
+	target.update_facing_direction()
 	time_elapsed = 0.0
 	pass
 

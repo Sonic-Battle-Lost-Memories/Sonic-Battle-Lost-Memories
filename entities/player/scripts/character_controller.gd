@@ -68,15 +68,13 @@ func computeActiveMovement(delta):
 	else:
 		velocity.x = lerp(velocity.x, 0.0, 10 * delta)
 		velocity.z = lerp(velocity.z, 0.0, 10 * delta)
-	
+	return
+
+func update_facing_direction():
 	if activeMovement.x <= -0.5:
 		current_direction = facing_direction.LEFT
+		sprite.flip_h = true
 	elif activeMovement.x >= 0.5:
 		current_direction = facing_direction.RIGHT
-
-func update_sprite_direction():
-	match(current_direction):
-		facing_direction.LEFT:
-			sprite.flip_h = true
-		facing_direction.RIGHT:
-			sprite.flip_h = false
+		sprite.flip_h = false
+	return

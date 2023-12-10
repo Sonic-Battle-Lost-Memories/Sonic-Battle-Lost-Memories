@@ -33,7 +33,7 @@ func setup(target: CharacterController):
 func step(target: CharacterController, delta):
 	time_elapsed += delta
 	
-	target.update_sprite_direction()
+	target.update_facing_direction()
 	if(time_elapsed > lifetime):
 		target.change_state(on_timed_out)
 	# Handle Jump.

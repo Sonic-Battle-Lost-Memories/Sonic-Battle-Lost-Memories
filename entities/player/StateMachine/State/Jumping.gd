@@ -31,7 +31,6 @@ func setup(target:CharacterController):
 func step(target: CharacterController, delta):
 	time_elapsed += delta
 	
-	target.update_sprite_direction()
 	# Double jump: only happens once and only allowed after a minimum air time.
 	if (not can_double_jump) and (not Input.is_action_just_pressed("jump")) and time_elapsed > time_till_air_action:
 		can_double_jump = true
@@ -48,6 +47,7 @@ func step(target: CharacterController, delta):
 	
 	# factor in player's intended movement
 	target.computeActiveMovement(delta)
+	target.update_facing_direction()
 	
 	# actually move the character
 	target.move_and_slide()
