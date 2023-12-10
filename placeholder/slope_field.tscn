@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://bpi5jish11cpx"]
 
 [ext_resource type="Texture2D" uid="uid://hvwvk2lqiifr" path="res://textures/aseprite/002a.png" id="1_wx3b4"]
-[ext_resource type="PackedScene" uid="uid://cd3f10inl6go1" path="res://entities/player/player.tscn" id="2_qga5u"]
+[ext_resource type="PackedScene" uid="uid://cd3f10inl6go1" path="res://entities/player/StateMachine/State/player.tscn" id="2_qga5u"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_x1i3a"]
 size = Vector3(0.00524902, 1.09772, 1)

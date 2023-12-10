@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://cvocwha4ahwqk" path="res://textures/aseprite/001.png" id="1_8mu1b"]
 [ext_resource type="Material" uid="uid://dm8wc172jl1c5" path="res://placeholder/materials/purple_mat.tres" id="2_yovvn"]
 [ext_resource type="Material" uid="uid://p5kubrlaaps1" path="res://placeholder/materials/brown_mat.tres" id="3_2woc0"]
-[ext_resource type="PackedScene" uid="uid://cd3f10inl6go1" path="res://entities/player/player.tscn" id="4_7vwct"]
+[ext_resource type="PackedScene" uid="uid://cd3f10inl6go1" path="res://entities/player/StateMachine/State/player.tscn" id="4_7vwct"]
 [ext_resource type="AudioStream" uid="uid://brmgfitjl1axt" path="res://music/Knot_Something.mp3" id="5_720rl"]
 [ext_resource type="PackedScene" uid="uid://d04473cjep52p" path="res://entities/generic/cpu_test.tscn" id="6_6cb7f"]
 

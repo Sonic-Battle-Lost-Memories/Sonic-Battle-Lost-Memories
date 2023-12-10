@@ -16,12 +16,12 @@ var activeMovement:Vector3 = Vector3(0,0,0)
 
 var allowing_double_jump = false
 
-@onready var sprite = $Sprite
+@onready var sprite: AnimatedSprite3D = $Sprite
 @onready var camnode = $CamNode
 @onready var camera = $CamNode/Camera
 @onready var point = $Sprite/Point
 @onready var stateTree = $States
-@onready var current_state:StateMachineState = $States/Walking
+@export var current_state: StateMachineState
 @onready var current_direction: facing_direction = facing_direction.RIGHT
 
 func _ready():
@@ -71,8 +71,12 @@ func computeActiveMovement(delta):
 	
 	if activeMovement.x <= -0.5:
 		current_direction = facing_direction.LEFT
-		sprite.flip_h = true
 	elif activeMovement.x >= 0.5:
 		current_direction = facing_direction.RIGHT
-		sprite.flip_h = false
 
+func update_sprite_direction():
+	match(current_direction):
+		facing_direction.LEFT:
+			sprite.flip_h = true
+		facing_direction.RIGHT:
+			sprite.flip_h = false
