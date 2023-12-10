@@ -1,4 +1,4 @@
-[gd_scene load_steps=160 format=3 uid="uid://cd3f10inl6go1"]
+[gd_scene load_steps=166 format=3 uid="uid://cd3f10inl6go1"]
 
 [ext_resource type="Script" path="res://entities/player/scripts/character_controller.gd" id="1_d776x"]
 [ext_resource type="PackedScene" uid="uid://dmr0fcamx7t56" path="res://joystick/virtual_joystick.tscn" id="2_ihn7u"]
@@ -51,11 +51,13 @@
 [ext_resource type="Texture2D" uid="uid://lqal72rcip7h" path="res://placeholder/sprites/Air Attack/sonicRocket_6.png" id="29_8t22n"]
 [ext_resource type="Script" path="res://entities/player/StateMachineNode.gd" id="32_lcb84"]
 [ext_resource type="Script" path="res://entities/player/AttackState.gd" id="33_g2pqb"]
+[ext_resource type="Texture2D" uid="uid://d1cvqugayenvr" path="res://placeholder/sprites/Stopping.png" id="38_g57od"]
 [ext_resource type="Texture2D" uid="uid://c76lxfolm7nle" path="res://placeholder/sprites/turn.png" id="38_mkhee"]
 [ext_resource type="Script" path="res://entities/player/Primary_air_Sonic.gd" id="44_8bpjx"]
 [ext_resource type="Script" path="res://entities/player/Double_jump_Sonic.gd" id="45_86jpm"]
 [ext_resource type="Script" path="res://entities/player/Airborne.gd" id="53_5rd1a"]
 [ext_resource type="Script" path="res://entities/player/Turn_around.gd" id="55_6n0vv"]
+[ext_resource type="Script" path="res://entities/player/Stopping.gd" id="57_in6yb"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_88btl"]
 atlas = ExtResource("3_wxo5t")
@@ -156,6 +158,22 @@ region = Rect2(330, 0, 40, 44)
 [sub_resource type="AtlasTexture" id="AtlasTexture_iwmpb"]
 atlas = ExtResource("7_xw8kx")
 region = Rect2(0, 0, 51, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_votvc"]
+atlas = ExtResource("38_g57od")
+region = Rect2(0, 0, 35, 35)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mq4ay"]
+atlas = ExtResource("38_g57od")
+region = Rect2(35, 0, 35, 35)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rmcmm"]
+atlas = ExtResource("38_g57od")
+region = Rect2(0, 35, 35, 35)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bntdp"]
+atlas = ExtResource("38_g57od")
+region = Rect2(35, 35, 35, 35)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_6xtsv"]
 atlas = ExtResource("38_mkhee")
@@ -658,6 +676,23 @@ animations = [{
 }, {
 "frames": [{
 "duration": 2.0,
+"texture": SubResource("AtlasTexture_votvc")
+}, {
+"duration": 3.0,
+"texture": SubResource("AtlasTexture_mq4ay")
+}, {
+"duration": 3.0,
+"texture": SubResource("AtlasTexture_rmcmm")
+}, {
+"duration": 2.0,
+"texture": SubResource("AtlasTexture_bntdp")
+}],
+"loop": true,
+"name": &"Stopping",
+"speed": 30.0
+}, {
+"frames": [{
+"duration": 2.0,
 "texture": SubResource("AtlasTexture_6xtsv")
 }, {
 "duration": 2.0,
@@ -936,8 +971,9 @@ double_sided = false
 texture_filter = 2
 render_priority = 1
 sprite_frames = SubResource("SpriteFrames_v8opn")
-animation = &"Turn around"
+animation = &"Stopping"
 autoplay = "idle"
+frame_progress = 0.52051
 
 [node name="Point" type="Marker3D" parent="Sprite"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -1008,13 +1044,15 @@ on_gained_air = NodePath("../Airborne")
 on_jumped = NodePath("../Jumping")
 on_turn_around = NodePath("../Turn around")
 
-[node name="Walking" type="Node" parent="States" node_paths=PackedStringArray("on_primary", "on_gained_air", "on_jumped", "on_stopped", "on_turn_around")]
+[node name="Walking" type="Node" parent="States" node_paths=PackedStringArray("on_primary", "on_gained_air", "on_jumped", "on_stopped", "on_turn_around", "on_stopped_hard")]
 script = ExtResource("9_br35p")
 on_primary = NodePath("../Primary1")
 on_gained_air = NodePath("../Airborne")
 on_jumped = NodePath("../Jumping")
 on_stopped = NodePath("../Idle")
 on_turn_around = NodePath("../Turn around")
+on_stopped_hard = NodePath("../Stopping")
+main_animation = "run"
 
 [node name="Jumping" type="Node" parent="States" node_paths=PackedStringArray("on_grounded", "on_primary", "on_double_jump")]
 script = ExtResource("10_wmm6m")
@@ -1025,52 +1063,49 @@ on_double_jump = NodePath("../Double_jump_sonic")
 
 [node name="Primary1" type="Node" parent="States" node_paths=PackedStringArray("on_primary", "on_gained_air", "on_timed_out")]
 script = ExtResource("33_g2pqb")
-lifetime = 0.233
-main_animation = "Primary1"
-frame_times = Array[float]([0.03333, 0.06666, 0.1333, 0.2])
 on_primary = NodePath("../Primary2")
 on_gained_air = NodePath("../Jumping")
 on_timed_out = NodePath("../Idle")
+main_animation = "Primary1"
+frame_times = Array[float]([0.03333, 0.06666, 0.1333, 0.2])
 time_till_next_hit_allowed = 0.03
+lifetime = 0.233
 
 [node name="Primary2" type="Node" parent="States" node_paths=PackedStringArray("on_primary", "on_gained_air", "on_timed_out")]
 script = ExtResource("33_g2pqb")
-lifetime = 0.233
-main_animation = "Primary2"
-frame_times = Array[float]([0.03333, 0.06666, 0.1333, 0.2])
 on_primary = NodePath("../Primary3")
 on_gained_air = NodePath("../Jumping")
 on_timed_out = NodePath("../Idle")
+main_animation = "Primary2"
+frame_times = Array[float]([0.03333, 0.06666, 0.1333, 0.2])
 time_till_next_hit_allowed = 0.03
+lifetime = 0.233
 
 [node name="Primary3" type="Node" parent="States" node_paths=PackedStringArray("on_primary", "on_gained_air", "on_timed_out")]
 script = ExtResource("33_g2pqb")
-lifetime = 0.42
-main_animation = "Primary3"
-frame_times = Array[float]([0.03333, 0.06666, 0.1333, 0.2, 0.23333, 0.3, 0.4])
 on_primary = NodePath("../Primary4")
 on_gained_air = NodePath("../Jumping")
 on_timed_out = NodePath("../Idle")
+main_animation = "Primary3"
+frame_times = Array[float]([0.03333, 0.06666, 0.1333, 0.2, 0.23333, 0.3, 0.4])
 time_till_next_hit_allowed = 0.03
+lifetime = 0.42
 
 [node name="Primary4" type="Node" parent="States" node_paths=PackedStringArray("on_primary", "on_gained_air", "on_timed_out")]
 script = ExtResource("33_g2pqb")
-lifetime = 0.983333
-main_animation = "Primary4"
-frame_times = Array[float]([0.03333, 0.06666, 0.1333, 0.2, 0.26666, 0.333333, 0.36666, 0.416666, 0.45, 0.466666, 0.633333, 0.8, 0.9])
 on_primary = NodePath("../Idle")
 on_gained_air = NodePath("../Jumping")
 on_timed_out = NodePath("../Idle")
+main_animation = "Primary4"
+frame_times = Array[float]([0.03333, 0.06666, 0.1333, 0.2, 0.26666, 0.333333, 0.36666, 0.416666, 0.45, 0.466666, 0.633333, 0.8, 0.9])
 time_till_next_hit_allowed = 0.1
+lifetime = 0.983333
 
 [node name="Primary_air" type="Node" parent="States" node_paths=PackedStringArray("on_primary", "on_timed_out", "on_touching_floor")]
 script = ExtResource("44_8bpjx")
-lifetime = 0.43
-main_animation = "Primary_air"
 on_primary = NodePath(".")
 on_timed_out = NodePath("../Airborne")
 on_touching_floor = NodePath("../Idle")
-time_till_next_hit_allowed = 0.15
 
 [node name="Double_jump_sonic" type="Node" parent="States" node_paths=PackedStringArray("on_grounded", "on_primary", "on_timeout")]
 script = ExtResource("45_86jpm")
@@ -1101,3 +1136,13 @@ on_stopped = NodePath("../Idle")
 on_timed_out = NodePath("../Walking")
 lifetime = 0.26
 main_animation = "Turn around"
+
+[node name="Stopping" type="Node" parent="States" node_paths=PackedStringArray("on_primary", "on_moved", "on_gained_air", "on_jumped", "on_turn_around", "on_timeout")]
+script = ExtResource("57_in6yb")
+on_primary = NodePath("../Primary1")
+on_moved = NodePath("../Walking")
+on_gained_air = NodePath("../Airborne")
+on_jumped = NodePath("../Jumping")
+on_turn_around = NodePath("../Turn around")
+on_timeout = NodePath("../Idle")
+lifetime = 0.3
