@@ -744,7 +744,7 @@ animations = [{
 "duration": 3.0,
 "texture": SubResource("AtlasTexture_mq4ay")
 }, {
-"duration": 3.0,
+"duration": 2.0,
 "texture": SubResource("AtlasTexture_rmcmm")
 }, {
 "duration": 2.0,
@@ -1035,7 +1035,7 @@ double_sided = false
 texture_filter = 2
 render_priority = 1
 sprite_frames = SubResource("SpriteFrames_v8opn")
-animation = &"Landing"
+animation = &"Stopping"
 autoplay = "idle"
 
 [node name="Point" type="Marker3D" parent="Sprite"]
@@ -1163,7 +1163,7 @@ on_gained_air = NodePath("../Airborne")
 on_jumped = NodePath("../Jumping")
 on_turn_around = NodePath("../Running turn")
 on_timeout = NodePath("../Idle")
-lifetime = 0.12
+lifetime = 0.2
 
 [node name="Running turn" type="Node" parent="States/StateMachineState/Movement" node_paths=PackedStringArray("on_primary", "on_gained_air", "on_jumped", "on_stopped", "on_timed_out")]
 script = ExtResource("57_iejl0")
