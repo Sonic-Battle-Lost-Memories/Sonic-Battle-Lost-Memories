@@ -1,4 +1,4 @@
-[gd_scene load_steps=173 format=3 uid="uid://cd3f10inl6go1"]
+[gd_scene load_steps=177 format=3 uid="uid://cd3f10inl6go1"]
 
 [ext_resource type="Script" path="res://entities/player/scripts/character_controller.gd" id="1_d776x"]
 [ext_resource type="PackedScene" uid="uid://dmr0fcamx7t56" path="res://joystick/virtual_joystick.tscn" id="2_ihn7u"]
@@ -29,6 +29,7 @@
 [ext_resource type="Script" path="res://entities/player/StateMachine/State/Jumping.gd" id="10_wmm6m"]
 [ext_resource type="Texture2D" uid="uid://dl3qquxr2a6fu" path="res://placeholder/sprites/primary4/4.png" id="10_wsjh5"]
 [ext_resource type="Texture2D" uid="uid://d3r3xyskh8ker" path="res://placeholder/sprites/primary4/5.png" id="11_1s1j3"]
+[ext_resource type="Texture2D" uid="uid://d1ym80b52t2ff" path="res://placeholder/sprites/Landing.png" id="11_d30vh"]
 [ext_resource type="Texture2D" uid="uid://bf8t11f6dmlfa" path="res://placeholder/sprites/primary4/6.png" id="12_c4d76"]
 [ext_resource type="Texture2D" uid="uid://cqptwosivum1g" path="res://placeholder/sprites/primary4/7.png" id="13_bxxhk"]
 [ext_resource type="Texture2D" uid="uid://bwwonyfwaiklk" path="res://placeholder/sprites/primary4/8.png" id="14_rv65r"]
@@ -77,6 +78,18 @@ region = Rect2(0, 40, 35, 40)
 [sub_resource type="AtlasTexture" id="AtlasTexture_cxsb1"]
 atlas = ExtResource("3_wxo5t")
 region = Rect2(35, 40, 35, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2l7po"]
+atlas = ExtResource("11_d30vh")
+region = Rect2(0, 0, 27, 30)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qm6gy"]
+atlas = ExtResource("11_d30vh")
+region = Rect2(27, 0, 27, 30)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p1o6q"]
+atlas = ExtResource("11_d30vh")
+region = Rect2(0, 30, 27, 30)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8io4y"]
 atlas = ExtResource("5_bo5jh")
@@ -538,6 +551,20 @@ animations = [{
 "loop": false,
 "name": &"Double_jump_sonic",
 "speed": 10.0
+}, {
+"frames": [{
+"duration": 2.0,
+"texture": SubResource("AtlasTexture_2l7po")
+}, {
+"duration": 2.0,
+"texture": SubResource("AtlasTexture_qm6gy")
+}, {
+"duration": 3.0,
+"texture": SubResource("AtlasTexture_p1o6q")
+}],
+"loop": false,
+"name": &"Landing",
+"speed": 30.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -1008,9 +1035,8 @@ double_sided = false
 texture_filter = 2
 render_priority = 1
 sprite_frames = SubResource("SpriteFrames_v8opn")
-animation = &"Running_turn"
+animation = &"Landing"
 autoplay = "idle"
-frame_progress = 0.852609
 
 [node name="Point" type="Marker3D" parent="Sprite"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -1096,7 +1122,7 @@ main_animation = "run"
 
 [node name="Jumping" type="Node" parent="States/StateMachineState/Movement" node_paths=PackedStringArray("on_grounded", "on_primary", "on_double_jump")]
 script = ExtResource("10_wmm6m")
-on_grounded = NodePath("../Idle")
+on_grounded = NodePath("../Landing")
 on_primary = NodePath("../../Attack/Primary_air")
 time_till_air_action = 0.15
 on_double_jump = NodePath("../Double_jump_sonic")
@@ -1113,7 +1139,7 @@ initial_impulse = Vector2(20, 12)
 
 [node name="Airborne" type="Node" parent="States/StateMachineState/Movement" node_paths=PackedStringArray("on_grounded", "on_primary", "on_double_jump")]
 script = ExtResource("53_5rd1a")
-on_grounded = NodePath("../Idle")
+on_grounded = NodePath("../Landing")
 on_primary = NodePath("../../Attack/Primary_air")
 on_double_jump = NodePath("../Double_jump_sonic")
 time_till_air_action = 0.15
@@ -1148,6 +1174,17 @@ on_stopped = NodePath("../Idle")
 on_timed_out = NodePath("../Walking")
 lifetime = 0.26
 main_animation = "Running_turn"
+
+[node name="Landing" type="Node" parent="States/StateMachineState/Movement" node_paths=PackedStringArray("on_primary", "on_moved", "on_gained_air", "on_jumped", "on_turn_around", "on_timeout")]
+script = ExtResource("57_in6yb")
+on_primary = NodePath("../../Attack/Primary1")
+on_moved = NodePath("../Walking")
+on_gained_air = NodePath("../Airborne")
+on_jumped = NodePath("../Jumping")
+on_turn_around = NodePath("../Running turn")
+on_timeout = NodePath("../Idle")
+lifetime = 0.15
+main_animation = "Landing"
 
 [node name="Attack" type="Node" parent="States/StateMachineState"]
 
