@@ -1,12 +1,14 @@
-[gd_scene load_steps=13 format=3 uid="uid://qdi46euyqn5b"]
+[gd_scene load_steps=15 format=3 uid="uid://qdi46euyqn5b"]
 
 [ext_resource type="Texture2D" uid="uid://cvocwha4ahwqk" path="res://textures/aseprite/001.png" id="1_sw4yd"]
 [ext_resource type="Material" uid="uid://dm8wc172jl1c5" path="res://placeholder/materials/purple_mat.tres" id="2_4m6lm"]
 [ext_resource type="Material" uid="uid://d0qmmg6lvfnwg" path="res://placeholder/textures/test_stage_1/metal_walls_green.tres" id="2_asjr5"]
 [ext_resource type="Material" uid="uid://p5kubrlaaps1" path="res://placeholder/materials/brown_mat.tres" id="3_c6vmo"]
 [ext_resource type="PackedScene" uid="uid://cd3f10inl6go1" path="res://entities/player/StateMachine/State/player.tscn" id="3_h61iq"]
+[ext_resource type="Script" path="res://placeholder/Arbiter.gd" id="5_hlmm4"]
 [ext_resource type="PackedScene" uid="uid://d04473cjep52p" path="res://entities/generic/cpu_test.tscn" id="5_njb0l"]
 [ext_resource type="AudioStream" uid="uid://brmgfitjl1axt" path="res://music/Knot_Something.mp3" id="7_ntuoi"]
+[ext_resource type="PackedScene" uid="uid://depf0mebphjn1" path="res://Camera/camera_pivot.tscn" id="9_ijt2w"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_w71u5"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -123,38 +125,46 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, -1)
 size = Vector3(2, 2.5, 2)
 material = ExtResource("3_c6vmo")
 
-[node name="Player" parent="." instance=ExtResource("3_h61iq")]
+[node name="Arbiter" type="Node" parent="."]
+script = ExtResource("5_hlmm4")
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+[node name="Player" parent="Arbiter" instance=ExtResource("3_h61iq")]
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Arbiter"]
 stream = ExtResource("7_ntuoi")
 autoplay = true
 
-[node name="CPU" parent="." node_paths=PackedStringArray("target") instance=ExtResource("5_njb0l")]
+[node name="CPU" parent="Arbiter" node_paths=PackedStringArray("target") instance=ExtResource("5_njb0l")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.02562, 9.53674e-07, 0.143216)
 target = NodePath("../Player")
 
-[node name="CPU2" parent="." node_paths=PackedStringArray("target") instance=ExtResource("5_njb0l")]
+[node name="CPU2" parent="Arbiter" node_paths=PackedStringArray("target") instance=ExtResource("5_njb0l")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.02562, 9.53674e-07, 0.143216)
 target = NodePath("../CPU")
 
-[node name="CPU3" parent="." node_paths=PackedStringArray("target") instance=ExtResource("5_njb0l")]
+[node name="CPU3" parent="Arbiter" node_paths=PackedStringArray("target") instance=ExtResource("5_njb0l")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.02562, 9.53674e-07, 0.143216)
 target = NodePath("../CPU2")
 
-[node name="CPU4" parent="." node_paths=PackedStringArray("target") instance=ExtResource("5_njb0l")]
+[node name="CPU4" parent="Arbiter" node_paths=PackedStringArray("target") instance=ExtResource("5_njb0l")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.02562, 9.53674e-07, 0.143216)
 target = NodePath("../CPU3")
 
-[node name="CPU5" parent="." node_paths=PackedStringArray("target") instance=ExtResource("5_njb0l")]
+[node name="CPU5" parent="Arbiter" node_paths=PackedStringArray("target") instance=ExtResource("5_njb0l")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.0256, 9.53674e-07, 0.143216)
 target = NodePath("../CPU4")
 
-[node name="Oof" parent="." node_paths=PackedStringArray("target") instance=ExtResource("5_njb0l")]
+[node name="Oof" parent="Arbiter" node_paths=PackedStringArray("target") instance=ExtResource("5_njb0l")]
 transform = Transform3D(0.258819, 0, 0.965926, 0, 1, 0, -0.965926, 0, 0.258819, -7.22438, 1.5, -14.1068)
 target = NodePath("../Oof2")
 is_offense = true
 
-[node name="Oof2" parent="." node_paths=PackedStringArray("target") instance=ExtResource("5_njb0l")]
+[node name="Oof2" parent="Arbiter" node_paths=PackedStringArray("target") instance=ExtResource("5_njb0l")]
 transform = Transform3D(-0.258819, 0, -0.965926, 0, 1, 0, 0.965926, 0, -0.258819, -5.72438, 1.5, -14.1068)
 target = NodePath("../Oof")
 is_offense = true
+
+[node name="CameraPivot" parent="." instance=ExtResource("9_ijt2w")]
+
+[node name="Centerpoint" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10.4601, 17.2596)

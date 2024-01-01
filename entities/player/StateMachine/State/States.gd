@@ -21,11 +21,19 @@ extends Node
 #primary attack, fourth hit
 @export var primary4_state_name = "Primary4"
 
+#shield node
+@export var shield = "Shield"
+
+#heal node
+@export var heal = "Heal"
+
+#respawn node
+@export var respawn = "Respawn"
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _process(_delta):
 	pass

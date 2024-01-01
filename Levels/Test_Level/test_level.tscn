@@ -146,3 +146,5 @@ transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0, 0)
 
 [node name="CPU" parent="NavigationRegion3D" instance=ExtResource("7_5yvxk")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.02562, -0.0186009, 0.143216)
+
+[node name="LightmapGI" type="LightmapGI" parent="."]

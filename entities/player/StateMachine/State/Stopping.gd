@@ -55,8 +55,8 @@ func step(target: CharacterController, delta):
 		#If attack AND move happened simultaneously, attack state will happen.
 		target.change_state(on_primary)
 		return
-	if(not(target.is_on_floor()) and target.velocity.y > 0.1 * target.JUMP_VELOCITY):
-		target.change_state(on_jumped)
+	if(not(target.is_on_floor())):
+		target.change_state(on_gained_air)
 		return
 	if (time_elapsed > lifetime):
 		if target.activeMovement:
