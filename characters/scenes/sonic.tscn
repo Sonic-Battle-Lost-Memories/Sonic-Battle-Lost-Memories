@@ -1,4 +1,4 @@
-[gd_scene load_steps=164 format=3 uid="uid://bvjosqw18oxfq"]
+[gd_scene load_steps=165 format=3 uid="uid://bvjosqw18oxfq"]
 
 [ext_resource type="Texture2D" uid="uid://bgdv60nppfh6v" path="res://placeholder/sprites/Airborne.png" id="1_15n2y"]
 [ext_resource type="Texture2D" uid="uid://didejyfucpk64" path="res://placeholder/sprites/Air Action(ballet)/ballet_0.png" id="2_e6a88"]
@@ -46,10 +46,6 @@
 [ext_resource type="Texture2D" uid="uid://d2tsgmy8lakae" path="res://placeholder/sprites/run_test.png" id="44_nwn8r"]
 [ext_resource type="Script" path="res://characters/scripts/HurtboxManager.gd" id="45_ls72n"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_88btl"]
-atlas = ExtResource("1_15n2y")
-region = Rect2(0, 0, 35, 40)
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_iv454"]
 atlas = ExtResource("1_15n2y")
 region = Rect2(35, 0, 35, 40)
@@ -61,6 +57,10 @@ region = Rect2(0, 40, 35, 40)
 [sub_resource type="AtlasTexture" id="AtlasTexture_cxsb1"]
 atlas = ExtResource("1_15n2y")
 region = Rect2(35, 40, 35, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_88btl"]
+atlas = ExtResource("1_15n2y")
+region = Rect2(0, 0, 35, 40)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_2l7po"]
 atlas = ExtResource("9_k8mb1")
@@ -493,9 +493,6 @@ region = Rect2(224, 0, 32, 36)
 [sub_resource type="SpriteFrames" id="SpriteFrames_v8opn"]
 animations = [{
 "frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_88btl")
-}, {
 "duration": 2.0,
 "texture": SubResource("AtlasTexture_iv454")
 }, {
@@ -504,6 +501,9 @@ animations = [{
 }, {
 "duration": 2.0,
 "texture": SubResource("AtlasTexture_cxsb1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_88btl")
 }],
 "loop": true,
 "name": &"Airborne",
@@ -996,7 +996,6 @@ animations = [{
 [sub_resource type="BoxMesh" id="BoxMesh_qoudv"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_t8heh"]
-size = Vector3(1, 1.56207, 0.655273)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kkv6r"]
 transparency = 1
@@ -1007,10 +1006,22 @@ material = SubResource("StandardMaterial3D_kkv6r")
 
 [sub_resource type="Animation" id="Animation_2umek"]
 resource_name = "Idle"
+length = 1.30001
+tracks/0/type = "scale_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Hurtbox Manager/Hurtboxes/Area3D")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array()
+
+[sub_resource type="Animation" id="Animation_a07e6"]
+length = 0.001
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_xsgp5"]
 _data = {
-"Idle": SubResource("Animation_2umek")
+"Idle": SubResource("Animation_2umek"),
+"RESET": SubResource("Animation_a07e6")
 }
 
 [node name="Sonic" type="AnimatedSprite3D"]
@@ -1038,15 +1049,15 @@ mesh = SubResource("BoxMesh_qoudv")
 script = ExtResource("45_ls72n")
 
 [node name="Hurtboxes" type="Node3D" parent="Hurtbox Manager"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0519912, 0, 0)
 
 [node name="Area3D" type="Area3D" parent="Hurtbox Manager/Hurtboxes"]
+transform = Transform3D(1, 0, 0, 0, 1.49033, 0, 0, 0, 0.609963, 0, 0.872614, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Hurtbox Manager/Hurtboxes/Area3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0953952, 0.83756, 0.00997388)
 shape = SubResource("BoxShape3D_t8heh")
 
 [node name="CSGMesh3D" type="CSGMesh3D" parent="Hurtbox Manager/Hurtboxes/Area3D"]
-transform = Transform3D(1, 0, 0, 0, 1.74656, 0, 0, 0, 0.711364, -0.0916245, 0.775942, -0.0116853)
 mesh = SubResource("BoxMesh_ms7ii")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
