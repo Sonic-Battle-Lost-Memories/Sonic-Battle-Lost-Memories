@@ -1,4 +1,4 @@
-[gd_scene load_steps=177 format=3 uid="uid://cd3f10inl6go1"]
+[gd_scene load_steps=181 format=3 uid="uid://cd3f10inl6go1"]
 
 [ext_resource type="Script" path="res://entities/player/scripts/character_controller.gd" id="1_d776x"]
 [ext_resource type="PackedScene" uid="uid://dmr0fcamx7t56" path="res://joystick/virtual_joystick.tscn" id="2_ihn7u"]
@@ -57,11 +57,15 @@
 [ext_resource type="Texture2D" uid="uid://c76lxfolm7nle" path="res://placeholder/sprites/turn.png" id="38_mkhee"]
 [ext_resource type="Script" path="res://entities/player/StateMachine/State/Primary_air_Sonic.gd" id="44_8bpjx"]
 [ext_resource type="Script" path="res://entities/player/StateMachine/State/Double_jump_Sonic.gd" id="45_86jpm"]
+[ext_resource type="Script" path="res://entities/player/StateMachine/State/HealthComponent.gd" id="50_j88x2"]
 [ext_resource type="Script" path="res://entities/player/StateMachine/State/Airborne.gd" id="53_5rd1a"]
 [ext_resource type="Script" path="res://entities/player/StateMachine/State/Turn_around.gd" id="55_6n0vv"]
 [ext_resource type="Script" path="res://entities/player/StateMachine/State/Running_turn.gd" id="57_iejl0"]
 [ext_resource type="Script" path="res://entities/player/StateMachine/State/Stopping.gd" id="57_in6yb"]
 [ext_resource type="Script" path="res://entities/player/StateMachine/State/StateBehaviour.gd" id="61_pp8w4"]
+[ext_resource type="Script" path="res://entities/player/StateMachine/State/Shield.gd" id="63_1f6gj"]
+[ext_resource type="Script" path="res://entities/player/StateMachine/State/Heal.gd" id="64_w536g"]
+[ext_resource type="Script" path="res://entities/player/StateMachine/State/Respawn.gd" id="65_3ho01"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_88btl"]
 atlas = ExtResource("3_wxo5t")
@@ -522,9 +526,9 @@ animations = [{
 "duration": 2.0,
 "texture": SubResource("AtlasTexture_cxsb1")
 }],
-"loop": false,
+"loop": true,
 "name": &"Airborne",
-"speed": 30.0
+"speed": 15.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -978,7 +982,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"jump",
-"speed": 60.0
+"speed": 15.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -1027,16 +1031,19 @@ action_up = "up"
 action_down = "down"
 
 [node name="Sprite" type="AnimatedSprite3D" parent="."]
-cast_shadow = 0
+cast_shadow = 2
 offset = Vector2(0, 18)
 pixel_size = 0.05
 billboard = 1
+shaded = true
 double_sided = false
+alpha_cut = 2
 texture_filter = 2
 render_priority = 1
 sprite_frames = SubResource("SpriteFrames_v8opn")
-animation = &"Stopping"
+animation = &"Airborne"
 autoplay = "idle"
+frame_progress = 0.726939
 
 [node name="Point" type="Marker3D" parent="Sprite"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -1062,15 +1069,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.00193492, 0)
 pixel_size = 0.1
 double_sided = false
 
-[node name="CamNode" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.831955, 0.554844, 0, -0.554845, 0.831954, 0, 1, 0)
-
-[node name="Camera" type="Camera3D" parent="CamNode"]
-transform = Transform3D(1, 1.49012e-08, 1.49012e-08, -1.49012e-08, 1, 7.10543e-15, -1.49012e-08, -7.32747e-15, 1, 0, 0, 28)
-projection = 1
-size = 8.0
-near = 0.01
-
 [node name="Control" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 3
@@ -1093,6 +1091,10 @@ visibility_mode = 1
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CapsuleShape3D_53g5n")
 
+[node name="HealthComponent" type="Node" parent="."]
+script = ExtResource("50_j88x2")
+maxHealth = 100.0
+
 [node name="States" type="Node" parent="."]
 script = ExtResource("9_xtmgv")
 
@@ -1101,15 +1103,16 @@ script = ExtResource("32_lcb84")
 
 [node name="Movement" type="Node" parent="States/StateMachineState"]
 
-[node name="Idle" type="Node" parent="States/StateMachineState/Movement" node_paths=PackedStringArray("on_primary", "on_moved", "on_gained_air", "on_jumped", "on_turn_around")]
+[node name="Idle" type="Node" parent="States/StateMachineState/Movement" node_paths=PackedStringArray("on_primary", "on_moved", "on_gained_air", "on_jumped", "on_turn_around", "on_shield")]
 script = ExtResource("10_gwqhk")
 on_primary = NodePath("../../Attack/Primary1")
 on_moved = NodePath("../Walking")
 on_gained_air = NodePath("../Airborne")
 on_jumped = NodePath("../Jumping")
 on_turn_around = NodePath("../Turn around")
+on_shield = NodePath("../../Health/Shield")
 
-[node name="Walking" type="Node" parent="States/StateMachineState/Movement" node_paths=PackedStringArray("on_primary", "on_gained_air", "on_jumped", "on_stopped", "on_turn_around", "on_stopped_hard")]
+[node name="Walking" type="Node" parent="States/StateMachineState/Movement" node_paths=PackedStringArray("on_primary", "on_gained_air", "on_jumped", "on_stopped", "on_turn_around", "on_stopped_hard", "on_shield")]
 script = ExtResource("9_br35p")
 on_primary = NodePath("../../Attack/Primary1")
 on_gained_air = NodePath("../Airborne")
@@ -1117,15 +1120,13 @@ on_jumped = NodePath("../Jumping")
 on_stopped = NodePath("../Idle")
 on_turn_around = NodePath("../Turn around")
 on_stopped_hard = NodePath("../Stopping")
+on_shield = NodePath("../../Health/Shield")
 time_till_hard_stop = 0.3
 main_animation = "run"
 
-[node name="Jumping" type="Node" parent="States/StateMachineState/Movement" node_paths=PackedStringArray("on_grounded", "on_primary", "on_double_jump")]
+[node name="Jumping" type="Node" parent="States/StateMachineState/Movement"]
 script = ExtResource("10_wmm6m")
-on_grounded = NodePath("../Landing")
-on_primary = NodePath("../../Attack/Primary_air")
-time_till_air_action = 0.15
-on_double_jump = NodePath("../Double_jump_sonic")
+main_animation = "jump"
 
 [node name="Double_jump_sonic" type="Node" parent="States/StateMachineState/Movement" node_paths=PackedStringArray("on_grounded", "on_primary", "on_timeout")]
 script = ExtResource("45_86jpm")
@@ -1234,5 +1235,51 @@ on_primary = NodePath(".")
 on_timed_out = NodePath("../../Movement/Airborne")
 on_touching_floor = NodePath("../../Movement/Idle")
 
+[node name="Health" type="Node" parent="States/StateMachineState"]
+
+[node name="Shield" type="Node" parent="States/StateMachineState/Health" node_paths=PackedStringArray("on_input_stopped", "on_movement_detected", "on_primary", "on_jump_input", "on_timer_expiration", "on_turn_around")]
+script = ExtResource("63_1f6gj")
+time_till_heal = 5.0
+on_input_stopped = NodePath("../../Movement/Idle")
+on_movement_detected = NodePath("../../Movement/Walking")
+on_primary = NodePath("../../Attack/Primary1")
+on_jump_input = NodePath("../../Movement/Jumping")
+on_timer_expiration = NodePath("../Heal")
+on_turn_around = NodePath("../../Movement/Turn around")
+
+[node name="Timer" type="Timer" parent="States/StateMachineState/Health/Shield"]
+one_shot = true
+
+[node name="Heal" type="Node" parent="States/StateMachineState/Health" node_paths=PackedStringArray("health_component", "on_idle", "on_walk_input", "on_turn_around", "on_jump", "on_primary")]
+script = ExtResource("64_w536g")
+health_component = NodePath("../../../../HealthComponent")
+on_idle = NodePath("../../Movement/Idle")
+on_walk_input = NodePath("../../Movement/Walking")
+on_turn_around = NodePath("../../Movement/Turn around")
+on_jump = NodePath("../../Movement/Jumping")
+on_primary = NodePath("../../Attack/Primary1")
+regenRate = 0.25
+
+[node name="Respawn" type="Node" parent="States/StateMachineState/Health" node_paths=PackedStringArray("deathRay", "deathCursor")]
+script = ExtResource("65_3ho01")
+deathRay = NodePath("../../../../DeathRay")
+deathCursor = NodePath("../../../../DeathCursor")
+
 [node name="StateBehaviour" type="Node" parent="States"]
 script = ExtResource("61_pp8w4")
+
+[node name="DeathRay" type="RayCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 23.877, 0)
+target_position = Vector3(0, -50, 0)
+
+[node name="DeathCursor" type="Node3D" parent="."]
+visible = false
+
+[node name="Sprite3D" type="Sprite3D" parent="DeathCursor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.829943, 0)
+billboard = 1
+texture = ExtResource("7_6jfpq")
+
+[node name="CameraPivot" type="Node3D" parent="."]
+
+[connection signal="timeout" from="States/StateMachineState/Health/Shield/Timer" to="States/StateMachineState/Health/Shield" method="_on_timer_timeout"]

@@ -12,6 +12,7 @@ var gravity = ProjectSettings.get_setting("physics/3d/default_gravity") * 2
 @onready var attack_timer = $AttackTimer
 @export var target: Node
 @export var is_offense = false
+@onready var healthComponent = $HealthComponent
 
 func _process(delta):
 	if target:
@@ -72,3 +73,6 @@ func _on_area_3d_body_entered(body):
 			#attack_timer.start()
 			var direction = (body.transform.origin - global_transform.origin).normalized()
 			body.velocity += Vector3(direction.x * 32, 0, direction.z * 32)
+
+func get_health_component() -> HealthComponent:
+	return healthComponent
