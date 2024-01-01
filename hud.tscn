@@ -43,6 +43,7 @@ layout_mode = 2
 script = ExtResource("2_sp4vl")
 
 [node name="PlayerLives" type="Label" parent="VSplitContainer2/ProgressBar"]
+layout_mode = 0
 offset_left = 2.0
 offset_top = 21.0
 offset_right = 42.0

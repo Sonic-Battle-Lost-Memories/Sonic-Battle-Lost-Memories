@@ -10,7 +10,7 @@ config_version=5
 
 [application]
 
-config/name="Sonic Freedom Battle GBA Resolution Test"
+config/name="Sonic Battle: Lost Memories"
 run/main_scene="res://Levels/Test_Level/test_level.tscn"
 config/features=PackedStringArray("4.2", "GL Compatibility")
 run/max_fps=60

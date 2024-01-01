@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://biqyecqg7enbe"]
+[gd_scene load_steps=15 format=3 uid="uid://biqyecqg7enbe"]
 
 [ext_resource type="PackedScene" uid="uid://cd3f10inl6go1" path="res://entities/player/StateMachine/State/player.tscn" id="2_p1c3q"]
 [ext_resource type="PackedScene" uid="uid://ya5rp5f5i663" path="res://Levels/Test_Level/test_level_mesh.tscn" id="3_la2qp"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" path="res://Levels/Test_Level/LevelSettings.gd" id="5_2xbia"]
 [ext_resource type="Script" path="res://SettingResource.gd" id="6_gra2d"]
 [ext_resource type="PackedScene" uid="uid://d04473cjep52p" path="res://entities/generic/cpu_test.tscn" id="7_5yvxk"]
+[ext_resource type="AudioStream" uid="uid://djb3al227cwh1" path="res://Levels/Test_Level/Audio/SB_-_New_Colliseum_Demo_3.mp3" id="7_qyuih"]
 
 [sub_resource type="Resource" id="Resource_uqhiu"]
 script = ExtResource("6_gra2d")
@@ -143,6 +144,10 @@ shape = SubResource("BoxShape3D_etcm4")
 
 [node name="sbattle1" parent="NavigationRegion3D/Environment" instance=ExtResource("3_la2qp")]
 transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0, 0)
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="NavigationRegion3D/Environment"]
+stream = ExtResource("7_qyuih")
+autoplay = true
 
 [node name="CPU" parent="NavigationRegion3D" instance=ExtResource("7_5yvxk")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.02562, -0.0186009, 0.143216)

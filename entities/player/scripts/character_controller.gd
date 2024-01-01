@@ -2,6 +2,7 @@ class_name CharacterController
 extends CharacterBody3D
 
 var SPEED = 16.0
+var ACCELERATION = 6.5
 var JUMP_VELOCITY = 18.0
 
 enum facing_direction {RIGHT, LEFT} 
@@ -16,12 +17,13 @@ var activeMovement:Vector3 = Vector3(0,0,0)
 
 var allowing_double_jump = false
 
-@onready var sprite: AnimatedSprite3D = $Sprite
-@onready var point = $Sprite/Point
+var sprite: AnimatedSprite3D
+var point: Node3D
+@export var characterData: CharacterData
 @onready var stateTree = $States
 @onready var healthComponent = $HealthComponent
 @onready var collision = $CollisionShape3D
-@onready var Sprite = $Sprite
+var Sprite
 @onready var Shadow_not_the_Hedgehog = $DropShadow
 @export var current_state: StateMachineState
 @onready var respawn = $States/StateMachineState/Health/Respawn
@@ -32,6 +34,13 @@ var input_dir: Vector2
 
 func _ready():
 	pivot.top_level = true
+	var player = characterData.Sprite.instantiate()
+	add_child(player)
+	point = player.get_node("Point")
+	sprite = player
+	Sprite = player
+	SPEED = characterData.maxSpeed
+	ACCELERATION = characterData.acceleration
 	pass
 #	if(is_on_floor):
 #		current_state = stateTree.find_child("Jumping")
@@ -40,6 +49,8 @@ func _ready():
 func _physics_process(delta):
 	#look_at(point.global_position)
 	#camnode.global_position.z = lerp(camnode.global_position.z, point.global_position.z, 2.5 * delta)
+	if point == null:
+		return
 	global_position.z = point.global_position.z
 	if healthComponent.currentHealth <= 0:
 		respawn.setup(self)
@@ -80,8 +91,8 @@ func computeActiveMovement(delta):
 	input_dir = Input.get_vector("left", "right", "up", "down")
 	activeMovement = (global_transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	if activeMovement:
-		velocity.x = lerp(velocity.x, activeMovement.x * SPEED, 6.5 * delta)
-		velocity.z = lerp(velocity.z, activeMovement.z * SPEED, 6.5 * delta)
+		velocity.x = lerp(velocity.x, activeMovement.x * SPEED,ACCELERATION  * delta)
+		velocity.z = lerp(velocity.z, activeMovement.z * SPEED,ACCELERATION  * delta)
 		sprite.rotation.y = atan2(velocity.x, velocity.z)
 	else:
 		velocity.x = lerp(velocity.x, 0.0, 10 * delta)
