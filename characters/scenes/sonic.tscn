@@ -1,4 +1,4 @@
-[gd_scene load_steps=165 format=3 uid="uid://bvjosqw18oxfq"]
+[gd_scene load_steps=168 format=3 uid="uid://bvjosqw18oxfq"]
 
 [ext_resource type="Texture2D" uid="uid://bgdv60nppfh6v" path="res://placeholder/sprites/Airborne.png" id="1_15n2y"]
 [ext_resource type="Texture2D" uid="uid://didejyfucpk64" path="res://placeholder/sprites/Air Action(ballet)/ballet_0.png" id="2_e6a88"]
@@ -45,6 +45,7 @@
 [ext_resource type="Texture2D" uid="uid://62choiwgif0m" path="res://placeholder/sprites/jump_test.png" id="43_syhdu"]
 [ext_resource type="Texture2D" uid="uid://d2tsgmy8lakae" path="res://placeholder/sprites/run_test.png" id="44_nwn8r"]
 [ext_resource type="Script" path="res://characters/scripts/HurtboxManager.gd" id="45_ls72n"]
+[ext_resource type="Script" path="res://characters/scenes/AnimationSyncronizer.gd" id="46_sg184"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_iv454"]
 atlas = ExtResource("1_15n2y")
@@ -1004,55 +1005,138 @@ albedo_color = Color(0.290196, 0.611765, 0, 0.529412)
 [sub_resource type="BoxMesh" id="BoxMesh_ms7ii"]
 material = SubResource("StandardMaterial3D_kkv6r")
 
+[sub_resource type="Animation" id="Animation_a07e6"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Hurtbox Manager/Hurtboxes:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.989182, 1.45115, 0.763853)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Hurtbox Manager/Hurtboxes:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0.769199, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_ovdod"]
+resource_name = "jump"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Hurtbox Manager/Hurtboxes:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(1),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(1.51461, 1.83217, 0.763853)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Hurtbox Manager/Hurtboxes:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(1),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.0590259, 0.978804, 0)]
+}
+
 [sub_resource type="Animation" id="Animation_2umek"]
-resource_name = "Idle"
+resource_name = "idle"
 length = 1.30001
 tracks/0/type = "scale_3d"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Hurtbox Manager/Hurtboxes/Area3D")
+tracks/0/path = NodePath("Hurtbox Manager/Hurtboxes")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = PackedFloat32Array()
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Hurtbox Manager/Hurtboxes:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.989182, 1.45115, 0.763853)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Hurtbox Manager/Hurtboxes:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0.769199, 0)]
+}
 
-[sub_resource type="Animation" id="Animation_a07e6"]
-length = 0.001
+[sub_resource type="Animation" id="Animation_xh0h8"]
+resource_name = "Primary1"
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_xsgp5"]
 _data = {
-"Idle": SubResource("Animation_2umek"),
-"RESET": SubResource("Animation_a07e6")
+"Primary1": SubResource("Animation_xh0h8"),
+"RESET": SubResource("Animation_a07e6"),
+"idle": SubResource("Animation_2umek"),
+"jump": SubResource("Animation_ovdod")
 }
 
 [node name="Sonic" type="AnimatedSprite3D"]
 cast_shadow = 2
 offset = Vector2(0, 18)
 pixel_size = 0.05
-billboard = 1
+billboard = 2
 shaded = true
 double_sided = false
 alpha_cut = 2
 texture_filter = 2
 render_priority = 1
 sprite_frames = SubResource("SpriteFrames_v8opn")
-animation = &"idle"
+animation = &"Primary1"
 autoplay = "idle"
+frame = 5
+frame_progress = 1.0
 
 [node name="Point" type="Marker3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+visible = false
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.25, 0, 1.75)
+visible = false
 mesh = SubResource("BoxMesh_qoudv")
 
 [node name="Hurtbox Manager" type="Node" parent="."]
 script = ExtResource("45_ls72n")
 
 [node name="Hurtboxes" type="Node3D" parent="Hurtbox Manager"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0519912, 0, 0)
+transform = Transform3D(0.989182, 0, 0, 0, 1.45115, 0, 0, 0, 0.763853, 0, 0.769199, 0)
 
 [node name="Area3D" type="Area3D" parent="Hurtbox Manager/Hurtboxes"]
-transform = Transform3D(1, 0, 0, 0, 1.49033, 0, 0, 0, 0.609963, 0, 0.872614, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Hurtbox Manager/Hurtboxes/Area3D"]
 shape = SubResource("BoxShape3D_t8heh")
@@ -1064,3 +1148,4 @@ mesh = SubResource("BoxMesh_ms7ii")
 libraries = {
 "": SubResource("AnimationLibrary_xsgp5")
 }
+script = ExtResource("46_sg184")
