@@ -29,6 +29,10 @@ window/size/window_height_override=640
 window/stretch/mode="viewport"
 window/stretch/aspect="expand"
 
+[filesystem]
+
+import/fbx/enabled=false
+
 [importer_defaults]
 
 texture={
