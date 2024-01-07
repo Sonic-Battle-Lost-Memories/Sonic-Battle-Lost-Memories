@@ -1013,7 +1013,7 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Hurtbox Manager/Hurtboxes:scale")
+tracks/0/path = NodePath("Hurtbox Manager/Position Controller/Hurtboxes:scale")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -1025,7 +1025,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Hurtbox Manager/Hurtboxes:position")
+tracks/1/path = NodePath("Hurtbox Manager/Position Controller/Hurtboxes:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -1041,14 +1041,14 @@ length = 1.30001
 tracks/0/type = "scale_3d"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Hurtbox Manager/Hurtboxes")
+tracks/0/path = NodePath("Hurtbox Manager/Position Controller/Hurtboxes")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = PackedFloat32Array()
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Hurtbox Manager/Hurtboxes:scale")
+tracks/1/path = NodePath("Hurtbox Manager/Position Controller/Hurtboxes:scale")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -1060,7 +1060,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Hurtbox Manager/Hurtboxes:position")
+tracks/2/path = NodePath("Hurtbox Manager/Position Controller/Hurtboxes:position")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -1075,7 +1075,7 @@ resource_name = "jump"
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Hurtbox Manager/Hurtboxes:scale")
+tracks/0/path = NodePath("Hurtbox Manager/Position Controller/Hurtboxes:scale")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -1087,7 +1087,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Hurtbox Manager/Hurtboxes:position")
+tracks/1/path = NodePath("Hurtbox Manager/Position Controller/Hurtboxes:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -1133,16 +1133,33 @@ mesh = SubResource("BoxMesh_qoudv")
 [node name="Hurtbox Manager" type="Node" parent="."]
 script = ExtResource("45_ls72n")
 
-[node name="Hurtboxes" type="Node3D" parent="Hurtbox Manager"]
+[node name="Position Controller" type="Node3D" parent="Hurtbox Manager"]
+
+[node name="Hurtboxes" type="Node3D" parent="Hurtbox Manager/Position Controller"]
 transform = Transform3D(0.989182, 0, 0, 0, 1.45115, 0, 0, 0, 0.763853, 0, 0.769199, 0)
-visible = false
 
-[node name="Area3D" type="Area3D" parent="Hurtbox Manager/Hurtboxes"]
+[node name="Area3D" type="Area3D" parent="Hurtbox Manager/Position Controller/Hurtboxes"]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Hurtbox Manager/Hurtboxes/Area3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Hurtbox Manager/Position Controller/Hurtboxes/Area3D"]
 shape = SubResource("BoxShape3D_t8heh")
 
-[node name="CSGMesh3D" type="CSGMesh3D" parent="Hurtbox Manager/Hurtboxes/Area3D"]
+[node name="CSGMesh3D" type="CSGMesh3D" parent="Hurtbox Manager/Position Controller/Hurtboxes/Area3D"]
+mesh = SubResource("BoxMesh_ms7ii")
+
+[node name="Hitbox Manager2" type="Node" parent="."]
+script = ExtResource("45_ls72n")
+
+[node name="Position Controller" type="Node3D" parent="Hitbox Manager2"]
+
+[node name="Hurtboxes" type="Node3D" parent="Hitbox Manager2/Position Controller"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.769199, 0)
+
+[node name="Area3D" type="Area3D" parent="Hitbox Manager2/Position Controller/Hurtboxes"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Hitbox Manager2/Position Controller/Hurtboxes/Area3D"]
+shape = SubResource("BoxShape3D_t8heh")
+
+[node name="CSGMesh3D" type="CSGMesh3D" parent="Hitbox Manager2/Position Controller/Hurtboxes/Area3D"]
 mesh = SubResource("BoxMesh_ms7ii")
 
 [node name="Hitbox Manager" type="Node" parent="."]
