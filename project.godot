@@ -22,8 +22,9 @@ Level="*res://Camera/Level_Data.gd"
 
 [display]
 
-window/size/viewport_width=480
-window/size/viewport_height=360
+window/size/viewport_width=1920
+window/size/viewport_height=1080
+window/size/mode=3
 window/size/window_width_override=960
 window/size/window_height_override=640
 window/stretch/mode="viewport"
@@ -103,4 +104,5 @@ debug_kill_f2={
 
 renderer/rendering_method.mobile="gl_compatibility"
 lights_and_shadows/directional_shadow/16_bits=false
+anti_aliasing/quality/msaa_3d=1
 lights_and_shadows/positional_shadow/atlas_16_bits=false

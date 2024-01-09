@@ -77,8 +77,8 @@ func step(target: CharacterController, delta):
 		target.change_state(on_primary)
 		return
 	if(not(target.is_on_floor())):
-	#	target.change_state(on_gained_air)
-		target.change_state(on_jumped)
+		target.change_state(on_gained_air)
+	#	target.change_state(on_jumped)
 		#return
 	if target.activeMovement:
 		target.change_state(on_moved)
