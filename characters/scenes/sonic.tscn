@@ -1,4 +1,4 @@
-[gd_scene load_steps=168 format=3 uid="uid://bvjosqw18oxfq"]
+[gd_scene load_steps=169 format=3 uid="uid://bvjosqw18oxfq"]
 
 [ext_resource type="Texture2D" uid="uid://bgdv60nppfh6v" path="res://placeholder/sprites/Airborne.png" id="1_15n2y"]
 [ext_resource type="Texture2D" uid="uid://didejyfucpk64" path="res://placeholder/sprites/Air Action(ballet)/ballet_0.png" id="2_e6a88"]
@@ -45,6 +45,7 @@
 [ext_resource type="Texture2D" uid="uid://62choiwgif0m" path="res://placeholder/sprites/jump_test.png" id="43_syhdu"]
 [ext_resource type="Texture2D" uid="uid://d2tsgmy8lakae" path="res://placeholder/sprites/run_test.png" id="44_nwn8r"]
 [ext_resource type="Script" path="res://characters/scripts/HurtboxManager.gd" id="45_ls72n"]
+[ext_resource type="Script" path="res://characters/scenes/Hitbox Manager.gd" id="46_4r1sw"]
 [ext_resource type="Script" path="res://characters/scenes/AnimationSyncronizer.gd" id="46_sg184"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_iv454"]
@@ -1146,23 +1147,21 @@ shape = SubResource("BoxShape3D_t8heh")
 [node name="CSGMesh3D" type="CSGMesh3D" parent="Hurtbox Manager/Position Controller/Hurtboxes/Area3D"]
 mesh = SubResource("BoxMesh_ms7ii")
 
-[node name="Hitbox Manager2" type="Node" parent="."]
-script = ExtResource("45_ls72n")
+[node name="Hitbox Manager" type="Node" parent="."]
+script = ExtResource("46_4r1sw")
 
-[node name="Position Controller" type="Node3D" parent="Hitbox Manager2"]
+[node name="Position Controller" type="Node3D" parent="Hitbox Manager"]
 
-[node name="Hurtboxes" type="Node3D" parent="Hitbox Manager2/Position Controller"]
+[node name="Hitboxes" type="Node3D" parent="Hitbox Manager/Position Controller"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.769199, 0)
 
-[node name="Area3D" type="Area3D" parent="Hitbox Manager2/Position Controller/Hurtboxes"]
+[node name="Area3D" type="Area3D" parent="Hitbox Manager/Position Controller/Hitboxes"]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Hitbox Manager2/Position Controller/Hurtboxes/Area3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Hitbox Manager/Position Controller/Hitboxes/Area3D"]
 shape = SubResource("BoxShape3D_t8heh")
 
-[node name="CSGMesh3D" type="CSGMesh3D" parent="Hitbox Manager2/Position Controller/Hurtboxes/Area3D"]
+[node name="CSGMesh3D" type="CSGMesh3D" parent="Hitbox Manager/Position Controller/Hitboxes/Area3D"]
 mesh = SubResource("BoxMesh_ms7ii")
-
-[node name="Hitbox Manager" type="Node" parent="."]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
