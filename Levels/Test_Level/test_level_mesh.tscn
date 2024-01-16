@@ -1,0 +1,72 @@
+[gd_scene load_steps=17 format=3 uid="uid://ya5rp5f5i663"]
+
+[ext_resource type="PackedScene" uid="uid://qdjlpftwan27" path="res://Levels/Test_Level/Materials/sbattle1.blend" id="1_pg15r"]
+[ext_resource type="Texture2D" uid="uid://t1woh04tqtdm" path="res://Levels/Test_Level/sbattle1_3.png" id="2_lrwrx"]
+[ext_resource type="Texture2D" uid="uid://npddna0p8f0i" path="res://Levels/Test_Level/sbattle1_4.png" id="3_la1pb"]
+[ext_resource type="Texture2D" uid="uid://c61r0v7ahx5xa" path="res://Levels/Test_Level/sbattle1_2.png" id="4_1cs8u"]
+[ext_resource type="Texture2D" uid="uid://bqlxlomglxmtj" path="res://Levels/Test_Level/sbattle1_0.png" id="5_aqr0v"]
+[ext_resource type="Texture2D" uid="uid://cyme20xkyep4f" path="res://Levels/Test_Level/sbattle1_1.png" id="6_eis4c"]
+[ext_resource type="Texture2D" uid="uid://ch28y32u4kvsn" path="res://icon.svg" id="6_sspqk"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8iata"]
+albedo_texture = ExtResource("2_lrwrx")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_drhq2"]
+albedo_texture = ExtResource("2_lrwrx")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8obpp"]
+albedo_texture = ExtResource("3_la1pb")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2tuww"]
+albedo_texture = ExtResource("3_la1pb")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hh568"]
+albedo_texture = ExtResource("4_1cs8u")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_r0yh7"]
+albedo_texture = ExtResource("4_1cs8u")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_12c0q"]
+albedo_texture = ExtResource("5_aqr0v")
+metallic = 0.23
+metallic_specular = 0.0
+emission_energy_multiplier = 0.1
+emission_on_uv2 = true
+emission_texture = ExtResource("6_sspqk")
+heightmap_flip_tangent = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gvebb"]
+albedo_texture = ExtResource("6_eis4c")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_o1v3k"]
+albedo_texture = ExtResource("6_eis4c")
+
+[node name="sbattle1" instance=ExtResource("1_pg15r")]
+
+[node name="blue_001" parent="Node_13/blue" index="0"]
+material_override = SubResource("StandardMaterial3D_8iata")
+
+[node name="blue_002" parent="Node_13/blue" index="1"]
+material_override = SubResource("StandardMaterial3D_drhq2")
+
+[node name="blue_003" parent="Node_13/blue2" index="0"]
+material_override = SubResource("StandardMaterial3D_8obpp")
+
+[node name="blue_004" parent="Node_13/blue2" index="1"]
+material_override = SubResource("StandardMaterial3D_2tuww")
+
+[node name="green_001" parent="Node_13/green" index="0"]
+material_override = SubResource("StandardMaterial3D_hh568")
+
+[node name="green_002" parent="Node_13/green" index="1"]
+material_override = SubResource("StandardMaterial3D_r0yh7")
+
+[node name="plane" parent="Node_13" index="3"]
+material_override = SubResource("StandardMaterial3D_12c0q")
+gi_mode = 2
+
+[node name="yellow_001" parent="Node_13/yellow" index="0"]
+material_override = SubResource("StandardMaterial3D_gvebb")
+
+[node name="yellow_002" parent="Node_13/yellow" index="1"]
+material_override = SubResource("StandardMaterial3D_o1v3k")

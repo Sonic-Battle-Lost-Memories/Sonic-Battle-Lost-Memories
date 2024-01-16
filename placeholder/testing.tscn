@@ -1,4 +1,6 @@
-[gd_scene load_steps=14 format=3 uid="uid://qdi46euyqn5b"]
+==== BASE ====
+[gd_scene load_steps=13 format=3 uid="uid://qdi46euyqn5b"]
+==== BASE ====
 
 [ext_resource type="Texture2D" uid="uid://cvocwha4ahwqk" path="res://textures/aseprite/001.png" id="1_sw4yd"]
 [ext_resource type="Material" uid="uid://dm8wc172jl1c5" path="res://placeholder/materials/purple_mat.tres" id="2_4m6lm"]
@@ -8,6 +10,7 @@
 [ext_resource type="Script" path="res://placeholder/Arbiter.gd" id="5_hlmm4"]
 [ext_resource type="PackedScene" uid="uid://d04473cjep52p" path="res://entities/generic/cpu_test.tscn" id="5_njb0l"]
 [ext_resource type="AudioStream" uid="uid://brmgfitjl1axt" path="res://music/Knot_Something.mp3" id="7_ntuoi"]
+[ext_resource type="PackedScene" uid="uid://depf0mebphjn1" path="res://Camera/camera_pivot.tscn" id="9_ijt2w"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_w71u5"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -162,3 +165,8 @@ is_offense = true
 transform = Transform3D(-0.258819, 0, -0.965926, 0, 1, 0, 0.965926, 0, -0.258819, -5.72438, 1.5, -14.1068)
 target = NodePath("../Oof")
 is_offense = true
+
+[node name="CameraPivot" parent="." instance=ExtResource("9_ijt2w")]
+
+[node name="Centerpoint" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10.4601, 17.2596)

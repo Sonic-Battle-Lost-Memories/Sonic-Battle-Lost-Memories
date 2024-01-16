@@ -39,9 +39,8 @@ func step(target: CharacterController, delta):
 	# Handle Jump.
 	if Input.is_action_just_pressed("jump"):
 		target.jump()
-		target.change_state(on_jumped)
+		#atarget.change_state(on_jumped)
 		return
-		pass
 
 	# factor in player's intended movement
 	target.computeActiveMovement(delta)

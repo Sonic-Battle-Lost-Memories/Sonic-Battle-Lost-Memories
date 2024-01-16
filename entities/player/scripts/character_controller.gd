@@ -2,6 +2,7 @@ class_name CharacterController
 extends CharacterBody3D
 
 var SPEED = 16.0
+var ACCELERATION = 6.5
 var JUMP_VELOCITY = 18.0
 
 enum facing_direction {RIGHT, LEFT} 
@@ -16,31 +17,58 @@ var activeMovement:Vector3 = Vector3(0,0,0)
 
 var allowing_double_jump = false
 
-@onready var sprite: AnimatedSprite3D = $Sprite
-@onready var camnode = $CamNode
-@onready var camera = $CamNode/Camera
-@onready var point = $Sprite/Point
+var sprite: AnimatedSprite3D
+var point: Node3D
+@export var characterData: CharacterData
 @onready var stateTree = $States
+@onready var healthComponent = $HealthComponent
+@onready var collision = $CollisionShape3D
+var Sprite
+@onready var Shadow_not_the_Hedgehog = $DropShadow
 @export var current_state: StateMachineState
+@onready var respawn = $States/StateMachineState/Health/Respawn
+@onready var pivot = $CameraPivot
+var respawning = false
 @onready var current_direction: facing_direction = facing_direction.RIGHT
+var input_dir: Vector2
 
 func _ready():
-	camnode.set_as_top_level(true)
+	pivot.top_level = true
+	var player = characterData.Sprite.instantiate()
+	add_child(player)
+	point = player.get_node("Point")
+	sprite = player
+	Sprite = player
+	SPEED = characterData.maxSpeed
+	ACCELERATION = characterData.acceleration
+	pass
 #	if(is_on_floor):
 #		current_state = stateTree.find_child("Jumping")
 	
 
 func _physics_process(delta):
-	camera.look_at(point.global_position)
+	#look_at(point.global_position)
 	#camnode.global_position.z = lerp(camnode.global_position.z, point.global_position.z, 2.5 * delta)
-	camnode.global_position.z = point.global_position.z
-	
+	if point == null:
+		return
+	global_position.z = point.global_position.z
+	if healthComponent.currentHealth <= 0:
+		respawn.setup(self)
+		respawning = true
+		pivot.global_position = respawn.deathCursor.global_position
+		lerp(pivot.global_position, respawn.deathCursor.global_position, 10 * delta)
+		respawn.step(self, delta)
+		pass
 	# Add the gravity.
-	velocity.y -= gravity * delta
+	if respawning == false:
+		velocity.y -= gravity * delta
+		pivot.global_position = global_position
+		lerp(pivot.global_position, global_position, 10 * delta)
 	current_state.step(self, delta)
 
 func jump():
-	velocity.y = JUMP_VELOCITY
+	if respawning == false:
+		velocity.y = JUMP_VELOCITY
 
 func _on_area_3d_body_entered(body):
 	if body.is_in_group("Entities"):
@@ -51,19 +79,20 @@ func _on_area_3d_body_entered(body):
 			body.velocity += Vector3(direction.x * 32, 0, direction.z * 32)
 
 func change_state(next_state:StateMachineState):
-	print("changed state to", next_state.name)
+	print("changed state to ", next_state.name)
 	current_state = next_state
 	current_state.setup(self)
+	pass
 
 # filters player directional movement input into normalized xz axis speed.
 func computeActiveMovement(delta):
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
-	var input_dir = Input.get_vector("left", "right", "up", "down")
+	input_dir = Input.get_vector("left", "right", "up", "down")
 	activeMovement = (global_transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	if activeMovement:
-		velocity.x = lerp(velocity.x, activeMovement.x * SPEED, 6.5 * delta)
-		velocity.z = lerp(velocity.z, activeMovement.z * SPEED, 6.5 * delta)
+		velocity.x = lerp(velocity.x, activeMovement.x * SPEED,ACCELERATION  * delta)
+		velocity.z = lerp(velocity.z, activeMovement.z * SPEED,ACCELERATION  * delta)
 		sprite.rotation.y = atan2(velocity.x, velocity.z)
 	else:
 		velocity.x = lerp(velocity.x, 0.0, 10 * delta)
@@ -78,3 +107,5 @@ func update_facing_direction():
 		current_direction = facing_direction.RIGHT
 		sprite.flip_h = false
 	return
+func get_health_component() -> HealthComponent:
+	return healthComponent

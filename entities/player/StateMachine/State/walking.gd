@@ -10,7 +10,7 @@ extends StateMachineState
 @export var on_stopped: StateMachineState #state for when movement stops
 @export var on_turn_around: StateMachineState #state for when character turns around
 @export var on_stopped_hard: StateMachineState #state for when character runs for `time_till_hard_stop` and then stops moving
-
+@export var on_shield: StateMachineState
 @export_group("action parameters")
 @export var time_till_hard_stop: float = 1.2 # time of constant running until a stop counts as a hard stop
 
@@ -36,10 +36,14 @@ func step(target: CharacterController, delta):
 # Handle Jump.
 	if Input.is_action_just_pressed("jump"):
 		target.jump()
-		target.change_state(on_jumped)
+		#target.change_state(on_jumped)
 		return
-		pass
-
+	if(Input.is_action_just_pressed("player_shield_0")):
+		if(target.velocity.x == 0 and target.velocity.z == 0 and target.velocity.y >= 0):
+			target.input_dir = Vector2.ZERO
+			lerp(target.velocity, Vector3.ZERO, 10 * delta)
+		else:
+			target.change_state(on_shield)
 	var previous_direction = target.current_direction
 	
 	target.update_facing_direction()

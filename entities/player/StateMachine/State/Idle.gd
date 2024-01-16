@@ -12,6 +12,7 @@ var time_elapsed = 0.0
 @export var on_gained_air: StateMachineState
 @export var on_jumped: StateMachineState
 @export var on_turn_around: StateMachineState
+@export var on_shield: StateMachineState
 
 @export var cycles_names: Array[String] = ["idle", "idle2"]
 var current_cycle: int = 0
@@ -43,8 +44,12 @@ func step(target: CharacterController, delta):
 # Handle Jump.
 	if Input.is_action_just_pressed("jump"):
 		target.jump()
-			
-	
+	if(Input.is_action_just_pressed("player_shield_0")):
+		if(target.velocity.x == 0 and target.velocity.z == 0 and target.velocity.y >= 0):
+			target.input_dir = Vector2.ZERO
+			lerp(target.velocity, Vector3.ZERO, 10 * delta)
+		else:
+			target.change_state(on_shield)
 	var previous_direction = target.current_direction
 	# factor in player's intended movement
 	target.computeActiveMovement(delta)
@@ -63,15 +68,18 @@ func step(target: CharacterController, delta):
 		pass
 	# actually move the character
 	target.move_and_slide()
-	
+	if(Input.is_action_just_pressed("player_shield_0")):
+		if(target.velocity != Vector3.ZERO):
+			lerp(target.velocity, Vector3.ZERO, 10 * delta)
 	# aftermath: after moving, decide on which states to change into
 	if(Input.is_action_just_pressed("attack_primary")):
 		#If attack AND move happened simultaneously, attack state will happen.
 		target.change_state(on_primary)
 		return
-	if(not(target.is_on_floor()) and target.velocity.y > 0.1 * target.JUMP_VELOCITY):
-		target.change_state(on_jumped)
-		return
+	if(not(target.is_on_floor())):
+		target.change_state(on_gained_air)
+	#	target.change_state(on_jumped)
+		#return
 	if target.activeMovement:
 		target.change_state(on_moved)
 		return
