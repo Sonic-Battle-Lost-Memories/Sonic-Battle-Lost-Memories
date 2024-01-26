@@ -12,5 +12,5 @@ func _process(delta):
 	if Sprite.animation == current_animation:
 		return
 	play(Sprite.animation)
-	print(current_animation)
+	#print(current_animation)
 	pass

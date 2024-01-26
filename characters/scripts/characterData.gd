@@ -4,3 +4,4 @@ extends Resource
 @export var Sprite: PackedScene
 @export var maxSpeed: int
 @export var acceleration: float
+@export var trap: PackedScene

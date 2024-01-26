@@ -1,4 +1,4 @@
-[gd_scene load_steps=168 format=3 uid="uid://bvjosqw18oxfq"]
+[gd_scene load_steps=176 format=3 uid="uid://bvjosqw18oxfq"]
 
 [ext_resource type="Texture2D" uid="uid://bgdv60nppfh6v" path="res://placeholder/sprites/Airborne.png" id="1_15n2y"]
 [ext_resource type="Texture2D" uid="uid://didejyfucpk64" path="res://placeholder/sprites/Air Action(ballet)/ballet_0.png" id="2_e6a88"]
@@ -44,6 +44,7 @@
 [ext_resource type="Texture2D" uid="uid://skf4suuvv6v5" path="res://placeholder/sprites/idle_neo.png" id="42_vvoux"]
 [ext_resource type="Texture2D" uid="uid://62choiwgif0m" path="res://placeholder/sprites/jump_test.png" id="43_syhdu"]
 [ext_resource type="Texture2D" uid="uid://d2tsgmy8lakae" path="res://placeholder/sprites/run_test.png" id="44_nwn8r"]
+[ext_resource type="Texture2D" uid="uid://bvnkhcm84umwv" path="res://placeholder/sprites/Trap (Ground)/trap_ground.png" id="45_ki4gd"]
 [ext_resource type="Script" path="res://characters/scripts/HurtboxManager.gd" id="45_ls72n"]
 [ext_resource type="Script" path="res://characters/scenes/AnimationSyncronizer.gd" id="46_sg184"]
 
@@ -490,6 +491,34 @@ region = Rect2(192, 0, 32, 36)
 [sub_resource type="AtlasTexture" id="AtlasTexture_23x7o"]
 atlas = ExtResource("44_nwn8r")
 region = Rect2(224, 0, 32, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0mpto"]
+atlas = ExtResource("45_ki4gd")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lthv8"]
+atlas = ExtResource("45_ki4gd")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ykpia"]
+atlas = ExtResource("45_ki4gd")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_guvg1"]
+atlas = ExtResource("45_ki4gd")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rx481"]
+atlas = ExtResource("45_ki4gd")
+region = Rect2(32, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jk83e"]
+atlas = ExtResource("45_ki4gd")
+region = Rect2(64, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gwbth"]
+atlas = ExtResource("45_ki4gd")
+region = Rect2(0, 64, 32, 32)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_v8opn"]
 animations = [{
@@ -992,6 +1021,32 @@ animations = [{
 "loop": true,
 "name": &"run",
 "speed": 13.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0mpto")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lthv8")
+}, {
+"duration": 2.0,
+"texture": SubResource("AtlasTexture_ykpia")
+}, {
+"duration": 2.0,
+"texture": SubResource("AtlasTexture_guvg1")
+}, {
+"duration": 2.0,
+"texture": SubResource("AtlasTexture_rx481")
+}, {
+"duration": 3.0,
+"texture": SubResource("AtlasTexture_jk83e")
+}, {
+"duration": 2.0,
+"texture": SubResource("AtlasTexture_gwbth")
+}],
+"loop": true,
+"name": &"trap_ground",
+"speed": 30.0
 }]
 
 [sub_resource type="BoxMesh" id="BoxMesh_qoudv"]
@@ -1116,10 +1171,8 @@ alpha_cut = 2
 texture_filter = 2
 render_priority = 1
 sprite_frames = SubResource("SpriteFrames_v8opn")
-animation = &"Primary1"
+animation = &"trap_ground"
 autoplay = "idle"
-frame = 5
-frame_progress = 1.0
 
 [node name="Point" type="Marker3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)

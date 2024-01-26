@@ -100,5 +100,3 @@ shape = SubResource("SphereShape3D_pwxvx")
 pixel_size = 0.05
 sprite_frames = SubResource("SpriteFrames_o4u1p")
 animation = &"idle"
-frame = 1
-frame_progress = 0.783164

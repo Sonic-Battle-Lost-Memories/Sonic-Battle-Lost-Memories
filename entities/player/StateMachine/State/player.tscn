@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://cd3f10inl6go1"]
+[gd_scene load_steps=26 format=3 uid="uid://cd3f10inl6go1"]
 
 [ext_resource type="Script" path="res://entities/player/scripts/character_controller.gd" id="1_d776x"]
 [ext_resource type="PackedScene" uid="uid://dmr0fcamx7t56" path="res://joystick/virtual_joystick.tscn" id="2_ihn7u"]
@@ -10,6 +10,7 @@
 [ext_resource type="Script" path="res://entities/player/StateMachine/State/States.gd" id="9_xtmgv"]
 [ext_resource type="Script" path="res://entities/player/StateMachine/State/Idle.gd" id="10_gwqhk"]
 [ext_resource type="Script" path="res://entities/player/StateMachine/State/Jumping.gd" id="10_wmm6m"]
+[ext_resource type="Script" path="res://entities/player/StateMachine/State/SpecialAttackState.gd" id="19_bl03x"]
 [ext_resource type="Script" path="res://entities/player/StateMachine/State/StateMachineNode.gd" id="32_lcb84"]
 [ext_resource type="Script" path="res://entities/player/StateMachine/State/AttackState.gd" id="33_g2pqb"]
 [ext_resource type="Script" path="res://entities/player/StateMachine/State/Primary_air_Sonic.gd" id="44_8bpjx"]
@@ -28,6 +29,7 @@
 radius = 0.7
 
 [node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("current_state") groups=["Entities"]]
+collision_layer = 4
 script = ExtResource("1_d776x")
 characterData = ExtResource("2_vgmuj")
 current_state = NodePath("States/StateMachineState/Movement/Idle")
@@ -89,7 +91,7 @@ script = ExtResource("32_lcb84")
 
 [node name="Movement" type="Node" parent="States/StateMachineState"]
 
-[node name="Idle" type="Node" parent="States/StateMachineState/Movement" node_paths=PackedStringArray("on_primary", "on_moved", "on_gained_air", "on_jumped", "on_turn_around", "on_shield")]
+[node name="Idle" type="Node" parent="States/StateMachineState/Movement" node_paths=PackedStringArray("on_primary", "on_moved", "on_gained_air", "on_jumped", "on_turn_around", "on_shield", "on_debug_new_action")]
 script = ExtResource("10_gwqhk")
 on_primary = NodePath("../../Attack/Primary1")
 on_moved = NodePath("../Walking")
@@ -97,6 +99,7 @@ on_gained_air = NodePath("../Airborne")
 on_jumped = NodePath("../Jumping")
 on_turn_around = NodePath("../Turn around")
 on_shield = NodePath("../../Health/Shield")
+on_debug_new_action = NodePath("../../Attack/Trap_Ground")
 
 [node name="Walking" type="Node" parent="States/StateMachineState/Movement" node_paths=PackedStringArray("on_primary", "on_gained_air", "on_jumped", "on_stopped", "on_turn_around", "on_stopped_hard", "on_shield")]
 script = ExtResource("9_br35p")
@@ -214,6 +217,16 @@ main_animation = "Primary4"
 frame_times = Array[float]([0.03333, 0.06666, 0.1333, 0.2, 0.26666, 0.333333, 0.36666, 0.416666, 0.45, 0.466666, 0.633333, 0.8, 0.9])
 time_till_next_hit_allowed = 0.1
 lifetime = 0.983333
+
+[node name="Trap_Ground" type="Node" parent="States/StateMachineState/Attack" node_paths=PackedStringArray("on_primary", "on_gained_air", "on_timed_out")]
+script = ExtResource("19_bl03x")
+on_primary = NodePath("../../Movement/Idle")
+on_gained_air = NodePath("../../Movement/Airborne")
+on_timed_out = NodePath("../../Movement/Idle")
+main_animation = "trap_ground"
+trap_spawn_position = Vector3(1, 1, 0)
+time_till_next_hit_allowed = 0.2
+lifetime = 0.323
 
 [node name="Primary_air" type="Node" parent="States/StateMachineState/Attack" node_paths=PackedStringArray("on_primary", "on_timed_out", "on_touching_floor")]
 script = ExtResource("44_8bpjx")

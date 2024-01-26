@@ -13,6 +13,7 @@ var time_elapsed = 0.0
 @export var on_jumped: StateMachineState
 @export var on_turn_around: StateMachineState
 @export var on_shield: StateMachineState
+@export var on_debug_new_action: StateMachineState
 
 @export var cycles_names: Array[String] = ["idle", "idle2"]
 var current_cycle: int = 0
@@ -72,6 +73,9 @@ func step(target: CharacterController, delta):
 		if(target.velocity != Vector3.ZERO):
 			lerp(target.velocity, Vector3.ZERO, 10 * delta)
 	# aftermath: after moving, decide on which states to change into
+	if(Input.is_action_just_pressed("debug_new_action")):
+		target.trap_triggered.emit()
+		target.change_state(on_debug_new_action)
 	if(Input.is_action_just_pressed("attack_primary")):
 		#If attack AND move happened simultaneously, attack state will happen.
 		target.change_state(on_primary)
