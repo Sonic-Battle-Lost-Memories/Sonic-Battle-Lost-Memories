@@ -98,5 +98,6 @@ shape = SubResource("SphereShape3D_pwxvx")
 
 [node name="sprite_bomb" type="AnimatedSprite3D" parent="RigidBody3D"]
 pixel_size = 0.05
+texture_filter = 0
 sprite_frames = SubResource("SpriteFrames_o4u1p")
 animation = &"idle"
