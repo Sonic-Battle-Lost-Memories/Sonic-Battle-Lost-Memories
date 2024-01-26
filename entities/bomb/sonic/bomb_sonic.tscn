@@ -1,0 +1,103 @@
+[gd_scene load_steps=15 format=3 uid="uid://bq64cxwwndpg0"]
+
+[ext_resource type="Texture2D" uid="uid://df7sex7d5hf8t" path="res://entities/bomb/sonic/spritesheets/idle.png" id="1_dcogt"]
+[ext_resource type="Texture2D" uid="uid://dxuc36ceyn4uo" path="res://entities/bomb/sonic/spritesheets/lay_down.png" id="2_pokl0"]
+[ext_resource type="Script" path="res://entities/bomb/sonic/bomb_sonic.gd" id="3_a76vq"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_kbrod"]
+friction = 10.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_pwxvx"]
+radius = 0.426931
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c7gyc"]
+atlas = ExtResource("1_dcogt")
+region = Rect2(0, 0, 18, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dlwop"]
+atlas = ExtResource("1_dcogt")
+region = Rect2(18, 18, 18, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sorsn"]
+atlas = ExtResource("1_dcogt")
+region = Rect2(0, 18, 18, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kdsoy"]
+atlas = ExtResource("1_dcogt")
+region = Rect2(18, 0, 18, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6unfa"]
+atlas = ExtResource("2_pokl0")
+region = Rect2(0, 0, 18, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_faygk"]
+atlas = ExtResource("2_pokl0")
+region = Rect2(18, 0, 18, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cb2ub"]
+atlas = ExtResource("2_pokl0")
+region = Rect2(0, 18, 18, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4cgda"]
+atlas = ExtResource("2_pokl0")
+region = Rect2(18, 18, 18, 18)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_o4u1p"]
+resource_local_to_scene = true
+animations = [{
+"frames": [{
+"duration": 2.0,
+"texture": SubResource("AtlasTexture_c7gyc")
+}, {
+"duration": 2.0,
+"texture": SubResource("AtlasTexture_dlwop")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sorsn")
+}, {
+"duration": 2.0,
+"texture": SubResource("AtlasTexture_kdsoy")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 15.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6unfa")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_faygk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cb2ub")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4cgda")
+}],
+"loop": true,
+"name": &"lay_down",
+"speed": 15.0
+}]
+
+[node name="bomb_sonic" type="Node3D" node_paths=PackedStringArray("sprite")]
+script = ExtResource("3_a76vq")
+sprite = NodePath("RigidBody3D/sprite_bomb")
+timeout = 1.2
+
+[node name="RigidBody3D" type="RigidBody3D" parent="."]
+collision_layer = 0
+axis_lock_angular_x = true
+axis_lock_angular_y = true
+axis_lock_angular_z = true
+physics_material_override = SubResource("PhysicsMaterial_kbrod")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0153511, 0)
+shape = SubResource("SphereShape3D_pwxvx")
+
+[node name="sprite_bomb" type="AnimatedSprite3D" parent="RigidBody3D"]
+pixel_size = 0.05
+texture_filter = 0
+sprite_frames = SubResource("SpriteFrames_o4u1p")
+animation = &"idle"

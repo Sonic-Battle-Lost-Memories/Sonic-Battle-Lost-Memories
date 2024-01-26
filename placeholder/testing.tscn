@@ -1,4 +1,6 @@
-[gd_scene load_steps=15 format=3 uid="uid://qdi46euyqn5b"]
+==== BASE ====
+[gd_scene load_steps=13 format=3 uid="uid://qdi46euyqn5b"]
+==== BASE ====
 
 [ext_resource type="Texture2D" uid="uid://cvocwha4ahwqk" path="res://textures/aseprite/001.png" id="1_sw4yd"]
 [ext_resource type="Material" uid="uid://dm8wc172jl1c5" path="res://placeholder/materials/purple_mat.tres" id="2_4m6lm"]

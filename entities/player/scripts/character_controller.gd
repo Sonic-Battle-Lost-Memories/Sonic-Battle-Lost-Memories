@@ -5,6 +5,9 @@ var SPEED = 16.0
 var ACCELERATION = 6.5
 var JUMP_VELOCITY = 18.0
 
+# to check if there is a trap already on the field
+var has_trap = false
+
 enum facing_direction {RIGHT, LEFT} 
 
 @export var KEYPRESS_TIME_TOLERANCE = 1.250
@@ -30,6 +33,7 @@ var Sprite
 @onready var pivot = $CameraPivot
 var respawning = false
 @onready var current_direction: facing_direction = facing_direction.RIGHT
+@onready var parent: Node3D = $".."
 var input_dir: Vector2
 
 func _ready():
@@ -79,7 +83,7 @@ func _on_area_3d_body_entered(body):
 			body.velocity += Vector3(direction.x * 32, 0, direction.z * 32)
 
 func change_state(next_state:StateMachineState):
-	print("changed state to ", next_state.name)
+	#print("changed state to ", next_state.name)
 	current_state = next_state
 	current_state.setup(self)
 	pass
@@ -109,3 +113,5 @@ func update_facing_direction():
 	return
 func get_health_component() -> HealthComponent:
 	return healthComponent
+
+signal trap_triggered()
