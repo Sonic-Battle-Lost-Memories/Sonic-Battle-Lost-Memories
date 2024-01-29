@@ -4,4 +4,4 @@
 
 [node name="Settings_Component" type="Node"]
 script = ExtResource("1_trd4d")
-saveName = "Default"
+s_mode = 1

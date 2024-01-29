@@ -1,0 +1,43 @@
+[gd_scene load_steps=3 format=3 uid="uid://bl6wqrnxx1h2b"]
+
+[ext_resource type="Script" path="res://Settings_Component.gd" id="1_hdke3"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cf47r"]
+bg_color = Color(0.6, 0.6, 0.6, 0.513726)
+
+[node name="Settings Menu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_cf47r")
+
+[node name="Settings types" type="CanvasLayer" parent="."]
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Settings types"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 40.0
+grow_horizontal = 2
+
+[node name="Label" type="Label" parent="Settings types/HBoxContainer"]
+layout_mode = 2
+text = "Default"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Battle_Settings" type="Node" parent="."]
+script = ExtResource("1_hdke3")
