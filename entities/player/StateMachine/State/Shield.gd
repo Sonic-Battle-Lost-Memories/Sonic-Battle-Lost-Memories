@@ -35,6 +35,7 @@ extends StateMachineState
 @export var main_animation:String
 
 func setup(target: CharacterController):
+	target.sprite.play(main_animation)
 	timer.wait_time = time_till_heal
 	parent = target
 	timer.start()
@@ -74,5 +75,8 @@ func step(target: CharacterController, delta):
 		return
 
 func _on_timer_timeout():
-	parent.change_state(on_timer_expiration)
+	if(Input.is_action_pressed("player_shield_0")):
+		parent.change_state(on_timer_expiration)
+	else:
+		parent.change_state(on_input_stopped)
 	pass # Replace with function body.

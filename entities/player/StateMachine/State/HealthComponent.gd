@@ -21,7 +21,7 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
 	if Input.is_action_just_pressed("debug_health_f1"):
-		currentHealth -= 1
+		currentHealth -= 10
 		print(currentHealth)
 	elif Input.is_action_just_pressed("debug_kill_f2"):
 		currentHealth = 0
