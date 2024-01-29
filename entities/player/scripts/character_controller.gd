@@ -84,8 +84,9 @@ func _on_area_3d_body_entered(body):
 
 func change_state(next_state:StateMachineState):
 	#print("changed state to ", next_state.name)
-	current_state = next_state
-	current_state.setup(self)
+	if(next_state.state_enabled):
+		current_state = next_state
+		current_state.setup(self)
 	pass
 
 # filters player directional movement input into normalized xz axis speed.

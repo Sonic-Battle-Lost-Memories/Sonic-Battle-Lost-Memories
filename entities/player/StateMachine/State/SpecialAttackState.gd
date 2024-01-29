@@ -52,10 +52,16 @@ func _ready():
 func is_ready():
 	return (not consumed)
 
+func trigger_cooldown():
+	cooldown_object.start()
+
+func _physics_process(delta):
+	if(cooldown_object.time_left <=0):
+		state_enabled = true
+	else:
+		state_enabled = false
+
 func setup(target: CharacterController):
-	if (cooldown_object.time_left > 0):
-		target.change_state(on_timed_out)
-		return
 	target.velocity.y = 0
 	
 	was_grounded = target.is_on_floor()
@@ -102,11 +108,14 @@ func step(target: CharacterController, delta):
 	if (time_elapsed > lifetime):
 		if(not target.is_on_floor()):
 			target.change_state(on_gained_air)
+			trigger_cooldown()
 			return
 		target.computeActiveMovement(delta)
 		if (next_hit_scheduled):
 			target.change_state(on_primary)
+			trigger_cooldown()
 			return
 		else:
 			target.change_state(on_timed_out)
+			trigger_cooldown()
 			return
