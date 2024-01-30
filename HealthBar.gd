@@ -9,7 +9,7 @@ func _ready():
 func setPlayerHealthComp(healthComp):
 	playerHealthComp = healthComp
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta):
+func _physics_process(delta):
 	if playerHealthComp != null:
 		value = playerHealthComp.currentHealth
 		playerLives.text = str(playerHealthComp.lives)

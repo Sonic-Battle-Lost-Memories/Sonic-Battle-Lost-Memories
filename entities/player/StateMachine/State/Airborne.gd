@@ -13,11 +13,13 @@ var can_double_jump:bool = false
 @export var on_grounded: StateMachineState
 @export var on_primary: StateMachineState
 @export var on_double_jump: StateMachineState
-
+@export var on_debug_action: StateMachineState
+	
 @export_group("action parameters")
 @export var time_till_air_action: float
 
 @export_group("animation")
+
 
 @export var main_animation: String
 # Called when the node enters the scene tree for the first time.
@@ -49,7 +51,9 @@ func step(target: CharacterController, delta):
 	if(Input.is_action_just_pressed("attack_primary") and time_elapsed > time_till_air_action):
 		target.change_state(on_primary)
 		return
-	
+	if(Input.is_action_just_pressed("debug_new_action")):
+		target.change_state(on_debug_action)
+		return
 	# factor in player's intended movement
 	target.computeActiveMovement(delta)
 	target.update_facing_direction()

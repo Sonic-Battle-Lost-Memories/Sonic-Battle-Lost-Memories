@@ -4,6 +4,7 @@ extends Node3D
 @export var sprite: AnimatedSprite3D
 @export var setup_time: float
 @export var timeout: float
+@export var timed: bool
 
 enum stage {SETTING, ACTIVE}
 var current_stage: stage
@@ -11,7 +12,9 @@ var current_stage: stage
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	sprite.play("idle")
-	print("spawned bomb, t0 ", counter, ", it blows in ", timeout, " seconds.")
+	print("spawned bomb, t0 ")
+	if(timed):
+		print("it blows in ", timeout, " seconds.")
 	pass # Replace with function body.
 
 func set_down(pos:Vector3, trigger: Signal):
@@ -40,7 +43,7 @@ func _process(delta):
 			
 			pass
 	counter += delta
-	if counter >= timeout:
+	if counter >= timeout and timed:
 		explode()
 		queue_free()
 	pass

@@ -99,7 +99,7 @@ on_gained_air = NodePath("../Airborne")
 on_jumped = NodePath("../Jumping")
 on_turn_around = NodePath("../Turn around")
 on_shield = NodePath("../../Health/Shield")
-on_debug_new_action = NodePath("../../Attack/Trap_Ground")
+on_debug_new_action = NodePath("../../Attack/Trap")
 
 [node name="Walking" type="Node" parent="States/StateMachineState/Movement" node_paths=PackedStringArray("on_primary", "on_gained_air", "on_jumped", "on_stopped", "on_turn_around", "on_stopped_hard", "on_shield")]
 script = ExtResource("9_br35p")
@@ -127,11 +127,12 @@ time_till_air_attack = 0.15
 falloff = 0.01
 initial_impulse = Vector2(20, 12)
 
-[node name="Airborne" type="Node" parent="States/StateMachineState/Movement" node_paths=PackedStringArray("on_grounded", "on_primary", "on_double_jump")]
+[node name="Airborne" type="Node" parent="States/StateMachineState/Movement" node_paths=PackedStringArray("on_grounded", "on_primary", "on_double_jump", "on_debug_action")]
 script = ExtResource("53_5rd1a")
 on_grounded = NodePath("../Landing")
 on_primary = NodePath("../../Attack/Primary_air")
 on_double_jump = NodePath("../Double_jump_sonic")
+on_debug_action = NodePath("../../Attack/Trap_air")
 time_till_air_action = 0.15
 main_animation = "Airborne"
 
@@ -218,15 +219,21 @@ frame_times = Array[float]([0.03333, 0.06666, 0.1333, 0.2, 0.26666, 0.333333, 0.
 time_till_next_hit_allowed = 0.1
 lifetime = 0.983333
 
-[node name="Trap_Ground" type="Node" parent="States/StateMachineState/Attack" node_paths=PackedStringArray("on_primary", "on_gained_air", "on_timed_out")]
+[node name="Trap" type="Node" parent="States/StateMachineState/Attack" node_paths=PackedStringArray("on_primary", "on_gained_air", "on_timed_out", "cooldown_object")]
 script = ExtResource("19_bl03x")
 on_primary = NodePath("../../Movement/Idle")
 on_gained_air = NodePath("../../Movement/Airborne")
 on_timed_out = NodePath("../../Movement/Idle")
 main_animation = "trap_ground"
-trap_spawn_position = Vector3(1, 1, 0)
+trap_spawn_position = Vector3(0.3, 0.25, 0)
 time_till_next_hit_allowed = 0.2
 lifetime = 0.323
+cooldown_object = NodePath("trap move cooldown timer")
+
+[node name="trap move cooldown timer" type="Timer" parent="States/StateMachineState/Attack/Trap"]
+process_callback = 0
+one_shot = true
+autostart = true
 
 [node name="Primary_air" type="Node" parent="States/StateMachineState/Attack" node_paths=PackedStringArray("on_primary", "on_timed_out", "on_touching_floor")]
 script = ExtResource("44_8bpjx")
@@ -234,29 +241,39 @@ on_primary = NodePath(".")
 on_timed_out = NodePath("../../Movement/Airborne")
 on_touching_floor = NodePath("../../Movement/Idle")
 
+[node name="Trap_air" type="Node" parent="States/StateMachineState/Attack" node_paths=PackedStringArray("on_primary", "on_gained_air", "on_timed_out", "cooldown_object")]
+script = ExtResource("19_bl03x")
+on_primary = NodePath("../../Movement/Idle")
+on_gained_air = NodePath("../../Movement/Airborne")
+on_timed_out = NodePath("../../Movement/Idle")
+main_animation = "trap_air"
+trap_spawn_position = Vector3(0, -0.2, 0)
+time_till_next_hit_allowed = 0.2
+lifetime = 0.323
+cooldown_object = NodePath("../Trap/trap move cooldown timer")
+
 [node name="Health" type="Node" parent="States/StateMachineState"]
 
 [node name="Shield" type="Node" parent="States/StateMachineState/Health" node_paths=PackedStringArray("on_input_stopped", "on_movement_detected", "on_primary", "on_jump_input", "on_timer_expiration", "on_turn_around")]
 script = ExtResource("63_1f6gj")
-time_till_heal = 5.0
+time_till_heal = 0.35
 on_input_stopped = NodePath("../../Movement/Idle")
 on_movement_detected = NodePath("../../Movement/Walking")
 on_primary = NodePath("../../Attack/Primary1")
 on_jump_input = NodePath("../../Movement/Jumping")
 on_timer_expiration = NodePath("../Heal")
 on_turn_around = NodePath("../../Movement/Turn around")
+main_animation = "guard"
 
 [node name="Timer" type="Timer" parent="States/StateMachineState/Health/Shield"]
+wait_time = 0.504
 one_shot = true
 
-[node name="Heal" type="Node" parent="States/StateMachineState/Health" node_paths=PackedStringArray("health_component", "on_idle", "on_walk_input", "on_turn_around", "on_jump", "on_primary")]
+[node name="Heal" type="Node" parent="States/StateMachineState/Health" node_paths=PackedStringArray("health_component", "on_idle")]
 script = ExtResource("64_w536g")
 health_component = NodePath("../../../../HealthComponent")
 on_idle = NodePath("../../Movement/Idle")
-on_walk_input = NodePath("../../Movement/Walking")
-on_turn_around = NodePath("../../Movement/Turn around")
-on_jump = NodePath("../../Movement/Jumping")
-on_primary = NodePath("../../Attack/Primary1")
+main_animation = "heal_loop"
 regenRate = 0.25
 
 [node name="Respawn" type="Node" parent="States/StateMachineState/Health" node_paths=PackedStringArray("deathRay", "deathCursor")]
