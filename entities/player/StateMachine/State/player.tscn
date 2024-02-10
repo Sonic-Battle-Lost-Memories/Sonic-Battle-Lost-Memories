@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://cd3f10inl6go1"]
+[gd_scene load_steps=29 format=3 uid="uid://cd3f10inl6go1"]
 
 [ext_resource type="Script" path="res://entities/player/scripts/character_controller.gd" id="1_d776x"]
 [ext_resource type="PackedScene" uid="uid://dmr0fcamx7t56" path="res://joystick/virtual_joystick.tscn" id="2_ihn7u"]
@@ -10,7 +10,10 @@
 [ext_resource type="Script" path="res://entities/player/StateMachine/State/States.gd" id="9_xtmgv"]
 [ext_resource type="Script" path="res://entities/player/StateMachine/State/Idle.gd" id="10_gwqhk"]
 [ext_resource type="Script" path="res://entities/player/StateMachine/State/Jumping.gd" id="10_wmm6m"]
-[ext_resource type="Script" path="res://entities/player/StateMachine/State/SpecialAttackState.gd" id="19_bl03x"]
+[ext_resource type="Script" path="res://entities/player/StateMachine/State/Trap_Sonic.gd" id="19_6icbt"]
+[ext_resource type="Script" path="res://entities/player/StateMachine/State/Shot_sonic_begin.gd" id="21_a8o13"]
+[ext_resource type="Script" path="res://entities/player/StateMachine/State/Shot_sonic_air.gd" id="22_1d4x2"]
+[ext_resource type="PackedScene" uid="uid://c1octgd7lfarw" path="res://entities/projectile/sonic shot/sonic_shot_projectile.tscn" id="23_c3ha0"]
 [ext_resource type="Script" path="res://entities/player/StateMachine/State/StateMachineNode.gd" id="32_lcb84"]
 [ext_resource type="Script" path="res://entities/player/StateMachine/State/AttackState.gd" id="33_g2pqb"]
 [ext_resource type="Script" path="res://entities/player/StateMachine/State/Primary_air_Sonic.gd" id="44_8bpjx"]
@@ -89,6 +92,8 @@ script = ExtResource("9_xtmgv")
 [node name="StateMachineState" type="Node" parent="States"]
 script = ExtResource("32_lcb84")
 
+[node name="ephemeral" type="Node" parent="States/StateMachineState"]
+
 [node name="Movement" type="Node" parent="States/StateMachineState"]
 
 [node name="Idle" type="Node" parent="States/StateMachineState/Movement" node_paths=PackedStringArray("on_primary", "on_moved", "on_gained_air", "on_jumped", "on_turn_around", "on_shield", "on_debug_new_action")]
@@ -99,9 +104,9 @@ on_gained_air = NodePath("../Airborne")
 on_jumped = NodePath("../Jumping")
 on_turn_around = NodePath("../Turn around")
 on_shield = NodePath("../../Health/Shield")
-on_debug_new_action = NodePath("../../Attack/Trap")
+on_debug_new_action = NodePath("../../Attack/Shot/Shot_ground")
 
-[node name="Walking" type="Node" parent="States/StateMachineState/Movement" node_paths=PackedStringArray("on_primary", "on_gained_air", "on_jumped", "on_stopped", "on_turn_around", "on_stopped_hard", "on_shield")]
+[node name="Walking" type="Node" parent="States/StateMachineState/Movement" node_paths=PackedStringArray("on_primary", "on_gained_air", "on_jumped", "on_stopped", "on_turn_around", "on_stopped_hard", "on_shield", "on_debug_new_action")]
 script = ExtResource("9_br35p")
 on_primary = NodePath("../../Attack/Primary1")
 on_gained_air = NodePath("../Airborne")
@@ -110,6 +115,7 @@ on_stopped = NodePath("../Idle")
 on_turn_around = NodePath("../Turn around")
 on_stopped_hard = NodePath("../Stopping")
 on_shield = NodePath("../../Health/Shield")
+on_debug_new_action = NodePath("../../Attack/Shot/Shot_ground")
 time_till_hard_stop = 0.3
 main_animation = "run"
 
@@ -132,7 +138,7 @@ script = ExtResource("53_5rd1a")
 on_grounded = NodePath("../Landing")
 on_primary = NodePath("../../Attack/Primary_air")
 on_double_jump = NodePath("../Double_jump_sonic")
-on_debug_action = NodePath("../../Attack/Trap_air")
+on_debug_action = NodePath("../../Attack/Shot/Shot_air")
 time_till_air_action = 0.15
 main_animation = "Airborne"
 
@@ -220,7 +226,7 @@ time_till_next_hit_allowed = 0.1
 lifetime = 0.983333
 
 [node name="Trap" type="Node" parent="States/StateMachineState/Attack" node_paths=PackedStringArray("on_primary", "on_gained_air", "on_timed_out", "cooldown_object")]
-script = ExtResource("19_bl03x")
+script = ExtResource("19_6icbt")
 on_primary = NodePath("../../Movement/Idle")
 on_gained_air = NodePath("../../Movement/Airborne")
 on_timed_out = NodePath("../../Movement/Idle")
@@ -242,7 +248,7 @@ on_timed_out = NodePath("../../Movement/Airborne")
 on_touching_floor = NodePath("../../Movement/Idle")
 
 [node name="Trap_air" type="Node" parent="States/StateMachineState/Attack" node_paths=PackedStringArray("on_primary", "on_gained_air", "on_timed_out", "cooldown_object")]
-script = ExtResource("19_bl03x")
+script = ExtResource("19_6icbt")
 on_primary = NodePath("../../Movement/Idle")
 on_gained_air = NodePath("../../Movement/Airborne")
 on_timed_out = NodePath("../../Movement/Idle")
@@ -251,6 +257,34 @@ trap_spawn_position = Vector3(0, -0.2, 0)
 time_till_next_hit_allowed = 0.2
 lifetime = 0.323
 cooldown_object = NodePath("../Trap/trap move cooldown timer")
+
+[node name="Shot" type="Node" parent="States/StateMachineState/Attack"]
+
+[node name="Shot_ground" type="Node" parent="States/StateMachineState/Attack/Shot" node_paths=PackedStringArray("on_timed_out", "cooldown_object")]
+script = ExtResource("21_a8o13")
+on_timed_out = NodePath("../Shot_air")
+animation_right = "shot ground right"
+animation_up = "shot ground up"
+animation_down = "shot ground down"
+lifetime = 0.36
+cooldown_object = NodePath("../shot move cooldown timer")
+
+[node name="shot move cooldown timer" type="Timer" parent="States/StateMachineState/Attack/Shot"]
+process_callback = 0
+one_shot = true
+autostart = true
+
+[node name="Shot_air" type="Node" parent="States/StateMachineState/Attack/Shot" node_paths=PackedStringArray("on_timed_out", "cooldown_object")]
+script = ExtResource("22_1d4x2")
+on_timed_out = NodePath("../../../Movement/Idle")
+animation_right = "shot air right"
+animation_up = "shot air up"
+animation_down = "shot air down"
+projectile = ExtResource("23_c3ha0")
+vertical_impulse = 13.0
+horizontal_impulse = 10.0
+lifetime = 0.36
+cooldown_object = NodePath("../shot move cooldown timer")
 
 [node name="Health" type="Node" parent="States/StateMachineState"]
 
