@@ -18,6 +18,9 @@ var gravity = ProjectSettings.get_setting("physics/3d/default_gravity") * 2
 # The movement caused by directional input by the player (usually joystick XY axis)
 var activeMovement:Vector3 = Vector3(0,0,0)
 
+enum discrete_movement_direction {LEFT, RIGHT, TOP, BOTTOM}
+@onready var active_movement_discrete = discrete_movement_direction.RIGHT
+
 var allowing_double_jump = false
 
 var sprite: AnimatedSprite3D
@@ -99,18 +102,21 @@ func computeActiveMovement(delta):
 		velocity.x = lerp(velocity.x, activeMovement.x * SPEED,ACCELERATION  * delta)
 		velocity.z = lerp(velocity.z, activeMovement.z * SPEED,ACCELERATION  * delta)
 		sprite.rotation.y = atan2(velocity.x, velocity.z)
-	else:
-		velocity.x = lerp(velocity.x, 0.0, 10 * delta)
-		velocity.z = lerp(velocity.z, 0.0, 10 * delta)
 	return
 
 func update_facing_direction():
 	if activeMovement.x <= -0.5:
 		current_direction = facing_direction.LEFT
 		sprite.flip_h = true
+		active_movement_discrete = discrete_movement_direction.LEFT
 	elif activeMovement.x >= 0.5:
 		current_direction = facing_direction.RIGHT
 		sprite.flip_h = false
+		active_movement_discrete = discrete_movement_direction.RIGHT
+	if activeMovement.z <= -0.5:
+		active_movement_discrete = discrete_movement_direction.TOP
+	elif activeMovement.z >= 0.5:
+		active_movement_discrete = discrete_movement_direction.BOTTOM
 	return
 func get_health_component() -> HealthComponent:
 	return healthComponent
