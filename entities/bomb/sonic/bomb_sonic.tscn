@@ -83,7 +83,9 @@ animations = [{
 [node name="bomb_sonic" type="Node3D" node_paths=PackedStringArray("sprite")]
 script = ExtResource("3_a76vq")
 sprite = NodePath("RigidBody3D/sprite_bomb")
+setup_time = null
 timeout = 1.2
+timed = null
 
 [node name="RigidBody3D" type="RigidBody3D" parent="."]
 collision_layer = 0

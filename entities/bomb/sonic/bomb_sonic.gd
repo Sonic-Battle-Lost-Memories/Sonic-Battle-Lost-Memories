@@ -1,4 +1,5 @@
-extends Node3D
+extends Spawnable
+class_name Bomb_sonic
 
 @onready var counter: float = 0
 @export var sprite: AnimatedSprite3D
