@@ -29,6 +29,10 @@ func _ready():
 
 
 func setup(target: CharacterController):
+	if(not(target.is_on_floor())):
+		target.change_state(on_gained_air)
+		return
+	
 	time_elapsed = 0.0
 	got_bored = false
 	bored_over = false
@@ -48,10 +52,13 @@ func step(target: CharacterController, delta):
 	if(Input.is_action_just_pressed("player_shield_0")):
 		if(target.velocity.x == 0 and target.velocity.z == 0 and target.velocity.y >= 0):
 			target.input_dir = Vector2.ZERO
-			lerp(target.velocity, Vector3.ZERO, 10 * delta)
+			target.velocity = lerp(target.velocity, Vector3.ZERO, 10 * delta)
 		else:
 			target.change_state(on_shield)
 	var previous_direction = target.current_direction
+	
+	target.velocity.x = lerp(target.velocity.x, 0.0, 10.0 * delta)
+	target.velocity.z = lerp(target.velocity.z, 0.0, 10.0 * delta)
 	# factor in player's intended movement
 	target.computeActiveMovement(delta)
 	target.update_facing_direction()
@@ -82,7 +89,7 @@ func step(target: CharacterController, delta):
 	if(not(target.is_on_floor())):
 		target.change_state(on_gained_air)
 	#	target.change_state(on_jumped)
-		#return
+		return
 	if target.activeMovement:
 		target.change_state(on_moved)
 		return

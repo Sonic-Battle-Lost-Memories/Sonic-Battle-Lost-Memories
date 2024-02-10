@@ -56,6 +56,9 @@ func step(target: CharacterController, delta):
 		return
 	# factor in player's intended movement
 	target.computeActiveMovement(delta)
+	if(target.activeMovement.length() < 0.9):
+		target.velocity.x = lerp(target.velocity.x, 0.0, 4 * delta)
+		target.velocity.z = lerp(target.velocity.z, 0.0, 4 * delta)
 	target.update_facing_direction()
 	
 	# actually move the character

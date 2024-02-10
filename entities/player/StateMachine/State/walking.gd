@@ -11,6 +11,7 @@ extends StateMachineState
 @export var on_turn_around: StateMachineState #state for when character turns around
 @export var on_stopped_hard: StateMachineState #state for when character runs for `time_till_hard_stop` and then stops moving
 @export var on_shield: StateMachineState
+@export var on_debug_new_action: StateMachineState
 @export_group("action parameters")
 @export var time_till_hard_stop: float = 1.2 # time of constant running until a stop counts as a hard stop
 
@@ -61,6 +62,8 @@ func step(target: CharacterController, delta):
 		#If attack AND stopping happened simultaneously, attack state will happen.
 		target.change_state(on_primary)
 		return
+	if(Input.is_action_just_pressed("debug_new_action")):
+		target.change_state(on_debug_new_action)
 	if(not(target.is_on_floor())):
 		target.change_state(on_gained_air)
 	elif(not target.activeMovement):
