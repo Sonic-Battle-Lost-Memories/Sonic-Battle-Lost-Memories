@@ -19,7 +19,7 @@ var blame: CharacterController
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 
 func _ready():
-	
+	#hahah dummy!
 	match blame.active_movement_discrete:
 		blame.discrete_movement_direction.RIGHT:
 			if (blame.is_on_floor()):
