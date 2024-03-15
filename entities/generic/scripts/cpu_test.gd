@@ -14,6 +14,8 @@ var gravity = ProjectSettings.get_setting("physics/3d/default_gravity") * 2
 @export var is_offense = false
 @onready var healthComponent = $HealthComponent
 
+var bodys = []
+
 func _process(delta):
 	if target:
 		agent.set_target_position(target.global_transform.origin)
@@ -66,13 +68,33 @@ func _physics_process(delta):
 	
 	move_and_slide()
 
-func _on_area_3d_body_entered(body):
-	if body.is_in_group("Entities"):
-		if is_offense:
-			print("hola")
+func attack_primary():
+	print("entity detected!")
+	if is_offense and len(bodys) > 0:
+		print("hola")
+		var body = bodys[0] # TODO: change the selection of which target get attacked!
 			#attack_timer.start()
-			var direction = (body.transform.origin - global_transform.origin).normalized()
-			body.velocity += Vector3(direction.x * 32, 0, direction.z * 32)
+		var direction = (body.transform.origin - global_transform.origin).normalized()
+		body.velocity += Vector3(direction.x * 32, 0, direction.z * 32)
 
 func get_health_component() -> HealthComponent:
 	return healthComponent
+
+
+func _on_area_3d_area_shape_entered(area_rid, area, area_shape_index, local_shape_index):
+	print("Area entered! CPU")
+
+	
+
+
+
+func _on_area_3d_area_entered(area):
+	var body = area.get_parent() # gets the body of the detected object
+	if body.is_in_group("Entities"):
+		bodys += [body]
+
+
+func _on_area_3d_area_exited(area):
+	var body = area.get_parent_node_3d()
+	if bodys.has(body):
+		bodys.erase(body)

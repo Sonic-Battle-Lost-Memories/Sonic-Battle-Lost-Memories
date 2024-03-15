@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://cd3f10inl6go1"]
+[gd_scene load_steps=32 format=3 uid="uid://cd3f10inl6go1"]
 
 [ext_resource type="Script" path="res://entities/player/scripts/character_controller.gd" id="1_d776x"]
 [ext_resource type="PackedScene" uid="uid://dmr0fcamx7t56" path="res://joystick/virtual_joystick.tscn" id="2_ihn7u"]
@@ -27,6 +27,18 @@
 [ext_resource type="Script" path="res://entities/player/StateMachine/State/Shield.gd" id="63_1f6gj"]
 [ext_resource type="Script" path="res://entities/player/StateMachine/State/Heal.gd" id="64_w536g"]
 [ext_resource type="Script" path="res://entities/player/StateMachine/State/Respawn.gd" id="65_3ho01"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_ys213"]
+points = PackedVector3Array(-0.888966, 0.833275, -0.0276714, 0.941393, 0.941393, 0.0293034, 0.888966, 0.833275, 0.0276714, 0.0293034, 0.941393, -0.941393, 0.0276811, -0.889276, -0.0276811, -0.0293034, 0.941393, 0.941393, -0.941393, 0.941393, 0.0293034, -0.0276811, -0.889276, 0.0276811, -0.0293034, 0.941393, -0.941393, 0.941393, 0.941393, -0.0293034, 0.0293034, 0.941393, 0.941393, 0.0276811, -0.889276, 0.0276811, -0.0276811, -0.889276, -0.0276811, -0.941393, 0.941393, -0.0293034, 0.0276714, 0.833275, -0.888966, -0.0276714, 0.833275, 0.888966)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_efuxx"]
+top_radius = 1.0
+bottom_radius = 0.0
+radial_segments = 4
+rings = 1
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_d8gre"]
+radius = 0.7
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_53g5n"]
 radius = 0.7
@@ -77,6 +89,24 @@ position = Vector2(-145, -126)
 texture_normal = ExtResource("7_6jfpq")
 action = "jump"
 visibility_mode = 1
+
+[node name="Area3D" type="Area3D" parent="." groups=["Entities"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0.5)
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+shape = SubResource("ConvexPolygonShape3D_ys213")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Area3D/CollisionShape3D"]
+visible = false
+mesh = SubResource("CylinderMesh_efuxx")
+skeleton = NodePath("../..")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.5)
+shape = SubResource("CapsuleShape3D_d8gre")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -332,4 +362,6 @@ texture = ExtResource("7_6jfpq")
 
 [node name="CameraPivot" type="Node3D" parent="."]
 
+[connection signal="area_entered" from="Area3D" to="." method="_on_area_3d_area_entered"]
+[connection signal="area_exited" from="Area3D" to="." method="_on_area_3d_area_exited"]
 [connection signal="timeout" from="States/StateMachineState/Health/Shield/Timer" to="States/StateMachineState/Health/Shield" method="_on_timer_timeout"]

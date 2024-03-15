@@ -39,6 +39,8 @@ var respawning = false
 @onready var parent: Node3D = $".."
 var input_dir: Vector2
 
+var bodys = []
+
 func _ready():
 	pivot.top_level = true
 	var player = characterData.Sprite.instantiate()
@@ -73,17 +75,12 @@ func _physics_process(delta):
 		lerp(pivot.global_position, global_position, 10 * delta)
 	current_state.step(self, delta)
 
+	attack_primary()
+
 func jump():
 	if respawning == false:
 		velocity.y = JUMP_VELOCITY
 
-func _on_area_3d_body_entered(body):
-	if body.is_in_group("Entities"):
-		if Input.is_action_pressed("attack_primary"):
-			print("hola")
-			#attack_timer.start()
-			var direction = (body.transform.origin - global_transform.origin).normalized()
-			body.velocity += Vector3(direction.x * 32, 0, direction.z * 32)
 
 func change_state(next_state:StateMachineState):
 	#print("changed state to ", next_state.name)
@@ -122,3 +119,27 @@ func get_health_component() -> HealthComponent:
 	return healthComponent
 
 signal trap_triggered()
+
+
+func attack_primary():
+	if Input.is_action_pressed("attack_primary"):
+		
+		print("hola")
+		if len(bodys) > 0:
+			var body = bodys[0] # TODO: change target
+			var direction = (body.transform.origin - global_transform.origin).normalized()
+			body.velocity += Vector3(direction.x * 32, 0, direction.z * 32)
+
+func _on_area_3d_area_entered(area):
+	var body = area.get_parent_node_3d()
+	if body.is_in_group("Entities"):
+		bodys += [body]
+	
+	print("Area entered! Player")
+		
+		#attack_timer.start()
+
+func _on_area_3d_area_exited(area):
+	var body = area.get_parent_node_3d()
+	if bodys.has(body):
+		bodys.erase(body)

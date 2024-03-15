@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://qdjlpftwan27" path="res://Levels/Test_Level/Materials/sbattle1.blend" id="1_pg15r"]
 [ext_resource type="Texture2D" uid="uid://t1woh04tqtdm" path="res://Levels/Test_Level/sbattle1_3.png" id="2_lrwrx"]
-[ext_resource type="Texture2D" uid="uid://npddna0p8f0i" path="res://Levels/Test_Level/sbattle1_4.png" id="3_la1pb"]
+[ext_resource type="Texture2D" uid="uid://c64qsmqytdytc" path="res://Levels/Test_Level/sbattle1_4.png" id="3_la1pb"]
 [ext_resource type="Texture2D" uid="uid://c61r0v7ahx5xa" path="res://Levels/Test_Level/sbattle1_2.png" id="4_1cs8u"]
 [ext_resource type="Texture2D" uid="uid://bqlxlomglxmtj" path="res://Levels/Test_Level/sbattle1_0.png" id="5_aqr0v"]
 [ext_resource type="Texture2D" uid="uid://cyme20xkyep4f" path="res://Levels/Test_Level/sbattle1_1.png" id="6_eis4c"]

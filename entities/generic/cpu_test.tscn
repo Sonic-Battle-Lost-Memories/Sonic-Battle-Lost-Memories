@@ -218,7 +218,7 @@ mesh = SubResource("BoxMesh_8bql2")
 
 [node name="Area3D" type="Area3D" parent="." groups=["Entities"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0.5)
-collision_layer = 0
+collision_layer = 2
 collision_mask = 2
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
@@ -242,4 +242,5 @@ one_shot = true
 script = ExtResource("6_37lrx")
 maxHealth = 100.0
 
-[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
+[connection signal="area_entered" from="Area3D" to="." method="_on_area_3d_area_entered"]
+[connection signal="area_exited" from="Area3D" to="." method="_on_area_3d_area_exited"]
