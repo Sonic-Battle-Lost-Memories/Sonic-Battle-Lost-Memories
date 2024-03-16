@@ -31,12 +31,17 @@ func _process(delta):
 		
 		rotation.y = atan2(velocity.x, velocity.z)
 		
-		if direction:
+		if is_offense and len(bodys) > 0:
+			attack_primary()
+			sprite.animation = "run"
+		elif direction:
 			if is_on_floor():
 				sprite.animation = "run"
 		else:
 			if is_on_floor():
 				sprite.animation = "idle"
+				
+		
 		
 
 func _physics_process(delta):
@@ -72,6 +77,7 @@ func attack_primary():
 	print("entity detected!")
 	if is_offense and len(bodys) > 0:
 		print("hola")
+		
 		var body = bodys[0] # TODO: change the selection of which target get attacked!
 			#attack_timer.start()
 		var direction = (body.transform.origin - global_transform.origin).normalized()

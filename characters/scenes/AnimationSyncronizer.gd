@@ -9,7 +9,7 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	if Sprite.animation == current_animation:
+	if Sprite.animation == current_animation or not has_animation(Sprite.animation):
 		return
 	play(Sprite.animation)
 	#print(current_animation)

@@ -123,7 +123,6 @@ signal trap_triggered()
 
 func attack_primary():
 	if Input.is_action_pressed("attack_primary"):
-		
 		print("hola")
 		if len(bodys) > 0:
 			var body = bodys[0] # TODO: change target
