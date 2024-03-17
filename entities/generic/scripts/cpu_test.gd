@@ -7,14 +7,28 @@ var JUMP_VELOCITY = 16.0
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity") * 2
 
 @onready var agent = $NavigationAgent3D
-@onready var sprite = $Sprite
+@export var characterData: CharacterData
+@onready var sprite # = $Sprite
 @onready var entity_detect = $Area3D
 @onready var attack_timer = $AttackTimer
 @export var target: Node
 @export var is_offense = false
 @onready var healthComponent = $HealthComponent
 
+var changeAnimationBlocked = false
 var bodys = []
+var cooldown = 0
+
+func _ready():
+	var player = characterData.Sprite.instantiate()
+	player.connect("animation_finished",animation_finished)
+	add_child(player)
+	
+	sprite = player
+
+func animation_finished():
+	print("finish")
+	changeAnimationBlocked = false
 
 func _process(delta):
 	if target:
@@ -31,18 +45,26 @@ func _process(delta):
 		
 		rotation.y = atan2(velocity.x, velocity.z)
 		
+		is_offense = cooldown <= 0
+		if cooldown > 0:
+			cooldown -= delta
+		
 		if is_offense and len(bodys) > 0:
 			attack_primary()
-			sprite.animation = "run"
+			play("Primary1")
+			changeAnimationBlocked = true
+			cooldown = 0.5
 		elif direction:
 			if is_on_floor():
-				sprite.animation = "run"
+				play("run")
 		else:
 			if is_on_floor():
-				sprite.animation = "idle"
-				
+				play("idle")
+
 		
-		
+func play(anim : String):
+	if not changeAnimationBlocked:
+		sprite.play(anim)		
 
 func _physics_process(delta):
 	# Add the gravity.

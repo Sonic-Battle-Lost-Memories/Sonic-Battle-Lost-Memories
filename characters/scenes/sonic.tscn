@@ -1,4 +1,4 @@
-[gd_scene load_steps=221 format=3 uid="uid://bvjosqw18oxfq"]
+[gd_scene load_steps=217 format=3 uid="uid://bvjosqw18oxfq"]
 
 [ext_resource type="Texture2D" uid="uid://bgdv60nppfh6v" path="res://placeholder/sprites/Airborne.png" id="1_15n2y"]
 [ext_resource type="Texture2D" uid="uid://didejyfucpk64" path="res://placeholder/sprites/Air Action(ballet)/ballet_0.png" id="2_e6a88"]
@@ -48,7 +48,6 @@
 [ext_resource type="Texture2D" uid="uid://d2tsgmy8lakae" path="res://placeholder/sprites/run_test.png" id="44_nwn8r"]
 [ext_resource type="Texture2D" uid="uid://he57i8ye24v2" path="res://placeholder/sprites/Trap (Air)/air_trap.png" id="45_aopur"]
 [ext_resource type="Texture2D" uid="uid://bvnkhcm84umwv" path="res://placeholder/sprites/Trap (Ground)/trap_ground.png" id="45_ki4gd"]
-[ext_resource type="Script" path="res://characters/scripts/HurtboxManager.gd" id="45_ls72n"]
 [ext_resource type="Script" path="res://characters/scenes/AnimationSyncronizer.gd" id="46_sg184"]
 [ext_resource type="Texture2D" uid="uid://d4n1sw16qn0qt" path="res://placeholder/sprites/shot/shot air right.png" id="47_47d3o"]
 [ext_resource type="Texture2D" uid="uid://2fb5hq4voyp3" path="res://placeholder/sprites/shot/shot air down.png" id="47_udwxo"]
@@ -1357,106 +1356,18 @@ animations = [{
 
 [sub_resource type="BoxMesh" id="BoxMesh_qoudv"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_t8heh"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kkv6r"]
-transparency = 1
-albedo_color = Color(0.290196, 0.611765, 0, 0.529412)
-
-[sub_resource type="BoxMesh" id="BoxMesh_ms7ii"]
-material = SubResource("StandardMaterial3D_kkv6r")
-
 [sub_resource type="Animation" id="Animation_xh0h8"]
 resource_name = "Primary1"
 
 [sub_resource type="Animation" id="Animation_a07e6"]
 length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Hurtbox Manager/Position Controller/Hurtboxes:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0.989182, 1.45115, 0.763853)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Hurtbox Manager/Position Controller/Hurtboxes:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, 0.769199, 0)]
-}
 
 [sub_resource type="Animation" id="Animation_2umek"]
 resource_name = "idle"
 length = 1.30001
-tracks/0/type = "scale_3d"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Hurtbox Manager/Position Controller/Hurtboxes")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = PackedFloat32Array()
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Hurtbox Manager/Position Controller/Hurtboxes:scale")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0.989182, 1.45115, 0.763853)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Hurtbox Manager/Position Controller/Hurtboxes:position")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, 0.769199, 0)]
-}
 
 [sub_resource type="Animation" id="Animation_ovdod"]
 resource_name = "jump"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Hurtbox Manager/Position Controller/Hurtboxes:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(1),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(1.51461, 1.83217, 0.763853)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Hurtbox Manager/Position Controller/Hurtboxes:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(1),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0.0590259, 0.978804, 0)]
-}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_xsgp5"]
 _data = {
@@ -1488,38 +1399,6 @@ visible = false
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.25, 0, 1.75)
 visible = false
 mesh = SubResource("BoxMesh_qoudv")
-
-[node name="Hurtbox Manager" type="Node" parent="."]
-script = ExtResource("45_ls72n")
-
-[node name="Position Controller" type="Node3D" parent="Hurtbox Manager"]
-
-[node name="Hurtboxes" type="Node3D" parent="Hurtbox Manager/Position Controller"]
-transform = Transform3D(0.989182, 0, 0, 0, 1.45115, 0, 0, 0, 0.763853, 0, 0.769199, 0)
-
-[node name="Area3D" type="Area3D" parent="Hurtbox Manager/Position Controller/Hurtboxes"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Hurtbox Manager/Position Controller/Hurtboxes/Area3D"]
-shape = SubResource("BoxShape3D_t8heh")
-
-[node name="CSGMesh3D" type="CSGMesh3D" parent="Hurtbox Manager/Position Controller/Hurtboxes/Area3D"]
-mesh = SubResource("BoxMesh_ms7ii")
-
-[node name="Hitbox Manager2" type="Node" parent="."]
-script = ExtResource("45_ls72n")
-
-[node name="Position Controller" type="Node3D" parent="Hitbox Manager2"]
-
-[node name="Hurtboxes" type="Node3D" parent="Hitbox Manager2/Position Controller"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.769199, 0)
-
-[node name="Area3D" type="Area3D" parent="Hitbox Manager2/Position Controller/Hurtboxes"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Hitbox Manager2/Position Controller/Hurtboxes/Area3D"]
-shape = SubResource("BoxShape3D_t8heh")
-
-[node name="CSGMesh3D" type="CSGMesh3D" parent="Hitbox Manager2/Position Controller/Hurtboxes/Area3D"]
-mesh = SubResource("BoxMesh_ms7ii")
 
 [node name="Hitbox Manager" type="Node" parent="."]
 
