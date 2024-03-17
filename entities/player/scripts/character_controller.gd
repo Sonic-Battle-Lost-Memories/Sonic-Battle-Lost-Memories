@@ -126,6 +126,7 @@ func attack_primary():
 		print("hola")
 		if len(bodys) > 0:
 			var body = bodys[0] # TODO: change target
+			body.cooldown = 0.5
 			var direction = (body.transform.origin - global_transform.origin).normalized()
 			body.velocity += Vector3(direction.x * 32, 0, direction.z * 32)
 

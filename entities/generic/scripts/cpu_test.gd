@@ -53,7 +53,7 @@ func _process(delta):
 			attack_primary()
 			play("Primary1")
 			changeAnimationBlocked = true
-			cooldown = 0.5
+			cooldown = 0.75
 		elif direction:
 			if is_on_floor():
 				play("run")
@@ -88,10 +88,11 @@ func _physics_process(delta):
 	#if velocity.y >= 0:
 		#sprite.animation = "jump"
 	
-	if direction.x <= -0.5:
-		sprite.flip_h = true
-	elif direction.x >= 0.5:
-		sprite.flip_h = false
+	sprite.flip_h = velocity.x <= 0
+	#if velocity.x < 0:#direction.x <= -0.5:
+	#	sprite.flip_h = true
+	#elif velocity.x > 0:#direction >= 0.5:
+	#	sprite.flip_h = false
 	
 	move_and_slide()
 
