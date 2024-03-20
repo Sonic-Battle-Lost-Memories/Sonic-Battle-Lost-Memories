@@ -200,7 +200,7 @@ collision_layer = 3
 collision_mask = 3
 
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="RigidBody3D/Area3D"]
-transform = Transform3D(0.691428, 0, 0, 0, 0.691428, 0, 0, 0, 0.691428, 0, 0, 0.0385532)
+transform = Transform3D(0.691428, 0, 0, 0, 0.477652, 0, 0, 0, 0.664147, 0, 0, 0.0385532)
 shape = SubResource("CapsuleShape3D_r1kkh")
 
 [connection signal="animation_finished" from="RigidBody3D/sprite_bomb" to="." method="_on_sprite_bomb_animation_finished"]

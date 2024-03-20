@@ -24,6 +24,8 @@ enum discrete_movement_direction {LEFT, RIGHT, TOP, BOTTOM}
 var hitCount = 0
 var allowing_double_jump = false
 
+var sling = false
+
 var sprite: AnimatedSprite3D
 var point: Node3D
 @export var characterData: CharacterData
