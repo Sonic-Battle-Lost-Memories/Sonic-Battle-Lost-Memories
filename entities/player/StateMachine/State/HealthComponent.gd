@@ -8,8 +8,10 @@ extends Node
 #current health value
 var currentHealth: float
 var player: CharacterBody3D
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	maxHealth = 100
 	player = get_parent()
 	currentHealth = maxHealth
 	await get_tree().create_timer(.1).timeout

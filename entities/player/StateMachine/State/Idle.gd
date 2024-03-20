@@ -82,7 +82,7 @@ func step(target: CharacterController, delta):
 	# aftermath: after moving, decide on which states to change into
 	if(Input.is_action_just_pressed("debug_new_action")):
 		target.change_state(on_debug_new_action)
-	if(Input.is_action_just_pressed("attack_primary")):
+	if(Input.is_action_pressed("attack_primary")):
 		#If attack AND move happened simultaneously, attack state will happen.
 		target.change_state(on_primary)
 		return

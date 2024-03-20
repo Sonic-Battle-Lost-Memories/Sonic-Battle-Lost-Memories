@@ -21,6 +21,7 @@ var activeMovement:Vector3 = Vector3(0,0,0)
 enum discrete_movement_direction {LEFT, RIGHT, TOP, BOTTOM}
 @onready var active_movement_discrete = discrete_movement_direction.RIGHT
 
+var hitCount = 0
 var allowing_double_jump = false
 
 var sprite: AnimatedSprite3D
@@ -45,6 +46,8 @@ func _ready():
 	pivot.top_level = true
 	var player = characterData.Sprite.instantiate()
 	add_child(player)
+	
+	player.connect("animation_finished",animation_finished)
 	point = player.get_node("Point")
 	sprite = player
 	Sprite = player
@@ -53,7 +56,8 @@ func _ready():
 	pass
 #	if(is_on_floor):
 #		current_state = stateTree.find_child("Jumping")
-	
+func animation_finished():
+	pass
 
 func _physics_process(delta):
 	#look_at(point.global_position)
@@ -123,10 +127,10 @@ signal trap_triggered()
 
 func attack_primary():
 	if Input.is_action_pressed("attack_primary"):
-		print("hola")
 		if len(bodys) > 0:
 			var body = bodys[0] # TODO: change target
-			body.cooldown = 0.5
+			body.cooldown = 0.15
+			body.healthComponent.currentHealth -= hitCount%3*5+5
 			var direction = (body.transform.origin - global_transform.origin).normalized()
 			body.velocity += Vector3(direction.x * 32, 0, direction.z * 32)
 

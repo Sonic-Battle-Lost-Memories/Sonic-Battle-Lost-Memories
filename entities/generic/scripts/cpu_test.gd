@@ -15,6 +15,8 @@ var gravity = ProjectSettings.get_setting("physics/3d/default_gravity") * 2
 @export var is_offense = false
 @onready var healthComponent = $HealthComponent
 
+
+var hitCount = 0
 var changeAnimationBlocked = false
 var bodys = []
 var cooldown = 0
@@ -45,7 +47,7 @@ func _process(delta):
 		
 		rotation.y = atan2(velocity.x, velocity.z)
 		
-		is_offense = cooldown <= 0
+		is_offense = cooldown <= 0 and randi() % 3==0
 		if cooldown > 0:
 			cooldown -= delta
 		
@@ -53,7 +55,7 @@ func _process(delta):
 			attack_primary()
 			play("Primary1")
 			changeAnimationBlocked = true
-			cooldown = 0.75
+			cooldown = 0.5
 		elif direction:
 			if is_on_floor():
 				play("run")
@@ -103,6 +105,7 @@ func attack_primary():
 		
 		var body = bodys[0] # TODO: change the selection of which target get attacked!
 			#attack_timer.start()
+		body.healthComponent.currentHealth -= hitCount%3*5+5
 		var direction = (body.transform.origin - global_transform.origin).normalized()
 		body.velocity += Vector3(direction.x * 32, 0, direction.z * 32)
 
