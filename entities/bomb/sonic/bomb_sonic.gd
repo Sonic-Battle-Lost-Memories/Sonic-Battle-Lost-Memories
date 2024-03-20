@@ -7,6 +7,7 @@ class_name Bomb_sonic
 @export var timeout: float
 @export var timed: bool
 
+var spawned = true
 enum stage {SETTING, ACTIVE}
 var current_stage: stage
 
@@ -35,7 +36,6 @@ func explode():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	
 	match current_stage:
 		stage.SETTING:
 			
@@ -48,3 +48,29 @@ func _process(delta):
 		explode()
 		queue_free()
 	pass
+
+
+
+
+func _on_area_3d_area_entered(area):
+	if not spawned:
+		var body = area.get_parent()
+		print("entered")
+		if body.is_in_group("Entities"):
+			print("explode")
+			sprite.play("explode")
+			body.healthComponent.currentHealth -= 10
+			body.velocity += Vector3(0,15,0)
+			#TODO: Play animation
+			
+	else:
+		spawned = false
+
+func _on_area_3d_area_shape_entered(area_rid, area, area_shape_index, local_shape_index):
+	print("shape") # Replace with function body.
+
+
+func _on_sprite_bomb_animation_finished():
+	
+	if sprite.animation	== "explode":
+		queue_free() # Replace with function body.

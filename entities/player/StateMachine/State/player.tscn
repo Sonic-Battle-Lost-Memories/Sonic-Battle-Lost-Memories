@@ -126,7 +126,7 @@ script = ExtResource("32_lcb84")
 
 [node name="Movement" type="Node" parent="States/StateMachineState"]
 
-[node name="Idle" type="Node" parent="States/StateMachineState/Movement" node_paths=PackedStringArray("on_primary", "on_moved", "on_gained_air", "on_jumped", "on_turn_around", "on_shield", "on_debug_new_action")]
+[node name="Idle" type="Node" parent="States/StateMachineState/Movement" node_paths=PackedStringArray("on_primary", "on_moved", "on_gained_air", "on_jumped", "on_turn_around", "on_shield", "on_debug_new_action", "on_trap")]
 script = ExtResource("10_gwqhk")
 on_primary = NodePath("../../Attack/Primary1")
 on_moved = NodePath("../Walking")
@@ -135,6 +135,7 @@ on_jumped = NodePath("../Jumping")
 on_turn_around = NodePath("../Turn around")
 on_shield = NodePath("../../Health/Shield")
 on_debug_new_action = NodePath("../../Attack/Shot/Shot_ground")
+on_trap = NodePath("../../Attack/Trap")
 
 [node name="Walking" type="Node" parent="States/StateMachineState/Movement" node_paths=PackedStringArray("on_primary", "on_gained_air", "on_jumped", "on_stopped", "on_turn_around", "on_stopped_hard", "on_shield", "on_debug_new_action")]
 script = ExtResource("9_br35p")

@@ -72,7 +72,6 @@ func step(target: CharacterController, delta):
 		current_time_index+=1
 		target.sprite.frame+=1
 	
-	print("called?")
 	target.sprite.animation = main_animation
 	#slide the character to a stop if it was previously moving
 	target.velocity.x = lerp(target.velocity.x, 0.0, 10 * delta)

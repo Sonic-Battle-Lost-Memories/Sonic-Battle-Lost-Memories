@@ -1,14 +1,60 @@
-[gd_scene load_steps=15 format=3 uid="uid://bq64cxwwndpg0"]
+[gd_scene load_steps=29 format=3 uid="uid://bq64cxwwndpg0"]
 
 [ext_resource type="Texture2D" uid="uid://df7sex7d5hf8t" path="res://entities/bomb/sonic/spritesheets/idle.png" id="1_dcogt"]
 [ext_resource type="Texture2D" uid="uid://dxuc36ceyn4uo" path="res://entities/bomb/sonic/spritesheets/lay_down.png" id="2_pokl0"]
 [ext_resource type="Script" path="res://entities/bomb/sonic/bomb_sonic.gd" id="3_a76vq"]
+[ext_resource type="Texture2D" uid="uid://k58lhtc2lhcj" path="res://entities/bomb/sonic/spritesheets/explode.png" id="4_xk1sw"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_kbrod"]
 friction = 10.0
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_pwxvx"]
-radius = 0.426931
+[sub_resource type="AtlasTexture" id="AtlasTexture_thbm4"]
+atlas = ExtResource("4_xk1sw")
+region = Rect2(0, 0, 33, 33)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kpq1o"]
+atlas = ExtResource("4_xk1sw")
+region = Rect2(33, 0, 33, 33)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gtydt"]
+atlas = ExtResource("4_xk1sw")
+region = Rect2(66, 0, 33, 33)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h4c7s"]
+atlas = ExtResource("4_xk1sw")
+region = Rect2(99, 0, 33, 33)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_afdbf"]
+atlas = ExtResource("4_xk1sw")
+region = Rect2(132, 0, 33, 33)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6r2b7"]
+atlas = ExtResource("4_xk1sw")
+region = Rect2(165, 0, 33, 33)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qpv0u"]
+atlas = ExtResource("4_xk1sw")
+region = Rect2(198, 0, 33, 33)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_frmsj"]
+atlas = ExtResource("4_xk1sw")
+region = Rect2(231, 0, 33, 33)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pqnq3"]
+atlas = ExtResource("4_xk1sw")
+region = Rect2(264, 0, 33, 33)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3o5lt"]
+atlas = ExtResource("4_xk1sw")
+region = Rect2(297, 0, 33, 33)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v2qqe"]
+atlas = ExtResource("4_xk1sw")
+region = Rect2(330, 0, 33, 33)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3r4mf"]
+atlas = ExtResource("4_xk1sw")
+region = Rect2(363, 0, 33, 33)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_c7gyc"]
 atlas = ExtResource("1_dcogt")
@@ -46,6 +92,47 @@ region = Rect2(18, 18, 18, 18)
 resource_local_to_scene = true
 animations = [{
 "frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_thbm4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kpq1o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gtydt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h4c7s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_afdbf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6r2b7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qpv0u")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_frmsj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pqnq3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3o5lt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v2qqe")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3r4mf")
+}],
+"loop": false,
+"name": &"explode",
+"speed": 5.0
+}, {
+"frames": [{
 "duration": 2.0,
 "texture": SubResource("AtlasTexture_c7gyc")
 }, {
@@ -80,12 +167,16 @@ animations = [{
 "speed": 15.0
 }]
 
+[sub_resource type="SphereShape3D" id="SphereShape3D_pwxvx"]
+radius = 0.426931
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_r1kkh"]
+radius = 0.7
+
 [node name="bomb_sonic" type="Node3D" node_paths=PackedStringArray("sprite")]
 script = ExtResource("3_a76vq")
 sprite = NodePath("RigidBody3D/sprite_bomb")
-setup_time = null
 timeout = 1.2
-timed = null
 
 [node name="RigidBody3D" type="RigidBody3D" parent="."]
 collision_layer = 0
@@ -94,12 +185,24 @@ axis_lock_angular_y = true
 axis_lock_angular_z = true
 physics_material_override = SubResource("PhysicsMaterial_kbrod")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0153511, 0)
-shape = SubResource("SphereShape3D_pwxvx")
-
 [node name="sprite_bomb" type="AnimatedSprite3D" parent="RigidBody3D"]
 pixel_size = 0.05
 texture_filter = 0
 sprite_frames = SubResource("SpriteFrames_o4u1p")
-animation = &"idle"
+animation = &"explode"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0153511, 0)
+shape = SubResource("SphereShape3D_pwxvx")
+
+[node name="Area3D" type="Area3D" parent="RigidBody3D"]
+collision_layer = 3
+collision_mask = 3
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="RigidBody3D/Area3D"]
+transform = Transform3D(0.691428, 0, 0, 0, 0.691428, 0, 0, 0, 0.691428, 0, 0, 0.0385532)
+shape = SubResource("CapsuleShape3D_r1kkh")
+
+[connection signal="animation_finished" from="RigidBody3D/sprite_bomb" to="." method="_on_sprite_bomb_animation_finished"]
+[connection signal="area_entered" from="RigidBody3D/Area3D" to="." method="_on_area_3d_area_entered"]
+[connection signal="area_shape_entered" from="RigidBody3D/Area3D" to="." method="_on_area_3d_area_shape_entered"]

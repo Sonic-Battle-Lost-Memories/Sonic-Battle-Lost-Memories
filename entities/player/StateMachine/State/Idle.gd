@@ -14,6 +14,7 @@ var time_elapsed = 0.0
 @export var on_turn_around: StateMachineState
 @export var on_shield: StateMachineState
 @export var on_debug_new_action: StateMachineState
+@export var on_trap: StateMachineState
 
 @export var cycles_names: Array[String] = ["idle", "idle2"]
 var current_cycle: int = 0
@@ -93,6 +94,8 @@ func step(target: CharacterController, delta):
 			target.change_state(on_primary)
 			return
 	else: target.hitCount = 0
+	if(Input.is_action_just_pressed("trap")):
+		target.change_state(on_trap)
 	if(not(target.is_on_floor())):
 		target.change_state(on_gained_air)
 	#	target.change_state(on_jumped)

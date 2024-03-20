@@ -29,7 +29,6 @@ func _ready():
 	sprite = player
 
 func animation_finished():
-	print("finish")
 	changeAnimationBlocked = false
 
 func _process(delta):
@@ -99,9 +98,7 @@ func _physics_process(delta):
 	move_and_slide()
 
 func attack_primary():
-	print("entity detected!")
 	if is_offense and len(bodys) > 0:
-		print("hola")
 		
 		var body = bodys[0] # TODO: change the selection of which target get attacked!
 			#attack_timer.start()
@@ -114,7 +111,7 @@ func get_health_component() -> HealthComponent:
 
 
 func _on_area_3d_area_shape_entered(area_rid, area, area_shape_index, local_shape_index):
-	print("Area entered! CPU")
+	pass
 
 	
 

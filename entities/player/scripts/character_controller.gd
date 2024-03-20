@@ -93,6 +93,7 @@ func change_state(next_state:StateMachineState):
 		current_state.setup(self)
 	pass
 
+
 # filters player directional movement input into normalized xz axis speed.
 func computeActiveMovement(delta):
 	# Get the input direction and handle the movement/deceleration.
@@ -139,7 +140,6 @@ func _on_area_3d_area_entered(area):
 	if body.is_in_group("Entities"):
 		bodys += [body]
 	
-	print("Area entered! Player")
 		
 		#attack_timer.start()
 
