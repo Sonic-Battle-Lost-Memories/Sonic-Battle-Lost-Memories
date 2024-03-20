@@ -23,6 +23,7 @@ var last_known_facing_direction
 
 
 
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
@@ -83,9 +84,15 @@ func step(target: CharacterController, delta):
 	if(Input.is_action_just_pressed("debug_new_action")):
 		target.change_state(on_debug_new_action)
 	if(Input.is_action_pressed("attack_primary")):
+		if(Input.is_action_just_pressed("attack_primary")):
+			target.hitCount = 0
 		#If attack AND move happened simultaneously, attack state will happen.
-		target.change_state(on_primary)
-		return
+		if(target.hitCount < 3):
+			target.hitCount += 1
+			print(str(target.hitCount)+"!!!")
+			target.change_state(on_primary)
+			return
+	else: target.hitCount = 0
 	if(not(target.is_on_floor())):
 		target.change_state(on_gained_air)
 	#	target.change_state(on_jumped)
