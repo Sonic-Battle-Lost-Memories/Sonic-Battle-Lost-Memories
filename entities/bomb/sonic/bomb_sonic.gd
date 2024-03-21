@@ -62,6 +62,7 @@ func _on_area_3d_area_entered(area):
 			body.healthComponent.currentHealth -= 10
 			body.velocity = Vector3(0,15,0)
 			body.sling = true
+			quee_free()
 			#TODO: Play animation
 			
 	else:

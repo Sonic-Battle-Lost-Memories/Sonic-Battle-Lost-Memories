@@ -66,6 +66,8 @@ func _physics_process(delta):
 	#camnode.global_position.z = lerp(camnode.global_position.z, point.global_position.z, 2.5 * delta)
 	if point == null:
 		return
+
+	
 	global_position.z = point.global_position.z
 	if healthComponent.currentHealth <= 0:
 		respawn.setup(self)
