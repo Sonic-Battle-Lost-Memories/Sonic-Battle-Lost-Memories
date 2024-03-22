@@ -10,23 +10,18 @@ var minutes: int
 func _ready():
 	settings = get_parent().find_child("Settings")
 	await get_tree().create_timer(.1).timeout
+	
+	var i = 0
 	for player in Level.characters:
 		print(player)
-		var i = 0
-		var j = 0
-		if i == j:
-			#progressbar.max_value
-			verticalContainers[0].get_child(i).max_value = player.get_health_component().maxHealth
-			verticalContainers[0].get_child(i).value = player.get_health_component().currentHealth
-			verticalContainers[0].get_child(i).setPlayerHealthComp(player.get_health_component())
-			verticalContainers[0].get_child(i).show()
-			i+=1
-		if i != j: 
-			verticalContainers[1].get_child(j).max_value = player.get_health_component().maxHealth
-			verticalContainers[1].get_child(j).value = player.get_health_component().currentHealth
-			verticalContainers[1].get_child(j).setPlayerHealthComp(player.get_health_component())
-			verticalContainers[1].get_child(j).show()
-			j+=1
+		print("CHR")
+		if i > len(verticalContainers): break
+
+		verticalContainers[i].get_child(0).max_value = player.get_health_component().maxHealth
+		verticalContainers[i].get_child(0).value = player.get_health_component().currentHealth
+		verticalContainers[i].get_child(0).setPlayerHealthComp(player.get_health_component())
+		verticalContainers[i].get_child(0).show()
+		i += 1
 	pass # Replace with function body.
 
 
