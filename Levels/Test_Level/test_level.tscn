@@ -149,8 +149,9 @@ transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0, 0)
 stream = ExtResource("7_retsu")
 autoplay = true
 
-[node name="CPU" parent="NavigationRegion3D" instance=ExtResource("7_5yvxk")]
+[node name="CPU" parent="NavigationRegion3D" node_paths=PackedStringArray("target") instance=ExtResource("7_5yvxk")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.02562, -0.0186011, 0.143216)
+target = NodePath("../../Player")
 is_offense = true
 
 [node name="LightmapGI" type="LightmapGI" parent="."]

@@ -62,7 +62,6 @@ func _on_area_3d_area_entered(area):
 			body.healthComponent.currentHealth -= 10
 			body.velocity = Vector3(0,15,0)
 			body.sling = true
-			quee_free()
 			#TODO: Play animation
 			
 	else:
@@ -73,6 +72,5 @@ func _on_area_3d_area_shape_entered(area_rid, area, area_shape_index, local_shap
 
 
 func _on_sprite_bomb_animation_finished():
-	
 	if sprite.animation	== "explode":
 		queue_free() # Replace with function body.
