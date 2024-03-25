@@ -67,7 +67,8 @@ func _physics_process(delta):
 	if point == null:
 		return
 	if is_on_floor() and sling:
-		pass
+		sling = false
+		#velocity = Vector3(0,0,0)
 	
 	global_position.z = point.global_position.z
 	if healthComponent.currentHealth <= 0:

@@ -15,7 +15,7 @@ func _ready():
 	for player in Level.characters:
 		print(player)
 		print("CHR")
-		if i > len(verticalContainers): break
+		if i >= len(verticalContainers): break
 
 		verticalContainers[i].get_child(0).max_value = player.get_health_component().maxHealth
 		verticalContainers[i].get_child(0).value = player.get_health_component().currentHealth

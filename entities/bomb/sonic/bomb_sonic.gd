@@ -8,6 +8,7 @@ class_name Bomb_sonic
 @export var timed: bool
 
 var spawned = true
+var exploded = false
 enum stage {SETTING, ACTIVE}
 var current_stage: stage
 
@@ -51,11 +52,12 @@ func _process(delta):
 
 
 
-
 func _on_area_3d_area_entered(area):
-	if not spawned:
+
+	if not spawned and not exploded:
 		var body = area.get_parent()
-		print("entered")
+		exploded = true
+		print("entered "+body.name)
 		if body.is_in_group("Entities"):
 			print("explode")
 			sprite.play("explode")

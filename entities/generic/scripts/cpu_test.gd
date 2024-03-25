@@ -42,9 +42,11 @@ func _process(delta):
 		#velocity = (next_point - global_transform.origin).normalized() * SPEED
 		#velocity = lerp(velocity, point * SPEED, 10.5 * delta)
 		
-		if sling and is_on_floor():
-			sling = false
 		
+		if is_on_floor() and sling:
+			sling = false
+			velocity = Vector3(0,0,0)
+			
 		if not sling:
 			velocity.x = lerp(velocity.x, point.x * SPEED, 10.5 * delta)
 			velocity.z = lerp(velocity.z, point.z * SPEED, 10.5 * delta)
