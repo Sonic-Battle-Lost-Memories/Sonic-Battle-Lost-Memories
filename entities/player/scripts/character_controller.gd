@@ -55,7 +55,7 @@ func _ready():
 	Sprite = player
 	SPEED = characterData.maxSpeed
 	ACCELERATION = characterData.acceleration
-	pass
+	
 #	if(is_on_floor):
 #		current_state = stateTree.find_child("Jumping")
 func animation_finished():
@@ -78,16 +78,22 @@ func _physics_process(delta):
 			healthComponent.lives -= 1
 
 		respawning = true
-		pivot.global_position = respawn.deathCursor.global_position
-		lerp(pivot.global_position, respawn.deathCursor.global_position, 10 * delta)
+
+		var pos = respawn.deathCursor.global_position
+		pos = Vector3(pos.x, 0, pos.z)
+		pivot.global_position = pos
+
+		lerp(pivot.global_position, pos, 10 * delta)
 		respawn.step(self, delta)
 		pass
 	
 	if respawning:
 		if Input.is_action_just_released("respawn"):
+			#pivot.global_position = respawn.deathCursor.global_position
 			respawning = false
 			healthComponent.currentHealth = healthComponent.maxHealth
 			respawn.stop(self)
+			position = respawn.deathCursor.global_position
 	# Add the gravity.
 	else:
 		velocity.y -= gravity * delta
