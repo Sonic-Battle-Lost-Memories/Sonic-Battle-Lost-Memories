@@ -34,6 +34,11 @@ func animation_finished():
 
 func _process(delta):
 	if target:
+
+		if target.healthComponent.currentHealth <= 0:
+			target = null
+			return
+
 		agent.set_target_position(target.global_transform.origin)
 		var next_point = agent.get_next_path_position()
 		var direction = (global_transform.basis * velocity).normalized()
@@ -47,9 +52,9 @@ func _process(delta):
 			sling = false
 			velocity = Vector3(0,0,0)
 			
-		if not sling:
-			velocity.x = lerp(velocity.x, point.x * SPEED, 10.5 * delta)
-			velocity.z = lerp(velocity.z, point.z * SPEED, 10.5 * delta)
+		#if not sling:
+		velocity.x = lerp(velocity.x, point.x * SPEED, 10.5 * delta)
+		velocity.z = lerp(velocity.z, point.z * SPEED, 10.5 * delta)
 		
 		rotation.y = atan2(velocity.x, velocity.z)
 		

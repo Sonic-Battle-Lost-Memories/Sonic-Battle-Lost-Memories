@@ -86,9 +86,15 @@ func step(target: CharacterController, delta):
 		target.change_state(on_debug_new_action)
 	if(Input.is_action_pressed("attack_primary")):
 		if(Input.is_action_just_pressed("attack_primary")):
+			print("start")
 			target.hitCount = 0
+
+		
 		#If attack AND move happened simultaneously, attack state will happen.
 		if(target.hitCount < 3):
+			
+			target.attack_primary()
+			print("hit "+str(target.hitCount))			
 			target.hitCount += 1
 			print(str(target.hitCount)+"!!!")
 			target.change_state(on_primary)

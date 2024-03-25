@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://cd3f10inl6go1"]
+[gd_scene load_steps=33 format=3 uid="uid://cd3f10inl6go1"]
 
 [ext_resource type="Script" path="res://entities/player/scripts/character_controller.gd" id="1_d776x"]
 [ext_resource type="PackedScene" uid="uid://dmr0fcamx7t56" path="res://joystick/virtual_joystick.tscn" id="2_ihn7u"]
@@ -14,6 +14,7 @@
 [ext_resource type="Script" path="res://entities/player/StateMachine/State/Shot_sonic_begin.gd" id="21_a8o13"]
 [ext_resource type="Script" path="res://entities/player/StateMachine/State/Shot_sonic_air.gd" id="22_1d4x2"]
 [ext_resource type="PackedScene" uid="uid://c1octgd7lfarw" path="res://entities/projectile/sonic shot/sonic_shot_projectile.tscn" id="23_c3ha0"]
+[ext_resource type="Texture2D" uid="uid://y14yo6xoedlh" path="res://entities/player/Spawn_Icon.png" id="28_3yy33"]
 [ext_resource type="Script" path="res://entities/player/StateMachine/State/StateMachineNode.gd" id="32_lcb84"]
 [ext_resource type="Script" path="res://entities/player/StateMachine/State/AttackState.gd" id="33_g2pqb"]
 [ext_resource type="Script" path="res://entities/player/StateMachine/State/Primary_air_Sonic.gd" id="44_8bpjx"]
@@ -357,9 +358,9 @@ target_position = Vector3(0, -50, 0)
 visible = false
 
 [node name="Sprite3D" type="Sprite3D" parent="DeathCursor"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.829943, 0)
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0.829943, 0)
 billboard = 1
-texture = ExtResource("7_6jfpq")
+texture = ExtResource("28_3yy33")
 
 [node name="CameraPivot" type="Node3D" parent="."]
 

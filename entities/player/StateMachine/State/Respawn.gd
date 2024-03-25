@@ -9,7 +9,13 @@ func setup(target: CharacterController):
 	target.sprite.hide()
 	target.Shadow_not_the_Hedgehog.hide()
 	deathCursor.show()
-	pass
+
+func stop(target: CharacterController):
+	target.collision.disabled = false
+	target.sprite.show()
+	target.Shadow_not_the_Hedgehog.show()
+	deathCursor.hide()
+
 func step(_target: CharacterController, _delta):
 	deathCursor.global_position = deathRay.get_collision_point()
 	pass

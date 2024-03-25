@@ -71,24 +71,33 @@ func _physics_process(delta):
 		#velocity = Vector3(0,0,0)
 	
 	global_position.z = point.global_position.z
+	
 	if healthComponent.currentHealth <= 0:
 		respawn.setup(self)
+		if not respawning:
+			healthComponent.lives -= 1
+
 		respawning = true
 		pivot.global_position = respawn.deathCursor.global_position
 		lerp(pivot.global_position, respawn.deathCursor.global_position, 10 * delta)
 		respawn.step(self, delta)
 		pass
+	
+	if respawning:
+		if Input.is_action_just_released("respawn"):
+			respawning = false
+			healthComponent.currentHealth = healthComponent.maxHealth
+			respawn.stop(self)
 	# Add the gravity.
-	if respawning == false:
+	else:
 		velocity.y -= gravity * delta
 		pivot.global_position = global_position
 		lerp(pivot.global_position, global_position, 10 * delta)
 	current_state.step(self, delta)
 
-	attack_primary()
 
 func jump():
-	if respawning == false:
+	if not respawning:
 		velocity.y = JUMP_VELOCITY
 
 
@@ -133,8 +142,8 @@ signal trap_triggered()
 
 
 func attack_primary():
-	if Input.is_action_pressed("attack_primary"):
-		if len(bodys) > 0:
+	#if Input.is_action_pressed("attack_primary"):
+		if len(bodys) > 0 and hitCount < 3:
 			var body = bodys[0] # TODO: change target
 			body.cooldown = 0.15
 			body.healthComponent.currentHealth -= hitCount%3*5+5
