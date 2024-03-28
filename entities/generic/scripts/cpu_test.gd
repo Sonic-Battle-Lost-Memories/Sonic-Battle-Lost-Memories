@@ -13,6 +13,8 @@ var gravity = ProjectSettings.get_setting("physics/3d/default_gravity") * 2
 @onready var attack_timer = $AttackTimer
 @export var target: Node
 @export var is_offense = false
+@export var raycast : RayCast3D;
+@export var jumpdown : RayCast3D;
 @onready var healthComponent = $HealthComponent
 var sling = false
 
@@ -73,8 +75,20 @@ func _process(delta):
 		else:
 			if is_on_floor():
 				play("idle")
+		var collide = raycast.get_collider()
+		var collideDown = jumpdown.get_collider()
+		if collide != null:
+			print(collide.get_parent().name)
+			if is_on_floor() and collide.get_parent().name == "Environment":
+				velocity.y = JUMP_VELOCITY # Jump
+		if collideDown == null and is_on_floor():
+				
+				velocity.y = JUMP_VELOCITY # Jump
+				velocity +=  Vector3.MODEL_FRONT*SPEED
+			#velocity= Vector3(direction.x*-32, JUMP_VELOCITY,direction.z*-32)
 
-		
+
+
 func play(anim : String):
 	if not changeAnimationBlocked:
 		sprite.play(anim)		

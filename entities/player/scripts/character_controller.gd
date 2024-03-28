@@ -33,6 +33,7 @@ var point: Node3D
 @onready var healthComponent = $HealthComponent
 @onready var collision = $CollisionShape3D
 var Sprite
+@export var weaponSelection : Control 
 @onready var Shadow_not_the_Hedgehog = $DropShadow
 @export var current_state: StateMachineState
 @onready var respawn = $States/StateMachineState/Health/Respawn
@@ -75,20 +76,22 @@ func _physics_process(delta):
 	if healthComponent.currentHealth <= 0:
 		respawn.setup(self)
 		if not respawning:
+			weaponSelection.available = true
 			healthComponent.lives -= 1
 
 		respawning = true
+		if not weaponSelection.available:
+			var pos = respawn.deathCursor.global_position
+			pos = Vector3(pos.x, 0, pos.z)
+			pivot.global_position = pos
 
-		var pos = respawn.deathCursor.global_position
-		pos = Vector3(pos.x, 0, pos.z)
-		pivot.global_position = pos
-
-		lerp(pivot.global_position, pos, 10 * delta)
-		respawn.step(self, delta)
-		pass
+			lerp(pivot.global_position, pos, 10 * delta)
+			respawn.step(self, delta)
 	
+	weaponSelection.visible = respawning
+
 	if respawning:
-		if Input.is_action_just_released("respawn"):
+		if Input.is_action_just_pressed("respawn") and not weaponSelection.available:
 			#pivot.global_position = respawn.deathCursor.global_position
 			respawning = false
 			healthComponent.currentHealth = healthComponent.maxHealth

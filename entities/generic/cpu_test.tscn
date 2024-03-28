@@ -173,11 +173,13 @@ bottom_radius = 0.0
 radial_segments = 4
 rings = 1
 
-[node name="CPU" type="CharacterBody3D" groups=["Entities"]]
+[node name="CPU" type="CharacterBody3D" node_paths=PackedStringArray("raycast", "jumpdown") groups=["Entities"]]
 collision_layer = 2
 collision_mask = 3
 script = ExtResource("1_q17f2")
 characterData = ExtResource("2_58dac")
+raycast = NodePath("JumpUp")
+jumpdown = NodePath("JumpDown")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -244,6 +246,20 @@ one_shot = true
 [node name="HealthComponent" type="Node" parent="."]
 script = ExtResource("6_37lrx")
 maxHealth = 100.0
+
+[node name="JumpUp" type="RayCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.10894, 0)
+target_position = Vector3(0, -1, 2)
+hit_from_inside = true
+collide_with_areas = true
+debug_shape_custom_color = Color(1, 0, 0, 1)
+
+[node name="JumpDown" type="RayCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.114842, 1.04026, 1.53324)
+target_position = Vector3(0, -2, 0)
+hit_from_inside = true
+collide_with_areas = true
+debug_shape_custom_color = Color(1, 0, 0, 1)
 
 [connection signal="area_entered" from="Area3D" to="." method="_on_area_3d_area_entered"]
 [connection signal="area_exited" from="Area3D" to="." method="_on_area_3d_area_exited"]
