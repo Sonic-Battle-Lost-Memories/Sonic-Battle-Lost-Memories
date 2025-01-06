@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=3 uid="uid://rcihg5md8at8"]
+
+[ext_resource type="Texture2D" uid="uid://dj43cr38jybbs" path="res://entities/generic/drop-shadow/DropShadow.png" id="1_8c4aj"]
+[ext_resource type="Script" path="res://entities/generic/drop-shadow/DropShadow.gd" id="2_7kebi"]
+
+[node name="DropShadow" type="Sprite3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.290408, 0)
+sorting_use_aabb_center = false
+cast_shadow = 0
+extra_cull_margin = 0.05
+gi_mode = 0
+pixel_size = 0.039
+axis = 1
+billboard = 2
+texture_filter = 0
+render_priority = 1
+texture = ExtResource("1_8c4aj")
+hframes = 3
+script = ExtResource("2_7kebi")
+
+[node name="ShadowCast" type="RayCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.290408, 0)

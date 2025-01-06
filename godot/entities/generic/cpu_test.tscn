@@ -1,0 +1,265 @@
+[gd_scene load_steps=32 format=3 uid="uid://d04473cjep52p"]
+
+[ext_resource type="Script" path="res://entities/generic/scripts/cpu_test.gd" id="1_q17f2"]
+[ext_resource type="Resource" uid="uid://dnjjaypyntw1t" path="res://characters/Data/Sonic.tres" id="2_58dac"]
+[ext_resource type="Texture2D" uid="uid://bpdvm1ue5m2wy" path="res://placeholder/sprites/idle_test.png" id="3_vwk1d"]
+[ext_resource type="Texture2D" uid="uid://62choiwgif0m" path="res://placeholder/sprites/jump_test.png" id="4_xocib"]
+[ext_resource type="Texture2D" uid="uid://d2tsgmy8lakae" path="res://placeholder/sprites/run_test.png" id="5_yba7d"]
+[ext_resource type="PackedScene" uid="uid://rcihg5md8at8" path="res://entities/generic/drop_shadow.tscn" id="6_7g40m"]
+[ext_resource type="Script" path="res://entities/player/StateMachine/State/HealthComponent.gd" id="6_37lrx"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_lr8hd"]
+radius = 0.7
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_llt0o"]
+atlas = ExtResource("3_vwk1d")
+region = Rect2(0, 0, 26, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cjvvv"]
+atlas = ExtResource("3_vwk1d")
+region = Rect2(26, 0, 26, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dkexc"]
+atlas = ExtResource("3_vwk1d")
+region = Rect2(52, 0, 26, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xbtsi"]
+atlas = ExtResource("3_vwk1d")
+region = Rect2(78, 0, 26, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_doyvi"]
+atlas = ExtResource("3_vwk1d")
+region = Rect2(104, 0, 26, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2x3xh"]
+atlas = ExtResource("3_vwk1d")
+region = Rect2(130, 0, 26, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a0if3"]
+atlas = ExtResource("4_xocib")
+region = Rect2(0, 0, 24, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c748d"]
+atlas = ExtResource("4_xocib")
+region = Rect2(24, 0, 24, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3rkhc"]
+atlas = ExtResource("4_xocib")
+region = Rect2(48, 0, 24, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xaay5"]
+atlas = ExtResource("4_xocib")
+region = Rect2(72, 0, 24, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nhpem"]
+atlas = ExtResource("4_xocib")
+region = Rect2(96, 0, 24, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tg6e6"]
+atlas = ExtResource("5_yba7d")
+region = Rect2(0, 0, 32, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2vs8q"]
+atlas = ExtResource("5_yba7d")
+region = Rect2(32, 0, 32, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_64321"]
+atlas = ExtResource("5_yba7d")
+region = Rect2(64, 0, 32, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1cww5"]
+atlas = ExtResource("5_yba7d")
+region = Rect2(96, 0, 32, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hpcu0"]
+atlas = ExtResource("5_yba7d")
+region = Rect2(128, 0, 32, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gn7h3"]
+atlas = ExtResource("5_yba7d")
+region = Rect2(160, 0, 32, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r1i0d"]
+atlas = ExtResource("5_yba7d")
+region = Rect2(192, 0, 32, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_23x7o"]
+atlas = ExtResource("5_yba7d")
+region = Rect2(224, 0, 32, 36)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_v8opn"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_llt0o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cjvvv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dkexc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xbtsi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_doyvi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2x3xh")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 13.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a0if3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c748d")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3rkhc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xaay5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nhpem")
+}],
+"loop": false,
+"name": &"jump",
+"speed": 13.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tg6e6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2vs8q")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_64321")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1cww5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hpcu0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gn7h3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r1i0d")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_23x7o")
+}],
+"loop": true,
+"name": &"run",
+"speed": 13.0
+}]
+
+[sub_resource type="BoxMesh" id="BoxMesh_8bql2"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_8qokf"]
+points = PackedVector3Array(-0.888966, 0.833275, -0.0276714, 0.941393, 0.941393, 0.0293034, 0.888966, 0.833275, 0.0276714, 0.0293034, 0.941393, -0.941393, 0.0276811, -0.889276, -0.0276811, -0.0293034, 0.941393, 0.941393, -0.941393, 0.941393, 0.0293034, -0.0276811, -0.889276, 0.0276811, -0.0293034, 0.941393, -0.941393, 0.941393, 0.941393, -0.0293034, 0.0293034, 0.941393, 0.941393, 0.0276811, -0.889276, 0.0276811, -0.0276811, -0.889276, -0.0276811, -0.941393, 0.941393, -0.0293034, 0.0276714, 0.833275, -0.888966, -0.0276714, 0.833275, 0.888966)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_rh1kj"]
+top_radius = 1.0
+bottom_radius = 0.0
+radial_segments = 4
+rings = 1
+
+[node name="CPU" type="CharacterBody3D" node_paths=PackedStringArray("raycast", "jumpdown") groups=["Entities"]]
+collision_layer = 2
+collision_mask = 3
+script = ExtResource("1_q17f2")
+characterData = ExtResource("2_58dac")
+raycast = NodePath("JumpUp")
+jumpdown = NodePath("JumpDown")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_lr8hd")
+
+[node name="Sprite" type="AnimatedSprite3D" parent="."]
+visible = false
+cast_shadow = 0
+centered = false
+offset = Vector2(-14, 0)
+pixel_size = 0.05
+billboard = 1
+shaded = true
+double_sided = false
+alpha_cut = 2
+texture_filter = 2
+render_priority = 1
+sprite_frames = SubResource("SpriteFrames_v8opn")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+centered = false
+offset = Vector2(0, -13)
+billboard = 1
+double_sided = false
+texture_filter = 2
+render_priority = 1
+
+[node name="DropShadow" parent="." instance=ExtResource("6_7g40m")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.00193492, 0)
+pixel_size = 0.1
+double_sided = false
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.25, 0, 1.75)
+visible = false
+mesh = SubResource("BoxMesh_8bql2")
+
+[node name="Area3D" type="Area3D" parent="." groups=["Entities"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0.5)
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+shape = SubResource("ConvexPolygonShape3D_8qokf")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Area3D/CollisionShape3D"]
+visible = false
+mesh = SubResource("CylinderMesh_rh1kj")
+skeleton = NodePath("../..")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.5)
+shape = SubResource("CapsuleShape3D_lr8hd")
+
+[node name="AttackTimer" type="Timer" parent="."]
+wait_time = 0.1
+one_shot = true
+
+[node name="HealthComponent" type="Node" parent="."]
+script = ExtResource("6_37lrx")
+maxHealth = 100.0
+
+[node name="JumpUp" type="RayCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.10894, 0)
+target_position = Vector3(0, -1, 2)
+hit_from_inside = true
+collide_with_areas = true
+debug_shape_custom_color = Color(1, 0, 0, 1)
+
+[node name="JumpDown" type="RayCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.114842, 1.04026, 1.53324)
+target_position = Vector3(0, -2, 0)
+hit_from_inside = true
+collide_with_areas = true
+debug_shape_custom_color = Color(1, 0, 0, 1)
+
+[connection signal="area_entered" from="Area3D" to="." method="_on_area_3d_area_entered"]
+[connection signal="area_exited" from="Area3D" to="." method="_on_area_3d_area_exited"]
