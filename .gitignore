@@ -5,8 +5,18 @@
 .import/
 export.cfg
 export_presets.cfg
-rust/target
-
+rust/target/debug/*
+rust/target/release/*
+!.dll
+!rust/target/release/Scrapnik.dll
+!rust/target/release/Scrapnik.dll.exp
+!rust/target/release/Scrapnik.dll.lib
+!rust/target/release/Scrapnik.pdb
+!rust/target/debug/Scrapnik.dll
+!rust/target/debug/Scrapnik.dll.exp
+!rust/target/debug/Scrapnik.dll.lib
+!rust/target/debug/Scrapnik.pdb
+!.so
 # Imported translations (automatically generated from CSV files)
 *.translation
 
